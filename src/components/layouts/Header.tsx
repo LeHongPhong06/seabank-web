@@ -18,21 +18,22 @@ const Header: React.FC = () => {
   ];
   return (
     <header>
-      <nav className='bg-primary'>
+      <nav className='bg-primary max-h-10'>
         <div className='max-w-[1320px] mx-auto'>
           <div className='flex justify-between items-center px-4 xl:px-0'>
             <div className='items-center gap-8 md:flex hidden'>
               {links.map((item) => (
                 <Link
+                  key={item.title}
                   href={item.href}
-                  className='before:hidden hover:text-gray-300 hover:before:block relative block py-3 font-semibold before:w-full before:h-2 before:bg-white before:absolute before:-top-1 before:right-0 before:left-0 before:rounded-full'
+                  className='before:hidden hover:text-gray-300 hover:before:block relative block py-2 font-semibold before:w-full before:h-2 before:bg-white before:absolute before:-top-[5px] before:right-0 before:left-0 before:rounded-full'
                 >
                   {item.title}
                 </Link>
               ))}
             </div>
             <AlignLeftOutlined className='p-2 border-white border-[1px] rounded-xl md:hidden' />
-            <div className='flex items-center gap-3 py-3 xl:p-0'>
+            <div className='flex items-center gap-3 py-2 xl:p-0'>
               <div className='relative size-6 block lg:hidden'>
                 <Image alt='search' src={search} fill objectFit='contain' />
               </div>

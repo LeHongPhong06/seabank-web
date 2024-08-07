@@ -13,8 +13,8 @@ const config: Config = {
         white: "#FFFFFF",
       },
       backgroundImage: {
-        "gradient-primary": "linear-gradient(95deg, #DD1B1C0%, #9E1E1F99.22%)",
-        "footer-mobile": "url('./src/assets/images/bg-footer.png')",
+        "gradient-primary": "from-[#dd1a1c] to-[#9e1e1f]",
+        footer: "url('/footer.svg')",
       },
     },
   },
