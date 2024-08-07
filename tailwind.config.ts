@@ -8,10 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: "#9E1E1F",
+        white: "#FFFFFF",
+      },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-primary": "linear-gradient(95deg, #DD1B1C0%, #9E1E1F99.22%)",
+        "footer-mobile": "url('./src/assets/images/bg-footer.png')",
       },
     },
   },
