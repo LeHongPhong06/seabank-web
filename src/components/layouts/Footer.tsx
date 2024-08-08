@@ -1,4 +1,11 @@
-import { PlusOutlined } from "@ant-design/icons";
+"use client";
+import icFb from "@/assets/images/fb.svg";
+import icTiktok from "@/assets/images/tiktok.svg";
+import icYoutube from "@/assets/images/youtube.svg";
+import { EnvironmentOutlined, MailOutlined, MinusOutlined, PhoneOutlined, PlusOutlined } from "@ant-design/icons";
+import { Collapse, Divider } from "antd";
+import { CollapseProps } from "antd/lib";
+import Image from "next/image";
 import React from "react";
 
 const Footer: React.FC = () => {
@@ -133,31 +140,85 @@ const Footer: React.FC = () => {
       ],
     },
   ];
+  const dataFooter: CollapseProps["items"] = data.map((item) => ({
+    key: item.id,
+    label: <p className='bg-clip-text text-transparent bg-gradient-primary text-[16px] font-bold'>{item.title}</p>,
+    children: <SubMenu data={item.data} />,
+  }));
   return (
-    <footer className='bg-footer bg-no-repeat bg-cover bg-center bg-white py-6 px-4'>
+    <footer className='bg-footer bg-no-repeat bg-cover bg-center bg-white py-6'>
       <section className='max-w-[1320px] mx-auto'>
-        <div className='flex flex-col gap-3 md:flex-row md:justify-between'>
+        <div className='md:hidden'>
+          <Collapse
+            bordered={false}
+            ghost
+            size='small'
+            expandIconPosition='end'
+            expandIcon={({ isActive }) => (isActive ? <MinusOutlined /> : <PlusOutlined />)}
+            items={dataFooter}
+            collapsible='header'
+          />
+        </div>
+        <div className='md:flex gap-5 justify-between hidden px-4 xl:px-0'>
           {data.map((item) => (
-            <div key={item.id} className='flex flex-col gap-2'>
+            <div key={item.id} className='flex flex-col gap-2 max-w-60'>
               <div className='flex gap-2 items-center justify-between'>
-                <p className='bg-clip-text text-transparent bg-gradient-to-r from-[#dd1a1c] to-[#9e1e1f] text-[16px] font-bold'>
-                  {item.title}
-                </p>
-                <PlusOutlined className='text-primary block md:hidden' />
+                <p className='bg-clip-text text-transparent bg-gradient-primary text-[16px] font-bold'>{item.title}</p>
               </div>
               <div className='flex flex-col gap-2'>
-                {item.data.map((item) => (
-                  <p key={item.sub} className='text-[14px] text-black max-w-52'>
-                    {item.sub}
-                  </p>
-                ))}
+                <SubMenu data={item.data} />
               </div>
             </div>
           ))}
         </div>
+        <Divider />
+        <section className='flex flex-col md:flex-row md:justify-between gap-4 px-4 xl:px-0'>
+          <div className='flex flex-col gap-[9px] order-1'>
+            <p className='text-black font-semibold text-base'>Liên hệ với chúng tôi</p>
+            <div className='flex items-center gap-[30px]'>
+              <div className='relative size-[30px]'>
+                <Image alt='fb-icon' fill src={icFb} />
+              </div>
+              <div className='relative size-[30px]'>
+                <Image alt='tiktok-icon' fill src={icTiktok} />
+              </div>
+              <div className='relative size-[30px]'>
+                <Image alt='youtube-icon' fill src={icYoutube} />
+              </div>
+            </div>
+          </div>
+          <div className='flex gap-3 items-center order-3 md:order-2'>
+            <EnvironmentOutlined className='text-xl text-primary' />
+            <p className='font-medium text-base text-black lg:max-w-[300px]'>
+              Tòa BRG, 198 Trần Quang Khải, phường Lý Thái Tổ, quận Hoàn Kiếm, Hà Nội
+            </p>
+          </div>
+          <div className='flex gap-3 items-center order-4 md:order-2'>
+            <PhoneOutlined className='text-xl text-primary' />
+            <div className='font-medium text-base text-black flex flex-col'>
+              <p>KHCN 1900.555.587 - (024).3944.8702</p>
+              <p>KHDN 1900.599.952 - 024.3204.5952</p>
+            </div>
+          </div>
+          <div className='flex gap-3 items-center order-2 md:order-4'>
+            <MailOutlined className='text-xl text-primary' />
+            <p className='font-medium text-black'>contact@seabank.com.vn</p>
+          </div>
+        </section>
       </section>
     </footer>
   );
 };
 
+const SubMenu = ({ data }: { data: Array<{ sub: string }> }) => {
+  return (
+    <div className='flex flex-col gap-2'>
+      {data.map((item) => (
+        <p key={item.sub} className='text-[14px] text-black '>
+          {item.sub}
+        </p>
+      ))}
+    </div>
+  );
+};
 export default Footer;

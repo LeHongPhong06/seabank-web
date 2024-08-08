@@ -4,6 +4,7 @@ import logo from "@/assets/images/seABank-logo.svg";
 import search from "@/assets/images/search.svg";
 import logoVietNam from "@/assets/images/vietnam.svg";
 import { AlignLeftOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -18,7 +19,7 @@ const Header: React.FC = () => {
   ];
   return (
     <header>
-      <nav className='bg-primary max-h-10'>
+      <nav className='bg-primary max-h-[46px]'>
         <div className='max-w-[1320px] mx-auto'>
           <div className='flex justify-between items-center px-4 xl:px-0'>
             <div className='items-center gap-8 md:flex hidden'>
@@ -32,17 +33,22 @@ const Header: React.FC = () => {
                 </Link>
               ))}
             </div>
-            <AlignLeftOutlined className='p-2 border-white border-[1px] rounded-xl md:hidden' />
+            <Button
+              className='p-2 border-white border-[1px] rounded-xl md:hidden bg-transparent text-white'
+              icon={<AlignLeftOutlined className='text-white' />}
+            >
+              Trang chủ
+            </Button>
             <div className='flex items-center gap-3 py-2 xl:p-0'>
               <div className='relative size-6 block lg:hidden'>
-                <Image alt='search' src={search} fill objectFit='contain' />
+                <Image alt='search' src={search} fill className='object-contain' />
               </div>
               <div className='relative size-6'>
-                <Image alt='logo-vietnam' src={logoVietNam} fill objectFit='contain' />
+                <Image alt='logo-vietnam' src={logoVietNam} fill />
               </div>
               <div className='lg:flex items-center gap-2 hidden'>
                 <div className='relative size-6 flex gap-2'>
-                  <Image src={phone} fill alt='phone' objectFit='contain' />
+                  <Image src={phone} fill alt='phone' className='object-contain' />
                 </div>
                 <p className='font-semibold'>1900 555 587</p>
               </div>
@@ -54,10 +60,10 @@ const Header: React.FC = () => {
         <div className='max-w-[1320px] mx-auto'>
           <div className='py-2 md:py-3 md:px-4 xl:px-0 flex items-center justify-center md:justify-start gap-[10px] xl:gap-9'>
             <div className='relative w-[124px] h-[26px] md:w-[167px] md:h-[34px]'>
-              <Image src={logo} fill alt='logo' objectFit='contain' />
+              <Image src={logo} fill alt='logo' className='object-contain' />
             </div>
             <div className='relative w-[78px] h-[28px] md:w-[95px] md:h-[34px]'>
-              <Image src={cup} fill alt='cup' objectFit='contain' />
+              <Image src={cup} fill alt='cup' className='object-contain' />
             </div>
           </div>
         </div>
