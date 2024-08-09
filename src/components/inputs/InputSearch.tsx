@@ -9,12 +9,11 @@ const InputSearch: React.FC = (inputProps: GetProps<typeof Input>) => {
       theme={{
         components: {
           Input: {
-            paddingBlockLG: 13.15,
-            paddingInlineLG: 16,
             lineWidth: 2,
             activeBorderColor: colors.RED,
             hoverBorderColor: colors.RED,
             borderRadiusLG: 12,
+            controlHeight: 34,
             borderRadius: 12,
             activeShadow: "0 0 0 3px rgba(221, 27, 28, 0.1)",
             colorBorder: colors.RED,
@@ -22,12 +21,7 @@ const InputSearch: React.FC = (inputProps: GetProps<typeof Input>) => {
         },
       }}
     >
-      <Input
-        enterKeyHint='search'
-        prefix={<SearchOutlined className='text-red text-xl mr-2' />}
-        size='large'
-        {...inputProps}
-      />
+      <Input enterKeyHint='search' prefix={<SearchOutlined className='text-red text-xl m-2' />} {...inputProps} />
     </ConfigProvider>
   );
 };

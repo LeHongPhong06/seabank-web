@@ -1,6 +1,5 @@
 import { colors } from "@/constants/colors";
 import { ConfigProvider, GetProps, Select } from "antd";
-import React from "react";
 
 const SelectComponent = (selectProps: GetProps<typeof Select>) => {
   return (
@@ -9,11 +8,16 @@ const SelectComponent = (selectProps: GetProps<typeof Select>) => {
         components: {
           Select: {
             paddingSM: 16,
-            colorBorder: "#ccc",
+            colorBorder: "#828282",
             borderRadius: 12,
+            colorIcon: "#212529",
             colorPrimary: colors.RED,
-            paddingContentVerticalLG: 13.15,
+            controlHeight: 46,
+            colorPrimaryHover: colors.RED,
+            controlPaddingHorizontal: 16,
             borderRadiusLG: 12,
+            fontSize: 16,
+            paddingContentVerticalSM: 13.5,
           },
         },
       }}

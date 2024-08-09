@@ -1,8 +1,16 @@
+import bankIc from "@/assets/images/bank-ic.svg";
+import chartIc from "@/assets/images/chart-ic.svg";
+import flagIc from "@/assets/images/flag-ic.svg";
+import safeIc from "@/assets/images/safe-ic.svg";
+import seABankIc from "@/assets/images/seABank-ic.svg";
+import walletIc from "@/assets/images/wallet-ic.svg";
 import { CloseOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import React from "react";
+import AnimationWapper from "../AnimationWapper";
 import ButtonComponent from "../buttons/ButtonComponent";
 import InputSearch from "../inputs/InputSearch";
+import styles from "./search.module.css";
 
 const SearchPopup: React.FC = () => {
   const history = [
@@ -48,35 +56,61 @@ const SearchPopup: React.FC = () => {
   ];
   return (
     <React.Fragment>
-      <div className='flex justify-center absolute items-center size-9 rounded-full left-0 right-0 mx-auto my-0 -translate-y-12 bg-gray-second hover:cursor-pointer'>
+      <div className='flex justify-center absolute items-center size-9 rounded-full left-0 right-0 mx-auto my-0 -translate-y-16 lg:-translate-y-20 bg-gray-second hover:cursor-pointer'>
         <CloseOutlined className='text-white text-xs' />
       </div>
-      <div className='p-4 flex flex-col gap-4'>
-        <h3 className='text-center font-bold text-[20px] text-transparent bg-gradient-primary bg-clip-text capitalize leading-7'>
+      <div className='relative flex flex-col md:items-center gap-4 lg:gap-8'>
+        <AnimationWapper styles='hidden md:block absolute left-0 top-10' direction='left'>
+          <Image src={walletIc} alt='wallet-ic' className='object-contain w-auto h-auto' />
+        </AnimationWapper>
+        <AnimationWapper styles='hidden md:block absolute left-32 top-0' direction='top'>
+          <Image src={chartIc} alt='chart-ic' className='object-contain w-auto h-auto' />
+        </AnimationWapper>
+        <AnimationWapper styles='hidden md:block absolute left-24 top-20' direction='left' duration={1}>
+          <Image src={bankIc} alt='bank-ic' className='object-contain w-auto h-auto' />
+        </AnimationWapper>
+        <h3 className='lg:mt-6 font-bold text-center text-[20px] text-transparent bg-gradient-primary bg-clip-text capitalize leading-7'>
           Tìm kiếm
         </h3>
-        <InputSearch />
-        <div>
-          <h3 className='text-black font-bold mb-2'>Tìm kiếm gần đây:</h3>
-          <div className='flex gap-2 flex-wrap'>
-            {history.map((item) => (
-              <ButtonComponent key={item.title} title={item.title} />
-            ))}
+        <div className='flex gap-[18px] flex-col items-start md:items-center max-w-[788px] z-20'>
+          <InputSearch />
+          <div className='md:flex gap-2 items-center'>
+            <h3 className='text-black font-bold mb-2'>Tìm kiếm gần đây:</h3>
+            <div className='flex gap-2 flex-wrap scroll-'>
+              {history.map((item) => (
+                <ButtonComponent key={item.title} title={item.title} />
+              ))}
+            </div>
           </div>
         </div>
-        <div>
+        <AnimationWapper styles='hidden md:block absolute right-28 top-0' direction='top'>
+          <Image src={seABankIc} alt='seABank-ic' className='object-contain w-auto h-auto' />
+        </AnimationWapper>
+        <AnimationWapper styles='hidden md:block absolute right-0 top-6' direction='right'>
+          <Image src={safeIc} alt='safe-ic' className='object-contain w-auto h-auto' />
+        </AnimationWapper>
+        <AnimationWapper styles='hidden md:block absolute right-10 top-20' direction='right' duration={2}>
+          <Image src={flagIc} alt='flag-ic' className='object-contain w-auto h-auto' />
+        </AnimationWapper>
+        <div className='md:flex items-center gap-2'>
           <h3 className='text-black font-bold mb-2'>Từ khóa phổ biến:</h3>
-          <div className='flex gap-2 flex-wrap'>
+          <div className={`flex gap-2 overflow-x-auto ${styles.popularKeyword}`}>
             {history.map((item) => (
-              <ButtonComponent key={item.title} title={item.title} />
+              <ButtonComponent
+                key={item.title}
+                title={item.title}
+                styles={{
+                  textWrap: "nowrap",
+                }}
+              />
             ))}
           </div>
         </div>
-        <div className='flex gap-2'>
-          {dataNews.map((item) => (
-            <News data={item} />
-          ))}
-        </div>
+      </div>
+      <div className='grid grid-cols-3 gap-4 mt-4 lg:mt-8'>
+        {dataNews.map((item) => (
+          <News data={item} key={item.id} />
+        ))}
       </div>
     </React.Fragment>
   );
@@ -93,12 +127,18 @@ const News: React.FC<NewsDataProps> = ({ data }) => {
   };
   return (
     <section className='relative'>
-      <div className='relative bg-gradient-black w-[110px] h-[120px] mb-2 rounded-xl'>
-        <Image alt={data.title} fill src={data.image} className='rounded-xl object-cover' />
+      <div className='relative bg-gradient-black w-full min-h-[120px] md:h-[272px] mb-2 md:mb-0 rounded-xl'>
+        <Image
+          alt={data.title}
+          fill
+          src={data.image}
+          className='rounded-xl object-cover'
+          sizes='(max-width: 768px) 110px, (max-width: 1200px) 384px, 110px'
+        />
       </div>
-      <div className='lg:absolute bottom-6 left-6 right-6 lg:bg-black-second lg:rounded-xl lg:px-[26px] lg:py-[7px]'>
+      <div className='md:absolute bottom-6 left-6 right-6 md:bg-black-second md:rounded-xl md:px-[26px] md:py-[12px] md:text-white'>
         <p
-          className={`pl-3 font-semibold text-[16px] before:absolute relative before:w-[6px] before:h-[16px] before:rounded-[10px] before:top-0 before:left-0 before:bottom-0 before:my-auto ${
+          className={`pl-3 md:pl-6 font-semibold text-[16px] before:absolute relative before:w-[6px] before:h-[18px] before:rounded-[10px] before:top-0 before:left-0 before:bottom-0 before:my-auto ${
             colors[data.type]
           }`}
         >

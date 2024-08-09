@@ -3,10 +3,15 @@ import Header from "@/components/layouts/Header";
 import theme from "@/configs/theme";
 import { ConfigProvider } from "antd";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({
+  subsets: ["latin", "vietnamese"],
+  style: ["normal", "italic"],
+  weight: ["400", "500", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={roboto.className} monica-version='5.9.7' monica-id='1'>
         <ConfigProvider theme={theme}>
           <Header />
           {children}
