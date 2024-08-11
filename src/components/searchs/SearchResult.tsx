@@ -9,8 +9,8 @@ type Props = {
 
 const SearchResult: React.FC<Props> = ({ data }) => {
   return (
-    <div className='lg:flex lg:gap-6 lg:items-center p-4 bg-gray-three rounded-xl'>
-      <div className='relative hidden lg:block w-14 h-14'>
+    <div className='md:flex md:gap-6 md:items-center p-4 bg-gray-three rounded-xl'>
+      <div className='relative hidden md:block w-14 h-14'>
         <Image src={news} alt='tin-tuc' fill className='object-contain' />
       </div>
       <div>

@@ -6,7 +6,7 @@ export default {
     Select: {
       borderRadiusLG: 12,
       borderRadiusSM: 8,
-      colorBorder: colors.GRAY,
+      // colorBorder: colors.GRAY,
     },
     // Input: {
     //   borderRadiusLG: 12,

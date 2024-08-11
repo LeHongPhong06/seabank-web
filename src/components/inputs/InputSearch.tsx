@@ -2,8 +2,10 @@ import { colors } from "@/constants/colors";
 import { SearchOutlined } from "@ant-design/icons";
 import { ConfigProvider, GetProps, Input } from "antd";
 import React from "react";
-
-const InputSearch: React.FC = (inputProps: GetProps<typeof Input>) => {
+type Props = {
+  inputProps?: GetProps<typeof Input>;
+};
+const InputSearch: React.FC<Props> = ({ inputProps }) => {
   return (
     <ConfigProvider
       theme={{
@@ -13,7 +15,7 @@ const InputSearch: React.FC = (inputProps: GetProps<typeof Input>) => {
             activeBorderColor: colors.RED,
             hoverBorderColor: colors.RED,
             borderRadiusLG: 12,
-            controlHeight: 34,
+            controlHeight: 48,
             borderRadius: 12,
             activeShadow: "0 0 0 3px rgba(221, 27, 28, 0.1)",
             colorBorder: colors.RED,
@@ -21,7 +23,7 @@ const InputSearch: React.FC = (inputProps: GetProps<typeof Input>) => {
         },
       }}
     >
-      <Input enterKeyHint='search' prefix={<SearchOutlined className='text-red text-xl m-2' />} {...inputProps} />
+      <Input prefix={<SearchOutlined className='text-red text-xl m-2' />} {...inputProps} />
     </ConfigProvider>
   );
 };

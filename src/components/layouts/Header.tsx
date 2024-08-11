@@ -21,7 +21,7 @@ const Header: React.FC = () => {
     <header>
       <nav className='bg-primary max-h-[46px]'>
         <div className='max-w-[1320px] mx-auto'>
-          <div className='flex justify-between items-center px-4 xl:px-0'>
+          <div className='flex justify-between items-center px-4 lg:px-2 xl:px-0'>
             <div className='items-center gap-8 md:flex hidden'>
               {links.map((item) => (
                 <Link
@@ -58,7 +58,7 @@ const Header: React.FC = () => {
       </nav>
       <section className='bg-white'>
         <div className='max-w-[1320px] mx-auto'>
-          <div className='py-2 md:py-3 md:px-4 xl:px-0 flex items-center justify-center md:justify-start gap-[10px] xl:gap-9'>
+          <div className='py-2 md:py-3 md:px-4 lg:px-2 xl:px-0 flex items-center justify-center md:justify-start gap-[10px] xl:gap-9'>
             <div className='relative w-[124px] h-[26px] md:w-[167px] md:h-[34px]'>
               <Image src={logo} fill alt='logo' className='object-contain' />
             </div>
