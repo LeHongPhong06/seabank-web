@@ -16,7 +16,6 @@ const SelectSearchMD = (selectProps: GetProps<typeof Select>) => {
             controlHeight: 46,
             colorPrimaryHover: "transparent",
             controlPaddingHorizontal: 16,
-            optionSelectedBg: colors.GRAY_BTN,
             selectorBg: "transparent",
             borderRadiusLG: 12,
             fontSize: 16,

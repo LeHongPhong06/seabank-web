@@ -1,11 +1,7 @@
-import Footer from "@/components/layouts/Footer";
-import Header from "@/components/layouts/Header";
-import theme from "@/configs/theme";
-import { ConfigProvider } from "antd";
+import RootProvider from "@/components/RootProvider";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-
 const roboto = Roboto({
   subsets: ["latin", "vietnamese"],
   style: ["normal", "italic"],
@@ -26,11 +22,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={roboto.className} monica-version='5.9.7' monica-id='1'>
-        <ConfigProvider theme={theme}>
-          <Header />
-          {children}
-          <Footer />
-        </ConfigProvider>
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   );

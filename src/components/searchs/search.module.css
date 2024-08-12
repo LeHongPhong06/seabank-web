@@ -1,8 +1,0 @@
-.popularKeyword::-webkit-scrollbar {
-  display: none;
-}
-
-.popularKeyword {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}

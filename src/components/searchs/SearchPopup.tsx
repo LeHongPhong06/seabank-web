@@ -1,18 +1,25 @@
+"use client";
 import bankIc from "@/assets/images/bank-ic.svg";
 import chartIc from "@/assets/images/chart-ic.svg";
 import flagIc from "@/assets/images/flag-ic.svg";
 import safeIc from "@/assets/images/safe-ic.svg";
 import seABankIc from "@/assets/images/seABank-ic.svg";
 import walletIc from "@/assets/images/wallet-ic.svg";
+import { useAppDispatch } from "@/hooks/redux";
+import { setOpenChangeDrawerSearch, setOpenChangeModalSearch } from "@/stores/slices/search";
 import { CloseOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import React from "react";
 import AnimationWapper from "../AnimationWapper";
 import ButtonComponent from "../buttons/ButtonComponent";
 import InputSearch from "../inputs/InputSearch";
-import styles from "./search.module.css";
 
 const SearchPopup: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const onClosePopup = () => {
+    dispatch(setOpenChangeModalSearch(false));
+    dispatch(setOpenChangeDrawerSearch(false));
+  };
   const history = [
     {
       title: "Quản lý dòng tiền",
@@ -56,17 +63,20 @@ const SearchPopup: React.FC = () => {
   ];
   return (
     <React.Fragment>
-      <div className='flex justify-center absolute items-center size-9 rounded-full left-0 right-0 mx-auto my-0 -translate-y-16 lg:-translate-y-20 bg-gray-second hover:cursor-pointer'>
+      <div
+        className='flex justify-center absolute items-center size-9 rounded-full left-0 right-0 mx-auto my-0 -translate-y-16 lg:-translate-y-20 bg-gray-second hover:cursor-pointer'
+        onClick={onClosePopup}
+      >
         <CloseOutlined className='text-white text-xs' />
       </div>
       <div className='relative flex flex-col md:items-center gap-4 lg:gap-8'>
-        <AnimationWapper styles='hidden md:block absolute left-0 top-10' direction='left'>
+        <AnimationWapper styles='hidden lg:block absolute lg:left-0 top-10' direction='left'>
           <Image src={walletIc} alt='wallet-ic' className='object-contain w-auto h-auto' />
         </AnimationWapper>
-        <AnimationWapper styles='hidden md:block absolute left-32 top-0' direction='top'>
+        <AnimationWapper styles='hidden lg:block absolute left-32 top-0' direction='top'>
           <Image src={chartIc} alt='chart-ic' className='object-contain w-auto h-auto' />
         </AnimationWapper>
-        <AnimationWapper styles='hidden md:block absolute left-24 top-20' direction='left' duration={1}>
+        <AnimationWapper styles='hidden lg:block absolute left-4 xl:left-20 top-32' direction='left' duration={1}>
           <Image src={bankIc} alt='bank-ic' className='object-contain w-auto h-auto' />
         </AnimationWapper>
         <h3 className='lg:mt-6 font-bold text-center text-[20px] text-transparent bg-gradient-primary bg-clip-text capitalize leading-7'>
@@ -83,26 +93,20 @@ const SearchPopup: React.FC = () => {
             </div>
           </div>
         </div>
-        <AnimationWapper styles='hidden md:block absolute right-28 top-0' direction='top'>
+        <AnimationWapper styles='hidden lg:block absolute right-28 top-0' direction='top'>
           <Image src={seABankIc} alt='seABank-ic' className='object-contain w-auto h-auto' />
         </AnimationWapper>
-        <AnimationWapper styles='hidden md:block absolute right-0 top-6' direction='right'>
+        <AnimationWapper styles='hidden lg:block absolute right-0 top-6' direction='right'>
           <Image src={safeIc} alt='safe-ic' className='object-contain w-auto h-auto' />
         </AnimationWapper>
-        <AnimationWapper styles='hidden md:block absolute right-10 top-20' direction='right' duration={2}>
+        <AnimationWapper styles='hidden lg:block absolute right-10 top-20' direction='right' duration={2}>
           <Image src={flagIc} alt='flag-ic' className='object-contain w-auto h-auto' />
         </AnimationWapper>
         <div className='md:flex items-center gap-2'>
           <h3 className='text-black font-bold mb-2'>Từ khóa phổ biến:</h3>
-          <div className={`flex gap-2 overflow-x-auto ${styles.popularKeyword}`}>
+          <div className={`flex gap-2 overflow-x-auto scrollbar-none`}>
             {history.map((item) => (
-              <ButtonComponent
-                key={item.title}
-                title={item.title}
-                styles={{
-                  textWrap: "nowrap",
-                }}
-              />
+              <ButtonComponent key={item.title} title={item.title} styles={{ textWrap: "nowrap" }} />
             ))}
           </div>
         </div>
@@ -138,7 +142,7 @@ const News: React.FC<NewsDataProps> = ({ data }) => {
       </div>
       <div className='md:absolute bottom-6 left-6 right-6 md:bg-black-second md:rounded-xl md:px-[26px] md:py-[12px] md:text-white'>
         <p
-          className={`pl-3 md:pl-6 font-semibold text-[16px] before:absolute relative before:w-[6px] before:h-[18px] before:rounded-[10px] before:top-0 before:left-0 before:bottom-0 before:my-auto ${
+          className={`pl-3 md:pl-6 font-semibold text-[16px] before:absolute relative before:w-[6px] lg:before:h-[25px] before:h-[18px] before:rounded-[10px] before:top-0 before:left-0 before:bottom-0 before:my-auto ${
             colors[data.type]
           }`}
         >

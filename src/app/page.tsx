@@ -1,3 +1,4 @@
+"use client";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
 import InputSearch from "@/components/inputs/InputSearch";
 import InputSearchMD from "@/components/inputs/InputSearchMD";
@@ -6,13 +7,15 @@ import PaginationComponent from "@/components/paginations/PaginationComponent";
 import SearchResult from "@/components/searchs/SearchResult";
 import SelectComponent from "@/components/selects/SelectComponent";
 import SelectSearchMD from "@/components/selects/SelectSearchMD";
+import WapperContent from "@/components/WapperContent";
 import { ArrowDownOutlined, SearchOutlined } from "@ant-design/icons";
 import { SelectProps } from "antd/lib";
-import dynamic from "next/dynamic";
-import React from "react";
+import React, { useState } from "react";
 
-const SearchModal = dynamic(() => import("@/components/modals/SearchModal"), { ssr: false });
 export default function Home() {
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [type, setType] = useState("all");
   const options: SelectProps["options"] = [
     {
       label: "Tất cả",
@@ -54,64 +57,74 @@ export default function Home() {
   const dataBtnList = [
     {
       title: "Sản phẩm",
+      type: "product",
     },
     {
       title: "Ưu đãi",
+      type: "incentives",
     },
     {
       title: "Tin tức",
+      type: "news",
     },
   ];
   return (
     <main className='min-h-[70vh] bg-white border-t-[1px] border-solid border-gray'>
-      <section className=' max-w-[1320px] mx-auto'>
-        <div className='py-6 px-4 lg:px-2 xl:px-0'>
-          <div className='flex flex-col gap-4'>
-            <div className='flex md:flex-row flex-col items-center gap-4 p-2 md:rounded-2xl md:gap-[10px] md:bg-gray-four'>
-              <SelectComponent className='w-full md:hidden block' options={options} placeholder='Chọn hạng mục' />
-              <SelectSearchMD className='w-[234px] md:block hidden' options={options} placeholder='Chọn hạng mục' />
-              <div className='block md:hidden w-full'>
-                <InputSearch
-                  key={"search"}
-                  inputProps={{
-                    prefix: <SearchOutlined className='text-red' />,
-                  }}
-                />
-              </div>
-              <div className='md:block hidden flex-1'>
-                <InputSearchMD
-                  key={1}
-                  inputProps={{
-                    prefix: <SearchOutlined className='text-red' />,
-                  }}
-                />
-              </div>
+      <WapperContent>
+        <div className='py-6 lg:py-8 px-4 lg:px-2 xl:px-0 flex flex-col gap-6 lg:gap-8'>
+          <div className='flex md:flex-row flex-col items-center gap-4 md:p-2 md:rounded-2xl md:gap-[10px] md:bg-gray-four'>
+            <SelectComponent className='w-full md:hidden block' options={options} placeholder='Chọn hạng mục' />
+            <SelectSearchMD className='w-[234px] md:block hidden' options={options} placeholder='Chọn hạng mục' />
+            <div className='block md:hidden w-full'>
+              <InputSearch
+                key={"search"}
+                inputProps={{
+                  prefix: <SearchOutlined className='text-red' />,
+                }}
+              />
             </div>
-            <div className='flex flex-col gap-1'>
-              <div className='flex gap-[4px]'>
-                <span className='bg-gradient-primary text-transparent font-semibold text-[20px] bg-clip-text'>
-                  Kết Quả
-                </span>
-                <span className='text-[20px] text-black font-semibold'>Tìm Kiếm</span>
-              </div>
-              {dataSearhResult.length > 0 ? (
-                <p className='text-black font-normal'>
-                  Có <span className='font-semibold'>94</span> kết quả tìm kiếm cho
-                  <span className='font-semibold'>{"Quản lí dòng tiền"}</span>
-                </p>
-              ) : (
-                <p className='text-sm text-black'>
-                  <span>Xin lỗi, </span>
-                  <span className='font-medium'>SeABank không tìm thấy kết quả</span>
-                </p>
-              )}
+            <div className='md:block hidden flex-1'>
+              <InputSearchMD
+                key={1}
+                inputProps={{
+                  prefix: <SearchOutlined className='text-red' />,
+                }}
+              />
             </div>
           </div>
-          <div className='flex gap-2 py-6'>
-            <ButtonComponent title='Tất cả' active />
-            {dataBtnList.map((item) => (
-              <ButtonComponent title={item.title} key={item.title} />
-            ))}
+          <div className='flex flex-col gap-2'>
+            <div className='flex gap-[4px]'>
+              <span className='bg-gradient-primary text-transparent font-semibold text-[20px] bg-clip-text'>
+                Kết Quả
+              </span>
+              <span className='text-[20px] text-black font-semibold'>Tìm Kiếm</span>
+            </div>
+            {dataSearhResult.length > 0 ? (
+              <p className='text-black font-normal'>
+                Có <span className='font-semibold'>94</span> kết quả tìm kiếm cho
+                <span className='font-semibold'> "Quản lí dòng tiền"</span>
+              </p>
+            ) : (
+              <p className='text-sm text-black'>
+                <span>Xin lỗi, </span>
+                <span className='font-medium'>SeABank không tìm thấy kết quả</span>
+              </p>
+            )}
+            <div className='flex gap-2 pt-1'>
+              {dataSearhResult.length > 0 && (
+                <React.Fragment>
+                  <ButtonComponent title='Tất cả' active={type === "all"} onClick={() => setType("all")} />
+                  {dataBtnList.map((item) => (
+                    <ButtonComponent
+                      title={item.title}
+                      key={item.title}
+                      active={type === item.type}
+                      onClick={() => setType(item.type)}
+                    />
+                  ))}
+                </React.Fragment>
+              )}
+            </div>
           </div>
           <section className='flex flex-col gap-3'>
             {dataSearhResult.length > 0 ? (
@@ -121,7 +134,7 @@ export default function Home() {
             )}
           </section>
           {dataSearhResult.length > 0 && (
-            <div className='pt-8 pb-3'>
+            <div>
               <div className='block md:hidden'>
                 <ButtonComponent
                   title={"Xem thêm kết quả"}
@@ -134,13 +147,20 @@ export default function Home() {
                 />
               </div>
               <div className='justify-center md:flex hidden'>
-                <PaginationComponent pageCurrent={1} pageSize={10} total={100} />
+                <PaginationComponent
+                  pageCurrent={page}
+                  pageSize={pageSize}
+                  total={100}
+                  onChange={(page, pageSize) => {
+                    setPage(page);
+                    setPageSize(pageSize);
+                  }}
+                />
               </div>
             </div>
           )}
         </div>
-      </section>
-      <SearchModal />
+      </WapperContent>
     </main>
   );
 }

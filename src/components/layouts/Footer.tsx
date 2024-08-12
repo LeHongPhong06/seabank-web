@@ -7,6 +7,7 @@ import { Collapse, Divider } from "antd";
 import { CollapseProps } from "antd/lib";
 import Image from "next/image";
 import React from "react";
+import WapperContent from "../WapperContent";
 
 const Footer: React.FC = () => {
   const data = [
@@ -147,14 +148,14 @@ const Footer: React.FC = () => {
   }));
   return (
     <footer className='bg-footer bg-no-repeat bg-cover bg-center bg-white py-6'>
-      <section className='max-w-[1320px] mx-auto'>
+      <WapperContent>
         <div className='md:hidden'>
           <Collapse
             bordered={false}
             ghost
             size='small'
             expandIconPosition='end'
-            expandIcon={({ isActive }) => (isActive ? <MinusOutlined /> : <PlusOutlined />)}
+            expandIcon={({ isActive }) => (isActive ? <MinusOutlined color='#000' /> : <PlusOutlined />)}
             items={dataFooter}
             collapsible='header'
           />
@@ -205,7 +206,7 @@ const Footer: React.FC = () => {
             <p className='font-medium text-black'>contact@seabank.com.vn</p>
           </div>
         </section>
-      </section>
+      </WapperContent>
     </footer>
   );
 };

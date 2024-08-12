@@ -17,13 +17,26 @@ const InputSearch: React.FC<Props> = ({ inputProps }) => {
             borderRadiusLG: 12,
             controlHeight: 48,
             borderRadius: 12,
-            activeShadow: "0 0 0 3px rgba(221, 27, 28, 0.1)",
+            activeShadow: "0 0 0 2px rgba(221, 27, 28, 0.1)",
             colorBorder: colors.RED,
           },
         },
       }}
     >
-      <Input prefix={<SearchOutlined className='text-red text-xl m-2' />} {...inputProps} />
+      <Input
+        prefix={<SearchOutlined className='text-red text-xl m-2' />}
+        {...inputProps}
+        styles={{
+          affixWrapper: {
+            borderImageSource: colors.PRIMARY_GRADIENT,
+            borderImageSlice: 1,
+            borderImageWidth: 1,
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+            borderRadius: 12,
+          },
+        }}
+      />
     </ConfigProvider>
   );
 };
