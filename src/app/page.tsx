@@ -139,7 +139,7 @@ export default function Home() {
                 <ButtonComponent
                   title={"Xem thêm kết quả"}
                   active
-                  icon={<ArrowDownOutlined className='text-white' />}
+                  affix={<ArrowDownOutlined className='text-white' />}
                   styles={{
                     paddingBlock: 12,
                     width: "100%",

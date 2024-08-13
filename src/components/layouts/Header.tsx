@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import InconSearchHeader from "../icons/InconSearchHeader";
-import WapperContent from "../WapperContent";
+import WapperContainer from "../wappers/WapperContainer";
 
 const Header: React.FC = () => {
   const links = [
@@ -21,8 +21,8 @@ const Header: React.FC = () => {
   return (
     <header>
       <nav className='bg-primary max-h-[46px]'>
-        <WapperContent>
-          <div className='flex justify-between items-center px-4 lg:px-2 xl:px-0'>
+        <WapperContainer>
+          <div className='flex justify-between items-center px-4'>
             <div className='items-center gap-8 md:flex hidden'>
               {links.map((item) => (
                 <Link
@@ -53,11 +53,11 @@ const Header: React.FC = () => {
               </div>
             </div>
           </div>
-        </WapperContent>
+        </WapperContainer>
       </nav>
       <section className='bg-white'>
-        <WapperContent>
-          <div className='py-2 md:py-3 md:px-4 lg:px-2 xl:px-0 flex items-center justify-center md:justify-start gap-[10px] xl:gap-9'>
+        <WapperContainer>
+          <div className='py-2 md:py-3 px-4 flex items-center justify-center md:justify-start gap-[10px] xl:gap-9'>
             <div className='relative w-[124px] h-[26px] md:w-[167px] md:h-[34px]'>
               <Image src={logo} fill alt='logo' className='object-contain' />
             </div>
@@ -65,7 +65,7 @@ const Header: React.FC = () => {
               <Image src={cup} fill alt='cup' className='object-contain' />
             </div>
           </div>
-        </WapperContent>
+        </WapperContainer>
       </section>
     </header>
   );

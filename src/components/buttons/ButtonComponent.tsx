@@ -4,23 +4,28 @@ import React, { CSSProperties } from "react";
 type Props = {
   title: string;
   onClick?: () => void;
-  icon?: React.ReactNode;
+  preffix?: React.ReactNode;
+  affix?: React.ReactNode;
   active?: boolean;
   styles?: CSSProperties;
+  disabled?: boolean;
+  textStyles?: CSSProperties;
 };
 
-const ButtonComponent: React.FC<Props> = ({ title, onClick, icon, active, styles }) => {
+const ButtonComponent: React.FC<Props> = ({ title, onClick, affix, active, styles, preffix, disabled }) => {
   const styleActive = "bg-gradient-primary text-white";
   return (
     <button
       style={styles}
+      disabled={disabled}
       onClick={() => onClick?.()}
-      className={`text-black bg-gray rounded-xl flex justify-center items-center gap-[10px] capitalize font-semibold px-3 py-2 ${
-        active ? styleActive : null
-      } `}
+      className={`bg-gray rounded-xl flex justify-center items-center gap-[10px] font-semibold px-3 py-2 ${
+        disabled ? "hover:cursor-not-allowed" : "hover:cursor-pointer"
+      } ${active ? styleActive : "text-black"} `}
     >
+      {preffix}
       {title}
-      {icon}
+      {affix}
     </button>
   );
 };

@@ -22,6 +22,9 @@ const config: Config = {
         "gray-three": "#F3F3F3",
         "gray-four": "rgba(232, 232, 232, 0.50)",
       },
+      boxShadow: {
+        card: "30px 50px 80px 0px rgba(0, 0, 0, 0.15)",
+      },
       backgroundImage: {
         "gradient-primary": "linear-gradient(95deg, rgba(221,26,28,1) 0%, rgba(158,30,31,1) 100%)",
         "gradient-black": "linear-gradient(180deg, rgba(0, 0, 0, 0) 67.5%, rgba(33, 33, 33, 0.70) 100%)",

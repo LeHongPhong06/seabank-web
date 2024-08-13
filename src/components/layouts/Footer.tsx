@@ -7,7 +7,7 @@ import { Collapse, Divider } from "antd";
 import { CollapseProps } from "antd/lib";
 import Image from "next/image";
 import React from "react";
-import WapperContent from "../WapperContent";
+import WapperContainer from "../wappers/WapperContainer";
 
 const Footer: React.FC = () => {
   const data = [
@@ -148,7 +148,7 @@ const Footer: React.FC = () => {
   }));
   return (
     <footer className='bg-footer bg-no-repeat bg-cover bg-center bg-white py-6'>
-      <WapperContent>
+      <WapperContainer>
         <div className='md:hidden'>
           <Collapse
             bordered={false}
@@ -160,7 +160,7 @@ const Footer: React.FC = () => {
             collapsible='header'
           />
         </div>
-        <div className='md:flex gap-5 justify-between hidden px-4 xl:px-0'>
+        <div className='md:flex gap-5 justify-between hidden px-4'>
           {data.map((item) => (
             <div key={item.id} className='flex flex-col gap-2 max-w-60'>
               <div className='flex gap-2 items-center justify-between'>
@@ -173,7 +173,7 @@ const Footer: React.FC = () => {
           ))}
         </div>
         <Divider />
-        <section className='flex flex-col md:flex-row md:justify-between gap-4 px-4 xl:px-0'>
+        <section className='flex flex-col md:flex-row md:justify-between gap-4 px-4'>
           <div className='flex flex-col gap-[9px] order-1'>
             <p className='text-black font-semibold text-base'>Liên hệ với chúng tôi</p>
             <div className='flex items-center gap-[30px]'>
@@ -206,7 +206,7 @@ const Footer: React.FC = () => {
             <p className='font-medium text-black'>contact@seabank.com.vn</p>
           </div>
         </section>
-      </WapperContent>
+      </WapperContainer>
     </footer>
   );
 };
