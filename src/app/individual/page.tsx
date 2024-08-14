@@ -1,21 +1,26 @@
 "use client";
-import card1 from "@/assets/images/cards/card-1.svg";
-import card2 from "@/assets/images/cards/card-2.svg";
-import card3 from "@/assets/images/cards/card-3.svg";
-import icon from "@/assets/images/icons/mingcute.svg";
-import ButtonCard from "@/components/buttons/ButtonCard";
+import banner from "@/assets/images/banner/banner-card.svg";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
+import ButtonDefault from "@/components/buttons/ButtonDefault";
+import ButtonLink from "@/components/buttons/ButtonLink";
+import CardIncentives from "@/components/cards/CardIncentives";
+import CardIndividual from "@/components/cards/CardIndividual";
 import TitleComponent from "@/components/TitleComponent";
 import ToolbarCompareCard from "@/components/toolbars/ToolbarCompareCard";
 import WapperContainer from "@/components/wappers/WapperContainer";
-import { CheckOutlined, CreditCardOutlined } from "@ant-design/icons";
+import { useCard, useCardDispatch } from "@/context/card";
+import { CaretDownOutlined, FilterOutlined } from "@ant-design/icons";
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 
-type Props = {};
-
-const IndividualPage = (props: Props) => {
-  const [cardSelectIds, setCardSelectIds] = useState<Array<number>>([]);
+type TabsItemProps = {
+  data: { key: string; label: string };
+  active: boolean;
+  onSelect: (key: string) => void;
+};
+const IndividualPage: React.FC = () => {
+  const cardSelectIds = useCard();
+  const cardDispatch = useCardDispatch();
   const [cardType, setCardType] = useState<string>("1");
   const dataCards = [
     {
@@ -26,7 +31,7 @@ const IndividualPage = (props: Props) => {
         "Miễn phí phát hành thẻ",
         "Hoàn tiền mọi giao dịch thanh toán trực tuyến lên đến 8%/năm, tối đa 7.200.000 đồng/năm",
       ],
-      image: card1,
+      image: "https://cdn.seabank.com.vn/sites/default/files/2023-09/Th%E1%BA%BB%20S24%2B%2B.png",
     },
     {
       id: 2,
@@ -36,7 +41,7 @@ const IndividualPage = (props: Props) => {
         "Miễn phí phát hành thẻ",
         "Hoàn tiền mọi giao dịch thanh toán trực tuyến lên đến 8%/năm, tối đa 7.200.000 đồng/năm",
       ],
-      image: card2,
+      image: "https://cdn.seabank.com.vn/sites/default/files/2020-06/THE_ANH%20WEB%202020_nen_637x245-05.jpg",
     },
     {
       id: 3,
@@ -46,7 +51,7 @@ const IndividualPage = (props: Props) => {
         "Miễn phí phát hành thẻ",
         "Hoàn tiền mọi giao dịch thanh toán trực tuyến lên đến 8%/năm, tối đa 7.200.000 đồng/năm",
       ],
-      image: card3,
+      image: "https://cdn.seabank.com.vn/sites/default/files/2020-06/THE_ANH%20WEB%202020_nen_637x245-10.jpg",
     },
     {
       id: 4,
@@ -109,18 +114,6 @@ const IndividualPage = (props: Props) => {
       image: "https://cdn.seabank.com.vn/sites/default/files/2020-06/THE_ANH%20WEB%202020_nen_637x245-02.jpg",
     },
   ];
-  const onChangeItemCompare = (cardId: number) => {
-    const data = [...cardSelectIds];
-    if (data.includes(cardId)) {
-      const index = data.findIndex((item) => item === cardId);
-      if (index !== -1) {
-        data.splice(index, 1);
-      }
-    } else {
-      data.push(cardId);
-    }
-    setCardSelectIds(data);
-  };
   const dataCategory = [
     {
       key: "1",
@@ -139,104 +132,143 @@ const IndividualPage = (props: Props) => {
       label: "Ưu đãi nổi bật",
     },
   ];
+  const dataIncentives = [
+    {
+      id: 1,
+      title: "Giảm ngay 20.000VNĐ cho đơn hàng từ 40.000VNĐ tại Bmart",
+      image: "https://cdn.seabank.com.vn/sites/default/files/2020-09/THE_ANH%20WEB%202020_nen_637x245-15.jpg",
+      startDate: 1721322000000,
+      endDate: 1737219600000,
+    },
+    {
+      id: 2,
+      title: "Giảm ngay 20.000VNĐ cho đơn hàng từ 40.000VNĐ tại Bmart",
+      image: "https://cdn.seabank.com.vn/sites/default/files/2020-09/THE_ANH%20WEB%202020_nen_637x245-15.jpg",
+      startDate: 1721322000000,
+      endDate: 1737219600000,
+    },
+    {
+      id: 3,
+      title: "Giảm ngay 20.000VNĐ cho đơn hàng từ 40.000VNĐ tại Bmart",
+      image: "https://cdn.seabank.com.vn/sites/default/files/2020-09/THE_ANH%20WEB%202020_nen_637x245-15.jpg",
+      startDate: 1721322000000,
+      endDate: 1737219600000,
+    },
+    {
+      id: 4,
+      title: "Giảm ngay 20.000VNĐ cho đơn hàng từ 40.000VNĐ tại Bmart",
+      image: "https://cdn.seabank.com.vn/sites/default/files/2020-09/THE_ANH%20WEB%202020_nen_637x245-15.jpg",
+      startDate: 1721322000000,
+      endDate: 1737219600000,
+    },
+    {
+      id: 5,
+      title: "Giảm ngay 20.000VNĐ cho đơn hàng từ 40.000VNĐ tại Bmart",
+      image: "https://cdn.seabank.com.vn/sites/default/files/2020-09/THE_ANH%20WEB%202020_nen_637x245-15.jpg",
+      startDate: 1721322000000,
+      endDate: 1737219600000,
+    },
+  ];
 
   return (
     <section className='bg-white'>
-      <div></div>
+      <div>
+        <div className='bg-banner-card w-full h-[422px] bg-cover bg-no-repeat bg-right-top'></div>
+      </div>
       <WapperContainer>
-        <section className='p-4 flex flex-col gap-4'>
+        <section className='px-4 pt-4 pb-0 md:pb-4 flex flex-col gap-4'>
           <TitleComponent subTitle='Danh sách' title='Sản phẩm' />
-          <div className='flex overflow-x-scroll scrollbar-none gap-4 border-b-[1px] border-solid border-gray'>
+          <div className='flex md:hidden overflow-x-scroll scrollbar-none gap-4 border-b-[1px] border-solid border-gray'>
             {dataCategory.map((item) => {
               const isCardTypeSelect = cardType === item.key;
               return (
-                <div key={item.key}>
-                  <p
-                    onClick={() => setCardType(item.key)}
-                    className={`relative pb-3 text-base text-nowrap before:w-full hover:cursor-pointer z-50 ${
-                      isCardTypeSelect
-                        ? "text-black font-semibold before:h-[2px] before:absolute before:bg-gradient-primary before:bottom-0"
-                        : "text-gray font-medium"
-                    } `}
-                  >
-                    {item.label}
-                  </p>
-                </div>
+                <TabsItemLabel
+                  key={item.key}
+                  data={item}
+                  active={isCardTypeSelect}
+                  onSelect={(key) => setCardType(key)}
+                />
               );
             })}
           </div>
+          <div className='flex justify-between items-center gap-4'>
+            <div className='hidden md:flex gap-4 flex-wrap'>
+              {dataCategory.map((item) => {
+                const isCardTypeSelect = cardType === item.key;
+                return (
+                  <ButtonComponent
+                    title={item.label}
+                    key={item.key}
+                    styles={{ fontWeight: 500 }}
+                    active={isCardTypeSelect}
+                    onClick={() => setCardType(item.key)}
+                  />
+                );
+              })}
+            </div>
+            <div className='hidden md:block'>
+              <ButtonDefault
+                title={"Bộ lọc"}
+                preffix={<FilterOutlined className='text-black' />}
+                styles={{ textWrap: "nowrap", minWidth: 110, fontWeight: 500 }}
+              />
+            </div>
+          </div>
           <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {dataCards.map((item) => {
-              const isSelectItem = cardSelectIds.includes(item.id);
+              const isSelectItem = cardSelectIds?.includes(item.id);
               return (
-                <div
+                <CardIndividual
                   key={item.id}
-                  className={`p-[1px] ${
-                    isSelectItem ? "bg-gradient-primary" : "bg-gray"
-                  }  rounded-xl w-full hover:shadow-card`}
-                >
-                  <div className='p-4 h-full w-full gap-3 flex flex-col bg-white rounded-xl'>
-                    <div className='relative w-full min-h-[220px] h-full rounded-xl'>
-                      <Image alt={`image-card-${item.id}`} fill src={item.image} className='object-cover rounded-xl' />
-                    </div>
-                    <h3 className='text-[18px] text-black font-semibold lg:min-h-[44px]'>{item.title}</h3>
-                    {item.remuneration.map((remu: string) => (
-                      <div className='flex gap-2 items-start' key={remu}>
-                        <div className='min-w-4 pt-1'>
-                          <div className='relative w-full h-4'>
-                            <Image src={icon} fill alt='icon-remu' className='object-contain' />
-                          </div>
-                        </div>
-                        <p className='text-gray-text'>{remu}</p>
-                      </div>
-                    ))}
-                    <div className='flex gap-3 min-h-[42px]'>
-                      <ButtonCard
-                        active={isSelectItem}
-                        title='So sánh'
-                        onClick={() => onChangeItemCompare(item.id)}
-                        styles={{ flex: 1 }}
-                        preffix={
-                          isSelectItem ? (
-                            <div className='bg-gradient-primary size-6 flex justify-center items-center rounded-full'>
-                              <CheckOutlined className='text-white text-xs' />
-                            </div>
-                          ) : (
-                            <div className='size-6 border-[1px] border-solid border-gray-text bg-transparent rounded-full' />
-                          )
-                        }
-                      />
-                      <ButtonComponent
-                        preffix={<CreditCardOutlined className='text-base' />}
-                        active
-                        title='Đăng ký thẻ'
-                        styles={{ flex: 1 }}
-                        textStyles={{ fontSize: 16 }}
-                      />
-                    </div>
-                  </div>
-                </div>
+                  data={item}
+                  isSelect={isSelectItem ? true : false}
+                  onCompare={() => cardDispatch?.({ type: "change", id: item.id })}
+                />
               );
             })}
-            <ButtonComponent
-              title='Xem thêm'
-              styles={{
-                height: 48,
-              }}
-            />
+            <div className='block md:hidden'>
+              <ButtonComponent title='Xem thêm' styles={{ height: 48, width: "100%" }} affix={<CaretDownOutlined />} />
+            </div>
           </section>
         </section>
       </WapperContainer>
-      <WapperContainer>
-        <div>
-          <TitleComponent subTitle='Nỗi Bật' title='Ưu Đãi' styles={{ flexDirection: "row-reverse" }} />
-        </div>
-      </WapperContainer>
-      {cardSelectIds.length > 0 && (
-        <ToolbarCompareCard dataCard={dataCards} cardSelectIds={cardSelectIds} onDeleteItem={onChangeItemCompare} />
+      <div className='py-6 lg:py-8 bg-white md:bg-gray'>
+        <WapperContainer>
+          <div className='flex justify-between px-4 mb-4 md:mb-6'>
+            <TitleComponent subTitle='Nỗi Bật' title='Ưu Đãi' styles={{ flexDirection: "row-reverse" }} />
+            <ButtonLink title='Xem tất cả' />
+          </div>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4'>
+            {dataIncentives.map((item) => (
+              <CardIncentives data={item} key={item.id} />
+            ))}
+          </div>
+        </WapperContainer>
+      </div>
+      {(cardSelectIds || []).length > 0 && (
+        <ToolbarCompareCard
+          dataCard={dataCards}
+          cardSelectIds={cardSelectIds || []}
+          onCancel={() => cardDispatch?.({ type: "clear" })}
+          onDeleteItem={(id) => cardDispatch?.({ type: "change", id })}
+        />
       )}
     </section>
   );
 };
 
+const TabsItemLabel: React.FC<TabsItemProps> = ({ active, data, onSelect }) => {
+  return (
+    <p
+      onClick={() => onSelect(data.key)}
+      className={`relative pb-3 text-base text-nowrap before:w-full hover:cursor-pointer z-50 ${
+        active
+          ? "text-black font-semibold before:h-[2px] before:absolute before:bg-gradient-primary before:bottom-0"
+          : "text-gray font-medium"
+      } `}
+    >
+      {data.label}
+    </p>
+  );
+};
 export default IndividualPage;

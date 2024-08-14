@@ -3,20 +3,19 @@ import React, { CSSProperties } from "react";
 type Props = {
   title: string;
   onClick?: () => void;
+  preffix?: React.ReactNode;
   styles?: CSSProperties;
-  textStyles?: CSSProperties;
 };
 
-const ButtonDefault: React.FC<Props> = ({ title, onClick, styles, textStyles }) => {
+const ButtonDefault: React.FC<Props> = ({ title, onClick, styles, preffix }) => {
   return (
     <button
       style={styles}
       onClick={() => onClick?.()}
-      className={`bg-white border-solid border-[1px] border-gray rounded-xl flex justify-center items-center gap-[10px] font-semibold px-3 py-2`}
+      className={`bg-white border-solid border-[1px] text-black border-gray rounded-xl flex justify-center items-center gap-2 min-h-[40px] font-semibold px-4 py-2`}
     >
-      <p className='text-black' style={textStyles}>
-        {title}
-      </p>
+      {preffix}
+      {title}
     </button>
   );
 };

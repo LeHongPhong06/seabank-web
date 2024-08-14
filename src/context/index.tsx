@@ -1,9 +1,8 @@
-import React, { createContext, useState } from "react";
+import React from "react";
+import ProviderCardContext from "./card";
 
-const CardContext = createContext(null);
-const ProviderContext = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState("dark");
-  return <CardContext.Provider value={{ theme }}>{children}</CardContext.Provider>;
+const RootProviderContext = ({ children }: { children: React.ReactNode }) => {
+  return <ProviderCardContext>{children}</ProviderCardContext>;
 };
 
-export default ProviderContext;
+export default RootProviderContext;

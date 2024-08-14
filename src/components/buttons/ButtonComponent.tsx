@@ -19,9 +19,9 @@ const ButtonComponent: React.FC<Props> = ({ title, onClick, affix, active, style
       style={styles}
       disabled={disabled}
       onClick={() => onClick?.()}
-      className={`bg-gray rounded-xl flex justify-center items-center gap-[10px] font-semibold px-3 py-2 ${
+      className={`bg-gray rounded-xl flex justify-center items-center gap-[10px] font-semibold px-4 min-h-[40px] py-2 ${
         disabled ? "hover:cursor-not-allowed" : "hover:cursor-pointer"
-      } ${active ? styleActive : "text-black"} `}
+      } ${active ? styleActive : "text-black"}`}
     >
       {preffix}
       {title}

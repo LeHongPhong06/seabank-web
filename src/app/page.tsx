@@ -7,7 +7,7 @@ import PaginationComponent from "@/components/paginations/PaginationComponent";
 import SearchResult from "@/components/searchs/SearchResult";
 import SelectComponent from "@/components/selects/SelectComponent";
 import SelectSearchMD from "@/components/selects/SelectSearchMD";
-import WapperContent from "@/components/WapperContent";
+import WapperContainer from "@/components/wappers/WapperContainer";
 import { ArrowDownOutlined, SearchOutlined } from "@ant-design/icons";
 import { SelectProps } from "antd/lib";
 import React, { useState } from "react";
@@ -69,8 +69,8 @@ export default function Home() {
     },
   ];
   return (
-    <main className='min-h-[70vh] bg-white border-t-[1px] border-solid border-gray'>
-      <WapperContent>
+    <main className='min-h-[70vh] bg-white'>
+      <WapperContainer>
         <div className='py-6 lg:py-8 px-4 lg:px-2 xl:px-0 flex flex-col gap-6 lg:gap-8'>
           <div className='flex md:flex-row flex-col items-center gap-4 md:p-2 md:rounded-2xl md:gap-[10px] md:bg-gray-four'>
             <SelectComponent className='w-full md:hidden block' options={options} placeholder='Chọn hạng mục' />
@@ -160,7 +160,7 @@ export default function Home() {
             </div>
           )}
         </div>
-      </WapperContent>
+      </WapperContainer>
     </main>
   );
 }

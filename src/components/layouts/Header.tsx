@@ -55,7 +55,7 @@ const Header: React.FC = () => {
           </div>
         </WapperContainer>
       </nav>
-      <section className='bg-white'>
+      <section className='bg-white border-b-[1px] border-solid border-gray'>
         <WapperContainer>
           <div className='py-2 md:py-3 px-4 flex items-center justify-center md:justify-start gap-[10px] xl:gap-9'>
             <div className='relative w-[124px] h-[26px] md:w-[167px] md:h-[34px]'>

@@ -1,0 +1,70 @@
+import icon from "@/assets/images/icons/mingcute.svg";
+import { PayloadAction } from "@/context/card";
+import { CheckOutlined, CreditCardOutlined } from "@ant-design/icons";
+import Image from "next/image";
+import React from "react";
+import ButtonCard from "../buttons/ButtonCard";
+import ButtonComponent from "../buttons/ButtonComponent";
+
+type DataCard = {
+  id: number;
+  title: string;
+  remuneration: Array<string>;
+  image: string;
+};
+type Props = {
+  data: DataCard;
+  isSelect: boolean;
+  onRegister?: (id: number) => void;
+  onCompare: (payload: PayloadAction) => void;
+};
+
+const CardIndividual: React.FC<Props> = ({ data, isSelect, onRegister, onCompare }) => {
+  return (
+    <div className={`p-[1px] ${isSelect ? "bg-gradient-primary" : "bg-gray"}  rounded-xl w-full hover:shadow-card`}>
+      <div className='p-4 h-full w-full gap-3 flex flex-col bg-white rounded-xl'>
+        <div className='relative w-full min-h-[220px] h-full rounded-xl'>
+          <Image alt={`image-card-${data.id}`} fill src={data.image} className='object-cover rounded-xl' />
+        </div>
+        <h3 className='text-[18px] text-black font-semibold lg:min-h-[44px]'>{data.title}</h3>
+        {data.remuneration.map((remu: string) => (
+          <div className='flex gap-2 items-start' key={remu}>
+            <div className='min-w-4 pt-1'>
+              <div className='relative w-full h-4'>
+                <Image src={icon} fill alt='icon-remu' className='object-contain' />
+              </div>
+            </div>
+            <p className='text-gray-text'>{remu}</p>
+          </div>
+        ))}
+        <div className='flex gap-3 min-h-[42px]'>
+          <ButtonCard
+            active={isSelect}
+            title='So sánh'
+            onClick={() => onCompare?.({ type: "change", id: data.id })}
+            styles={{ flex: 1 }}
+            preffix={
+              isSelect ? (
+                <div className='bg-gradient-primary size-6 flex justify-center items-center rounded-full'>
+                  <CheckOutlined className='text-white text-[10px]' />
+                </div>
+              ) : (
+                <div className='size-6 border-[1px] border-solid border-gray-text bg-transparent rounded-full' />
+              )
+            }
+          />
+          <ButtonComponent
+            active
+            title='Đăng ký thẻ'
+            styles={{ flex: 1 }}
+            textStyles={{ fontSize: 16 }}
+            onClick={() => onRegister?.(data.id)}
+            preffix={<CreditCardOutlined className='text-base' />}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CardIndividual;

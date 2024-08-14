@@ -1,5 +1,6 @@
 "use client";
 import theme from "@/configs/theme";
+import RootProviderContext from "@/context";
 import store from "@/stores";
 import { ConfigProvider } from "antd";
 import React from "react";
@@ -14,11 +15,13 @@ const RootProvider = ({
 }>) => {
   return (
     <ConfigProvider theme={theme}>
-      <Provider store={store}>
-        <Header />
-        {children}
-        <Footer />
-      </Provider>
+      <RootProviderContext>
+        <Provider store={store}>
+          <Header />
+          {children}
+          <Footer />
+        </Provider>
+      </RootProviderContext>
     </ConfigProvider>
   );
 };
