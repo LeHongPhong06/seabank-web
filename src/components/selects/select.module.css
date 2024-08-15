@@ -1,0 +1,12 @@
+.selectCard::-webkit-scrollbar {
+  width: 5px;
+}
+
+.selectCard::-webkit-scrollbar-track {
+  border-radius: 999px;
+}
+
+.selectCard::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 999px;
+}

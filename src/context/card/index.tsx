@@ -1,28 +1,36 @@
 "use client";
 import React, { createContext, Dispatch, useContext, useReducer } from "react";
+import { Card, PayloadAction } from "./data";
 
-export type PayloadAction = {
-  type: "change" | "clear";
-  id?: number;
-};
-const CardContext = createContext<number[] | null>(null);
+const CardContext = createContext<Card[] | null>(null);
 const CardDispatchContext = createContext<Dispatch<PayloadAction> | null>(null);
 
-const cardReducer = (cardList: Array<number>, action: PayloadAction) => {
+const cardReducer = (cardList: Array<Card>, action: PayloadAction) => {
+  const { payload } = action;
   const data = [...cardList];
+  const indexCard = data.findIndex((item) => item.id === payload?.id);
   switch (action.type) {
     case "change":
-      if (data.includes(action.id || 1)) {
-        const index = data.findIndex((item) => item === action.id);
-        if (index !== -1) {
-          data.splice(index, 1);
-        }
+      if (indexCard !== -1) {
+        data.splice(indexCard, 1);
       } else {
-        data.push(action.id || 1);
+        if (payload) {
+          data.push(payload);
+        }
+      }
+      return data;
+    case "swap":
+      if (payload && indexCard !== -1) {
+        data[indexCard] = payload;
+      }
+      return data;
+    case "delete":
+      if (indexCard !== -1 && payload) {
+        data.splice(indexCard, 1);
       }
       return data;
     case "clear":
-      return [];
+      return initialCard;
     default:
       return data;
   }
@@ -36,7 +44,7 @@ const ProviderCardContext = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const initialCard: Array<number> = [];
+const initialCard: Array<Card> = [];
 export default ProviderCardContext;
 export const useCard = () => useContext(CardContext);
 export const useCardDispatch = () => useContext(CardDispatchContext);

@@ -17,6 +17,7 @@ const config: Config = {
         green: "#12D252",
         purple: "#AA4FC8",
         blue: "#12A5D2",
+        "gray-5": "#F3F3F3",
         "gray-process-text": "#4F4F4F",
         "gray-process": "#D9D9D9",
         "black-second": "rgba(0, 0, 0, 0.60)",
@@ -26,6 +27,7 @@ const config: Config = {
       },
       boxShadow: {
         card: "30px 50px 80px 0px rgba(0, 0, 0, 0.15)",
+        "select-card": "0 0 0 2px rgba(221, 27, 28, 0.1)",
       },
       backgroundImage: {
         "gradient-primary": "linear-gradient(95deg, rgba(221,26,28,1) 0%, rgba(158,30,31,1) 100%)",

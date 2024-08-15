@@ -1,5 +1,5 @@
 "use client";
-import banner from "@/assets/images/banner/banner-card.svg";
+import ButtonCard from "@/components/buttons/ButtonCard";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
 import ButtonDefault from "@/components/buttons/ButtonDefault";
 import ButtonLink from "@/components/buttons/ButtonLink";
@@ -9,8 +9,8 @@ import TitleComponent from "@/components/TitleComponent";
 import ToolbarCompareCard from "@/components/toolbars/ToolbarCompareCard";
 import WapperContainer from "@/components/wappers/WapperContainer";
 import { useCard, useCardDispatch } from "@/context/card";
-import { CaretDownOutlined, FilterOutlined } from "@ant-design/icons";
-import Image from "next/image";
+import { CaretDownOutlined, CreditCardOutlined, FilterOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type TabsItemProps = {
@@ -19,7 +19,8 @@ type TabsItemProps = {
   onSelect: (key: string) => void;
 };
 const IndividualPage: React.FC = () => {
-  const cardSelectIds = useCard();
+  const router = useRouter();
+  const cardSelects = useCard();
   const cardDispatch = useCardDispatch();
   const [cardType, setCardType] = useState<string>("1");
   const dataCards = [
@@ -172,10 +173,63 @@ const IndividualPage: React.FC = () => {
 
   return (
     <section className='bg-white'>
-      <div>
-        <div className='bg-banner-card w-full h-[422px] bg-cover bg-no-repeat bg-right-top'></div>
+      <div className='bg-gray relative'>
+        <div className='p-4 h-[454px]'>
+          <div className='pt-6 flex flex-col justify-between rounded-lg px-4 h-full bg-[linear-gradient(180deg,_#FFF_15.27%,_rgba(255,_255,_255,_0.00)_47.83%)]'>
+            <div className='flex flex-col gap-2'>
+              <p className='text-[22px] text-black font-bold'>Thẻ</p>
+              <p className='text-sm text-black'>
+                Khám phá sản phẩm thẻ yêu thích hoặc lựa chọn nhanh nhờ tính năng so sánh và gợi ý dựa trên nhu cầu của
+                bạn
+              </p>
+            </div>
+            <div className='flex gap-4 max-h-[42px] z-20'>
+              <ButtonComponent
+                title='Đăng ký'
+                preffix={<CreditCardOutlined />}
+                styles={{ width: "50%", fontWeight: 500, fontSize: 16 }}
+                active
+              />
+              <ButtonCard
+                title='Ưu đãi'
+                preffix={<CreditCardOutlined className='text-red' />}
+                active
+                styles={{ flex: 1, fontWeight: 500, fontSize: 16 }}
+              />
+            </div>
+          </div>
+        </div>
+        <div className='absolute bottom-0 left-0 right-0 h-[300px] bg-cover bg-banner-card bg-[right_-125px_bottom_0px] bg-no-repeat' />
       </div>
       <WapperContainer>
+        {/* <div className='relative w-full h-[400px] bg-white rounded-3xl'>
+          <div className='z-20 absolute top-0 bottom-0 left-0 w-[606px] bg-[linear-gradient(180deg,_#E0E0E0_0%,_#CDD2D8_100%)] [clip-path:polygon(50%_0%,_94%_0,_88%_35%,_100%_88%,_93%_100%,_0_100%,_0_0)]'>
+            <div className='flex flex-col justify-between rounded-lg'>
+              <div className='flex flex-col gap-2'>
+                <p className='text-[22px] text-black font-bold'>Thẻ</p>
+                <p className='text-sm text-black'>
+                  Khám phá sản phẩm thẻ yêu thích hoặc lựa chọn nhanh nhờ tính năng so sánh và gợi ý dựa trên nhu cầu
+                  của bạn
+                </p>
+              </div>
+              <div className='flex gap-4 max-h-[42px]'>
+                <ButtonComponent
+                  title='Đăng ký'
+                  preffix={<CreditCardOutlined />}
+                  styles={{ width: "50%", fontWeight: 500, fontSize: 16 }}
+                  active
+                />
+                <ButtonCard
+                  title='Ưu đãi'
+                  preffix={<CreditCardOutlined className='text-red' />}
+                  active
+                  styles={{ flex: 1, fontWeight: 500, fontSize: 16 }}
+                />
+              </div>
+            </div>
+          </div>
+          <Image src={banner} fill alt='banner-home-card' className='object-contain rounded-3xl' />
+        </div> */}
         <section className='px-4 pt-4 pb-0 md:pb-4 flex flex-col gap-4'>
           <TitleComponent subTitle='Danh sách' title='Sản phẩm' />
           <div className='flex md:hidden overflow-x-scroll scrollbar-none gap-4 border-b-[1px] border-solid border-gray'>
@@ -216,13 +270,13 @@ const IndividualPage: React.FC = () => {
           </div>
           <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {dataCards.map((item) => {
-              const isSelectItem = cardSelectIds?.includes(item.id);
+              const isSelectItem = cardSelects?.find((card) => card.id === item.id);
               return (
                 <CardIndividual
                   key={item.id}
                   data={item}
                   isSelect={isSelectItem ? true : false}
-                  onCompare={() => cardDispatch?.({ type: "change", id: item.id })}
+                  onCompare={() => cardDispatch?.({ type: "change", payload: item })}
                 />
               );
             })}
@@ -245,12 +299,12 @@ const IndividualPage: React.FC = () => {
           </div>
         </WapperContainer>
       </div>
-      {(cardSelectIds || []).length > 0 && (
+      {(cardSelects || []).length > 0 && (
         <ToolbarCompareCard
-          dataCard={dataCards}
-          cardSelectIds={cardSelectIds || []}
+          onCompare={() => router.push("/individual/compare")}
+          cardSelects={cardSelects || []}
           onCancel={() => cardDispatch?.({ type: "clear" })}
-          onDeleteItem={(id) => cardDispatch?.({ type: "change", id })}
+          onDeleteItem={(id) => cardDispatch?.({ type: "change", payload: { id } })}
         />
       )}
     </section>

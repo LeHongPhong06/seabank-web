@@ -7,10 +7,10 @@ import React from "react";
 import ButtonComponent from "../buttons/ButtonComponent";
 import ButtonDefault from "../buttons/ButtonDefault";
 import WapperContainer from "../wappers/WapperContainer";
+import { Card } from "@/context/card/data";
 
 type Props = {
-  dataCard: Array<any>;
-  cardSelectIds: Array<number>;
+  cardSelects: Array<Card>;
   onCompare?: () => void;
   onCancel?: () => void;
   footerToolbarProps?: FooterToolbarProps;
@@ -21,9 +21,8 @@ const ToolbarCompareCard: React.FC<Props> = ({
   onCompare,
   onCancel,
   footerToolbarProps,
-  dataCard,
   onDeleteItem,
-  cardSelectIds,
+  cardSelects,
 }) => {
   return (
     <FooterToolbar
@@ -32,18 +31,17 @@ const ToolbarCompareCard: React.FC<Props> = ({
         <WapperContainer>
           <section className='grid gap-4 lg:gap-[36px] p-4 lg:grid-cols-[1fr_312px]'>
             <div className='grid gap-[20px] grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 lg:auto-cols-max'>
-              {cardSelectIds.map((item) => {
-                const cardItem = dataCard.find((card) => card.id === item);
+              {cardSelects.map((item) => {
                 return (
-                  <div className='relative w-full h-24 rounded-xl' key={cardItem.id}>
+                  <div className='relative w-full h-24 rounded-xl' key={item.id}>
                     <CloseCircleFilled
                       className='absolute text-white z-20 top-[5px] lg:top-0 right-[5px] block hover:cursor-pointer lg:text-lg'
-                      onClick={() => onDeleteItem(cardItem.id)}
+                      onClick={() => onDeleteItem(item.id)}
                     />
                     <Image
                       priority={false}
-                      alt={`card-${cardItem.id}`}
-                      src={cardItem.image}
+                      alt={`card-${item.id}`}
+                      src={item.image || ""}
                       fill
                       className='object-cover rounded-xl'
                     />
@@ -56,18 +54,13 @@ const ToolbarCompareCard: React.FC<Props> = ({
             </div>
             <div className='flex items-center lg:w-[312px] justify-center'>
               <div className='flex gap-3 lg:flex-col-reverse w-full'>
-                <ButtonDefault
-                  title='Dừng so sánh'
-                  styles={{ maxHeight: 42, flex: 1 }}
-                  onClick={onCancel}
-                  textStyles={{ fontSize: 16, fontWeight: 500 }}
-                />
+                <ButtonDefault title='Dừng so sánh' styles={{ maxHeight: 42, flex: 1 }} onClick={onCancel} />
                 <ButtonComponent
-                  disabled={cardSelectIds.length < 2}
+                  disabled={cardSelects.length < 2}
                   title='So sánh thẻ'
                   styles={{ maxHeight: 42, flex: 1 }}
                   onClick={onCompare}
-                  active={cardSelectIds.length > 1}
+                  active={cardSelects.length > 1}
                   textStyles={{ fontSize: 16, fontWeight: 500 }}
                 />
               </div>
