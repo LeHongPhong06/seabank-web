@@ -10,6 +10,7 @@ import WapperContainer from "../wappers/WapperContainer";
 import { Card } from "@/context/card/data";
 
 type Props = {
+  disableSelect?: boolean;
   cardSelects: Array<Card>;
   onCompare?: () => void;
   onCancel?: () => void;
@@ -23,6 +24,7 @@ const ToolbarCompareCard: React.FC<Props> = ({
   footerToolbarProps,
   onDeleteItem,
   cardSelects,
+  disableSelect,
 }) => {
   return (
     <FooterToolbar
@@ -48,9 +50,11 @@ const ToolbarCompareCard: React.FC<Props> = ({
                   </div>
                 );
               })}
-              <div className='h-24 flex border-gray-text justify-center items-center border-[1px] rounded-xl border-dashed'>
-                <PlusOutlined className='block text-gray-text text-[20px]' />
-              </div>
+              {!disableSelect && (
+                <div className='h-24 flex border-gray-text justify-center items-center border-[1px] rounded-xl border-dashed'>
+                  <PlusOutlined className='block text-gray-text text-[20px]' />
+                </div>
+              )}
             </div>
             <div className='flex items-center lg:w-[312px] justify-center'>
               <div className='flex gap-3 lg:flex-col-reverse w-full'>

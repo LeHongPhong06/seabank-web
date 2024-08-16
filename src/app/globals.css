@@ -51,10 +51,8 @@ body {
   display: none;
 }
 
-.ant-tabs-tab {
-  font-weight: 500 !important;
-}
-
-.ant-tabs-tab-active {
-  font-weight: 600 !important;
+#popover-chosse-card {
+  border-color: #e8e8e8;
+  border-width: 1px;
+  padding: 16px;
 }

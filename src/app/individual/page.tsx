@@ -3,6 +3,7 @@ import ButtonCard from "@/components/buttons/ButtonCard";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
 import ButtonDefault from "@/components/buttons/ButtonDefault";
 import ButtonLink from "@/components/buttons/ButtonLink";
+import ButtonPrimary from "@/components/buttons/ButtonPrimary";
 import CardIncentives from "@/components/cards/CardIncentives";
 import CardIndividual from "@/components/cards/CardIndividual";
 import TitleComponent from "@/components/TitleComponent";
@@ -10,6 +11,8 @@ import ToolbarCompareCard from "@/components/toolbars/ToolbarCompareCard";
 import WapperContainer from "@/components/wappers/WapperContainer";
 import { useCard, useCardDispatch } from "@/context/card";
 import { CaretDownOutlined, CreditCardOutlined, FilterOutlined } from "@ant-design/icons";
+import { useBreakpoint } from "@ant-design/pro-components";
+import { Breakpoint } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -23,6 +26,10 @@ const IndividualPage: React.FC = () => {
   const cardSelects = useCard();
   const cardDispatch = useCardDispatch();
   const [cardType, setCardType] = useState<string>("1");
+  const breakpoint = useBreakpoint();
+  const breakpointTablet: Breakpoint[] = ["xs", "sm"];
+  const isMobile = breakpointTablet.includes(breakpoint || "sm") && (cardSelects || []).length > 1;
+  const isTablet = !breakpointTablet.includes(breakpoint || "sm") && (cardSelects || []).length > 2;
   const dataCards = [
     {
       id: 1,
@@ -274,6 +281,7 @@ const IndividualPage: React.FC = () => {
               return (
                 <CardIndividual
                   key={item.id}
+                  disabled={isMobile || isTablet}
                   data={item}
                   isSelect={isSelectItem ? true : false}
                   onCompare={() => cardDispatch?.({ type: "change", payload: item })}
@@ -301,6 +309,7 @@ const IndividualPage: React.FC = () => {
       </div>
       {(cardSelects || []).length > 0 && (
         <ToolbarCompareCard
+          disableSelect={isMobile || isTablet}
           onCompare={() => router.push("/individual/compare")}
           cardSelects={cardSelects || []}
           onCancel={() => cardDispatch?.({ type: "clear" })}
