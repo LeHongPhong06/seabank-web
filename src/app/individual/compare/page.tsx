@@ -400,10 +400,11 @@ const CompareCardPage: React.FC = () => {
                 ))}
               </tr>
             </tbody>
-            <tfoot>
+            <tfoot className='md:hidden'>
               <tr className='flex gap-4'>
+                <td className='hidden md:w-[23%]' />
                 {cards?.map((card) => (
-                  <td className='md:w-[23%] w-1/2'>
+                  <td className='md:w-[23%] w-1/2' key={card.id}>
                     <ButtonComponent
                       title='Mở thẻ ngay'
                       active

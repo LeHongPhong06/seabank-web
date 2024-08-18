@@ -102,7 +102,7 @@ export default function Home() {
             {dataSearhResult.length > 0 ? (
               <p className='text-black font-normal'>
                 Có <span className='font-semibold'>94</span> kết quả tìm kiếm cho
-                <span className='font-semibold'> "Quản lí dòng tiền"</span>
+                <span className='font-semibold'>{`"Quản lí dòng tiền"`}</span>
               </p>
             ) : (
               <p className='text-sm text-black'>
