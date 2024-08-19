@@ -7,12 +7,12 @@ import seABankIc from "@/assets/images/seABank-ic.svg";
 import walletIc from "@/assets/images/wallet-ic.svg";
 import { useAppDispatch } from "@/hooks/redux";
 import { setOpenChangeDrawerSearch, setOpenChangeModalSearch } from "@/stores/slices/search";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import React from "react";
 import AnimationWapper from "../AnimationWapper";
 import ButtonComponent from "../buttons/ButtonComponent";
-import InputSearch from "../inputs/InputSearch";
+import InputComponent from "../inputs/InputComponent";
 
 const SearchPopup: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -83,10 +83,14 @@ const SearchPopup: React.FC = () => {
           Tìm kiếm
         </h3>
         <div className='flex gap-[18px] flex-col items-start md:items-center max-w-[788px] z-20'>
-          <InputSearch />
+          <InputComponent
+            preffix={<SearchOutlined className='text-red' />}
+            affixWapperClass='md:rounded-2xl bg-gradient-primary md:bg-gray-text md:p-[2px]'
+            containerClass='md:rounded-xl'
+          />
           <div className='md:flex gap-2 items-center'>
             <h3 className='text-black font-bold mb-2'>Tìm kiếm gần đây:</h3>
-            <div className='flex gap-2 flex-wrap scroll-'>
+            <div className='flex gap-2 flex-wrap'>
               {history.map((item) => (
                 <ButtonComponent key={item.title} title={item.title} />
               ))}

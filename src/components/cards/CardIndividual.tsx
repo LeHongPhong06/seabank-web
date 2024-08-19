@@ -29,7 +29,7 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
                 <Image src={icon} fill alt='icon-remu' className='object-contain' />
               </div>
             </div>
-            <p className='text-gray-text'>{remu}</p>
+            <p className='text-gray-process-text'>{remu}</p>
           </div>
         ))}
         <div className='flex gap-3 min-h-[42px]'>
@@ -38,7 +38,6 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
             active={isSelect}
             title='So sánh'
             onClick={() => onCompare?.({ type: "change", payload: { id: data.id } })}
-            styles={{ flex: 1 }}
             preffix={
               isSelect ? (
                 <div className='bg-gradient-primary size-6 flex justify-center items-center rounded-full'>
@@ -48,6 +47,7 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
                 <div className='size-6 border-[1px] border-solid border-gray-text bg-transparent rounded-full' />
               )
             }
+            styles='md:flex-1 bg-transparent md:bg-gray'
           />
           <ButtonComponent
             active

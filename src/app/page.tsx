@@ -1,5 +1,6 @@
 "use client";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
+import InputComponent from "@/components/inputs/InputComponent";
 import InputSearch from "@/components/inputs/InputSearch";
 import InputSearchMD from "@/components/inputs/InputSearchMD";
 import NotFoundData from "@/components/NotFoundData";
@@ -7,6 +8,7 @@ import PaginationComponent from "@/components/paginations/PaginationComponent";
 import SearchResult from "@/components/searchs/SearchResult";
 import SelectComponent from "@/components/selects/SelectComponent";
 import SelectSearchMD from "@/components/selects/SelectSearchMD";
+import TitleComponent from "@/components/TitleComponent";
 import WapperContainer from "@/components/wappers/WapperContainer";
 import { ArrowDownOutlined, SearchOutlined } from "@ant-design/icons";
 import { SelectProps } from "antd/lib";
@@ -75,30 +77,18 @@ export default function Home() {
           <div className='flex md:flex-row flex-col items-center gap-4 md:p-2 md:rounded-2xl md:gap-[10px] md:bg-gray-four'>
             <SelectComponent className='w-full md:hidden block' options={options} placeholder='Chọn hạng mục' />
             <SelectSearchMD className='w-[234px] md:block hidden' options={options} placeholder='Chọn hạng mục' />
-            <div className='block md:hidden w-full'>
-              <InputSearch
-                key={"search"}
-                inputProps={{
-                  prefix: <SearchOutlined className='text-red' />,
-                }}
-              />
-            </div>
-            <div className='md:block hidden flex-1'>
-              <InputSearchMD
-                key={1}
-                inputProps={{
-                  prefix: <SearchOutlined className='text-red' />,
-                }}
-              />
-            </div>
+            <InputComponent affixWapperClass='md:hidden bg-gradient-primary' />
+            <InputComponent
+              affixWapperClass='hidden md:block md:p-[1px] rounded-2xl bg-gray-text'
+              containerClass='rounded-[15px]'
+            />
           </div>
           <div className='flex flex-col gap-2'>
-            <div className='flex gap-[4px]'>
-              <span className='bg-gradient-primary text-transparent font-semibold text-[20px] bg-clip-text'>
-                Kết Quả
-              </span>
-              <span className='text-[20px] text-black font-semibold'>Tìm Kiếm</span>
-            </div>
+            <TitleComponent
+              title='Kết quả'
+              subTitle='Tìm kiếm'
+              styles={{ flexDirection: "row-reverse", justifyContent: "start" }}
+            />
             {dataSearhResult.length > 0 ? (
               <p className='text-black font-normal'>
                 Có <span className='font-semibold'>94</span> kết quả tìm kiếm cho

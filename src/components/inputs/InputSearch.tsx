@@ -31,9 +31,9 @@ const InputSearch: React.FC<Props> = ({ inputProps }) => {
             borderImageSource: colors.PRIMARY_GRADIENT,
             borderImageSlice: 1,
             borderImageWidth: 1,
-            WebkitMaskComposite: "xor",
-            maskComposite: "exclude",
             borderRadius: 12,
+            backgroundClip: "border-box",
+            borderCollapse: "collapse",
           },
         }}
       />

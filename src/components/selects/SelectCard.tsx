@@ -2,24 +2,26 @@
 import { colors } from "@/constants/colors";
 import { Card } from "@/context/card/data";
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
-import { ConfigProvider, Input, Popover } from "antd";
-import { TooltipRef } from "antd/es/tooltip";
+import { ConfigProvider, GetProps, Input, Popover } from "antd";
 import React from "react";
 import styles from "./select.module.css";
+import { TooltipRef } from "antd/es/tooltip";
 
 type Props = {
-  popoverRef?: React.LegacyRef<TooltipRef> | undefined;
+  popoverRef?: React.LegacyRef<TooltipRef> | null;
+  inputProps?: GetProps<typeof Input>;
   cardSelect: Array<Card>;
   onSelect: (card: Card) => void;
   dataCard?: Array<Card>;
   onSwap?: (card: Card) => void;
+  popoverProps?: GetProps<typeof Popover>;
 };
 
-const SelectCard: React.FC<Props> = ({ dataCard, cardSelect, onSelect, popoverRef }) => {
+const SelectCard: React.FC<Props> = ({ dataCard, cardSelect, onSelect, inputProps, popoverProps, popoverRef }) => {
   const ContainerPopover = () => {
     return (
       <div className='max-h-[385px] w-[342px] bg-white'>
-        <Input prefix={<SearchOutlined className='text-black text-xl mr-2' />} />
+        <Input prefix={<SearchOutlined className='text-black text-xl mr-2' />} {...inputProps} />
         <div className={`flex flex-col mt-3 gap-1 max-h-[274px] overflow-y-scroll ${styles.selectCard}`}>
           {dataCard?.map((item) => {
             const cardItem = cardSelect?.find((card) => card.id === item.id);
@@ -72,11 +74,12 @@ const SelectCard: React.FC<Props> = ({ dataCard, cardSelect, onSelect, popoverRe
       }}
     >
       <Popover
-        ref={popoverRef}
         placement='bottomRight'
         content={<ContainerPopover />}
         trigger={"click"}
         id='popover-chosse-card'
+        {...popoverProps}
+        ref={popoverRef}
       >
         <div className='relative p-[1px] h-[152px] hover:cursor-pointer bg-transparent rounded-xl hover:bg-gradient-primary active:shadow-select-card'>
           <div className='p-2 rounded-xl bg-gray-5 h-full'>

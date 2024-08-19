@@ -1,4 +1,3 @@
-import { colors } from "@/constants/colors";
 import { ConfigProvider, GetProps, Select } from "antd";
 import React from "react";
 
@@ -25,6 +24,7 @@ const SelectSearchMD = (selectProps: GetProps<typeof Select>) => {
             colorPrimaryBorder: "transparent",
             paddingContentVerticalSM: 13.5,
             colorTextPlaceholder: "#000",
+            borderRadiusSM: 12,
           },
         },
       }}
