@@ -37,6 +37,14 @@ const SearchPopup: React.FC = () => {
       title: "Ngân hàng SeABank",
       href: "/",
     },
+    {
+      title: "Ngân hàng SeABank",
+      href: "/",
+    },
+    {
+      title: "Ngân hàng SeABank",
+      href: "/",
+    },
   ];
   const dataNews = [
     {
@@ -76,20 +84,20 @@ const SearchPopup: React.FC = () => {
         <AnimationWapper styles='hidden lg:block absolute left-32 top-0' direction='top'>
           <Image src={chartIc} alt='chart-ic' className='object-contain w-auto h-auto' />
         </AnimationWapper>
-        <AnimationWapper styles='hidden lg:block absolute left-4 xl:left-20 top-32' direction='left' duration={1}>
+        <AnimationWapper styles='hidden lg:block absolute left-8 xl:left-20 top-20' direction='left' duration={1}>
           <Image src={bankIc} alt='bank-ic' className='object-contain w-auto h-auto' />
         </AnimationWapper>
         <h3 className='lg:mt-6 font-bold text-center text-[20px] text-transparent bg-gradient-primary bg-clip-text capitalize leading-7'>
           Tìm kiếm
         </h3>
-        <div className='flex gap-[18px] flex-col items-start md:items-center max-w-[788px] z-20'>
+        <div className='flex gap-[18px] flex-col items-start md:items-center z-20'>
           <InputComponent
-            preffix={<SearchOutlined className='text-red' />}
-            affixWapperClass='md:rounded-2xl bg-gradient-primary md:bg-gray-text md:p-[2px]'
-            containerClass='md:rounded-xl'
+            preffix={<SearchOutlined className='text-red text-xl' />}
+            affixWapperClass='md:rounded-2xl bg-gradient-primary md:bg-gray-text md:p-[2px] max-w-[788px]'
+            containerClass='md:rounded-[14px]'
           />
           <div className='md:flex gap-2 items-center'>
-            <h3 className='text-black font-bold mb-2'>Tìm kiếm gần đây:</h3>
+            <h3 className='text-black font-bold mb-2 md:mb-0 text-nowrap'>Tìm kiếm gần đây:</h3>
             <div className='flex gap-2 flex-wrap'>
               {history.map((item) => (
                 <ButtonComponent key={item.title} title={item.title} />
@@ -107,8 +115,10 @@ const SearchPopup: React.FC = () => {
           <Image src={flagIc} alt='flag-ic' className='object-contain w-auto h-auto' />
         </AnimationWapper>
         <div className='md:flex items-center gap-2'>
-          <h3 className='text-black font-bold mb-2'>Từ khóa phổ biến:</h3>
-          <div className={`flex gap-2 overflow-x-auto scrollbar-none`}>
+          <h3 className='text-black font-bold mb-2 md:mb-0 text-nowrap'>Từ khóa phổ biến:</h3>
+          <div
+            className={`flex gap-2 overflow-x-auto [scrollbar-width:none] md:overflow-x-auto md:[scrollbar-width:block]`}
+          >
             {history.map((item) => (
               <ButtonComponent key={item.title} title={item.title} styles={{ textWrap: "nowrap" }} />
             ))}

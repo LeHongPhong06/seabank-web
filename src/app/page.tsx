@@ -1,8 +1,6 @@
 "use client";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
 import InputComponent from "@/components/inputs/InputComponent";
-import InputSearch from "@/components/inputs/InputSearch";
-import InputSearchMD from "@/components/inputs/InputSearchMD";
 import NotFoundData from "@/components/NotFoundData";
 import PaginationComponent from "@/components/paginations/PaginationComponent";
 import SearchResult from "@/components/searchs/SearchResult";
@@ -79,8 +77,9 @@ export default function Home() {
             <SelectSearchMD className='w-[234px] md:block hidden' options={options} placeholder='Chọn hạng mục' />
             <InputComponent affixWapperClass='md:hidden bg-gradient-primary' />
             <InputComponent
-              affixWapperClass='hidden md:block md:p-[1px] rounded-2xl bg-gray-text'
+              affixWapperClass='hidden md:block md:p-[1px] rounded-[16px] bg-gray-text'
               containerClass='rounded-[15px]'
+              preffix={<SearchOutlined className='text-gray-process-text' />}
             />
           </div>
           <div className='flex flex-col gap-2'>

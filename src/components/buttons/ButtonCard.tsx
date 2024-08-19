@@ -30,7 +30,7 @@ const ButtonCard: React.FC<Props> = ({
         disabled={!active && disabled}
         className={`flex justify-center px-3 py-2 items-center gap-[8px] w-full h-full font-bold text-base ${
           active ? "bg-white" : "bg-transparent"
-        } ${!active && disabled ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} py-[10px] rounded-xl`}
+        } ${!active && disabled ? "hover:cursor-not-allowed" : "hover:cursor-pointer"} py-[10px] rounded-[11px]`}
         onClick={onClick}
         style={buttonStyles}
       >
