@@ -63,11 +63,11 @@ const IndividualPage: React.FC = () => {
                   styles={{ width: "50%", fontWeight: 500, fontSize: 16 }}
                   active
                 />
-                <ButtonCard
+                <ButtonDefault
                   title='Ưu đãi'
                   preffix={<CreditCardOutlined className='text-red' />}
                   active
-                  styles='flex-1 font-medium bg-gradient-primary text-base min-h-[42px]'
+                  wapperClass='flex-1 font-medium text-base min-h-[42px]'
                 />
               </div>
             </div>
