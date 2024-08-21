@@ -8,7 +8,7 @@ type Props = {
 const TitleComponent: React.FC<Props> = ({ title, styles }) => {
   return (
     <h2
-      className='text-transparent bg-gradient-primary leading-10 bg-clip-text capitalize text-2xl font-bold'
+      className='text-transparent bg-gradient-primary leading-10 bg-clip-text capitalize text-xl md:text-2xl font-bold'
       style={styles}
     >
       {title}

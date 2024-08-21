@@ -21,7 +21,7 @@ const ButtonDefault: React.FC<Props> = ({ title, onClick, styles, preffix, activ
         <p
           className={`${
             active ? "bg-gradient-primary text-transparent bg-clip-text" : "text-black"
-          } text-nowrap font-medium text-base`}
+          } font-medium text-base`}
         >
           {title}
         </p>

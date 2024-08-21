@@ -40,30 +40,34 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
           </div>
         ))}
         <div className='flex gap-3 min-h-[42px]'>
-          <ButtonCard
-            disabled={disabled}
-            active={isSelect}
-            title='So sánh'
-            onClick={() => onCompare?.({ type: "change", payload: { id: data.id } })}
-            preffix={
-              isSelect ? (
-                <div className='bg-gradient-primary size-6 flex justify-center items-center rounded-full'>
-                  <CheckOutlined className='text-white text-[10px]' />
-                </div>
-              ) : (
-                <div className='size-6 border-[1px] border-solid border-gray-text bg-transparent rounded-full' />
-              )
-            }
-            styles='md:flex-1 bg-transparent md:bg-gray'
-          />
-          <ButtonComponent
-            active
-            title='Đăng ký thẻ'
-            styles={{ flex: 1 }}
-            textStyles={{ fontSize: 16 }}
-            onClick={() => onRegister?.(data.id)}
-            preffix={<CreditCardOutlined className='text-base' />}
-          />
+          <div className='md:flex-1'>
+            <ButtonCard
+              disabled={disabled}
+              active={isSelect}
+              title='So sánh'
+              onClick={() => onCompare?.({ type: "change", payload: { id: data.id } })}
+              preffix={
+                isSelect ? (
+                  <div className='bg-gradient-primary size-6 flex justify-center items-center rounded-full'>
+                    <CheckOutlined className='text-white text-[10px]' />
+                  </div>
+                ) : (
+                  <div className='size-6 border-[1px] border-solid border-gray-text bg-transparent rounded-full' />
+                )
+              }
+              styles='md:flex-1 bg-transparent md:bg-gray h-full'
+            />
+          </div>
+          <div className='flex-1'>
+            <ButtonComponent
+              active
+              title='Đăng ký tư vấn'
+              styles={{ width: "100%", height: "100%" }}
+              textStyles={{ fontSize: 16 }}
+              onClick={() => onRegister?.(data.id)}
+              preffix={<CreditCardOutlined className='text-base' />}
+            />
+          </div>
         </div>
       </div>
     </div>

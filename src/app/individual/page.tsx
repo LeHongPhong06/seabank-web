@@ -73,7 +73,7 @@ const IndividualPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <section className='px-4 pt-4 md:pt-0 md:pb-12  flex flex-col gap-4 md:gap-6'>
+        <section className='px-4 pt-4 md:pt-0 md:pb-12 flex flex-col gap-4 md:gap-6'>
           <div className='flex flex-col gap-4'>
             <TitleComponent title='Danh sách Sản phẩm' />
             <TabsComponent data={dataCategory} onSelect={(key) => setCardType(key)} idSelect={cardType} />
@@ -101,7 +101,7 @@ const IndividualPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6'>
+          <section className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6'>
             {dataCards.map((item) => {
               const isSelectItem = cardSelects?.find((card) => card.id === item.id);
               return (
