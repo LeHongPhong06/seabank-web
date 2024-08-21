@@ -67,7 +67,7 @@ const IndividualPage: React.FC = () => {
                   title='Ưu đãi'
                   preffix={<CreditCardOutlined className='text-red' />}
                   active
-                  styles='flex-1 font-medium text-base min-h-[42px]'
+                  styles='flex-1 font-medium bg-gradient-primary text-base min-h-[42px]'
                 />
               </div>
             </div>

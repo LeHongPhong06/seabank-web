@@ -1,4 +1,5 @@
 import icon from "@/assets/images/icons/mingcute.svg";
+import border from "@/assets/images/icons/card-border.svg";
 import { Card, PayloadAction } from "@/context/card/data";
 import { CheckOutlined, CreditCardOutlined } from "@ant-design/icons";
 import Image from "next/image";
@@ -19,7 +20,13 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
     <div className={`p-[2px] ${isSelect ? "bg-gradient-primary" : "bg-gray"}  rounded-xl w-full hover:shadow-card`}>
       <div className='p-4 h-full w-full gap-3 flex flex-col bg-white rounded-[10px]'>
         <div className='relative w-full min-h-[220px] h-full rounded-lg'>
-          <Image alt={`image-card-${data.id}`} fill src={data.image ?? ""} className='object-cover rounded-xl' />
+          <Image alt={"border"} src={border} height={36.97} width={36.97} className='absolute top-0 right-0 z-10' />
+          <Image
+            alt={`image-card-${data.id}`}
+            fill
+            src={data.image ?? ""}
+            className='object-cover rounded-xl rounded-tr-3xl'
+          />
         </div>
         <h3 className='text-[18px] text-black font-semibold lg:min-h-[44px]'>{data.title}</h3>
         {data.remuneration?.map((remu: string) => (
