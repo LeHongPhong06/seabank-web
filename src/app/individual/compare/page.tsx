@@ -11,28 +11,34 @@ import { useBreakpointScreen } from "@/hooks/breakpoint";
 import { CloseCircleFilled } from "@ant-design/icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const CompareCardPage: React.FC = () => {
   const router = useRouter();
   const cards = useCard();
-  const cardCompareDispatch = useCardDispatch();
   const [isMobile, isTablet] = useBreakpointScreen();
+  const [openCardSelect, setOpenCardSelect] = useState(false);
+  const cardDispatch = useCardDispatch();
+  useEffect(() => {
+    return () => {
+      cardDispatch?.({ type: "clear" });
+    };
+  }, []);
   return (
     <div className='bg-white min-h-[80vh]'>
-      <div className='p-4'>
-        <WapperContainer>
+      <WapperContainer>
+        <div className='p-4'>
           <div className='mb-4 md:hidden'>
             <TitleComponent subTitle='Thẻ' title='So sánh' styles={{ flexDirection: "row-reverse" }} />
           </div>
           <table className='w-full'>
             <thead>
               <tr className='flex gap-4 md:mb-4 mb-6'>
-                <th className='w-[23%] rounded-xl p-4 bg-gray-5 md:flex justify-center items-start flex-col hidden'>
+                <th className='w-[24%] rounded-xl p-4 bg-gray-5 md:flex justify-center items-start flex-col hidden'>
                   <TitleComponent subTitle='Thẻ' title='So sánh' styles={{ flexDirection: "row-reverse" }} />
                   <div className='text-left font-medium'>
                     {cards?.map((item) => (
-                      <p className='text-black text-sm' key={item.id}>
+                      <p className='text-black text-sm leading-[22px]' key={item.id}>
                         {item.title}
                       </p>
                     ))}
@@ -40,19 +46,28 @@ const CompareCardPage: React.FC = () => {
                 </th>
                 {cards?.map((card) => (
                   <th
-                    className='md:w-[23%] w-1/2 flex flex-col justify-between gap-3 p-4 rounded-xl bg-gray-5'
+                    className='md:w-[24%] w-1/2 flex flex-col gap-3 min-h-64 justify-between p-4 rounded-xl bg-gray-5'
                     key={card.id}
                   >
-                    <div className='w-full h-[120px] p-[1px] bg-transparent hover:bg-gradient-primary rounded-xl'>
-                      <div className='relative h-full w-full rounded-xl'>
-                        <CloseCircleFilled
-                          className='absolute text-white z-20 top-[5px] lg:top-0 right-[5px] block hover:cursor-pointer lg:text-lg'
-                          onClick={() => cardCompareDispatch?.({ type: "delete", payload: { id: card.id } })}
-                        />
-                        <Image src={card.image ?? ""} alt={card.title ?? ""} fill className='object-cover rounded-xl' />
+                    <div>
+                      <div className='w-full h-[120px] gap-[18px] p-[1px] bg-transparent hover:bg-gradient-primary rounded-xl'>
+                        <div className='relative h-full w-full rounded-[11px]'>
+                          <CloseCircleFilled
+                            className='absolute text-white z-20 top-[5px] lg:top-0 right-[5px] block hover:cursor-pointer lg:text-lg'
+                            onClick={() => cardDispatch?.({ type: "delete", payload: { id: card.id } })}
+                          />
+                          <Image
+                            src={card.image ?? ""}
+                            alt={card.title ?? ""}
+                            fill
+                            className='object-cover rounded-[11px]'
+                          />
+                        </div>
                       </div>
+                      <p className='text-left text-base font-semibold leading-[22px] text-black mt-[18px]'>
+                        {card.title}
+                      </p>
                     </div>
-                    <p className='text-base font-semibold leading-[22px] text-black mb-1'>{card.title}</p>
                     <div className='flex items-center gap-3'>
                       <div className='flex-1 hidden md:block'>
                         <ButtonDefault
@@ -68,20 +83,30 @@ const CompareCardPage: React.FC = () => {
                   </th>
                 ))}
                 {isMobile && (cards || []).length < 2 && (
-                  <th className='w-[48%] md:w-[23%]'>
+                  <th className='w-[48%] md:w-[24%]'>
                     <SelectCard
+                      onOpenChange={(open) => setOpenCardSelect(open)}
+                      open={openCardSelect}
                       dataCard={dataCards}
                       cardSelect={cards || []}
-                      onSelect={(card) => cardCompareDispatch?.({ type: "change", payload: card })}
+                      onSelect={(card) => {
+                        cardDispatch?.({ type: "change", payload: card });
+                        setOpenCardSelect(false);
+                      }}
                     />
                   </th>
                 )}
                 {isTablet && (cards || []).length < 3 && (
-                  <th className='w-[48%] md:w-[23%]'>
+                  <th className='w-[48%] md:w-[24%]'>
                     <SelectCard
+                      onOpenChange={(open) => setOpenCardSelect(open)}
+                      open={openCardSelect}
                       dataCard={dataCards}
                       cardSelect={cards || []}
-                      onSelect={(card) => cardCompareDispatch?.({ type: "change", payload: card })}
+                      onSelect={(card) => {
+                        cardDispatch?.({ type: "change", payload: card });
+                        setOpenCardSelect(false);
+                      }}
                     />
                   </th>
                 )}
@@ -150,30 +175,24 @@ const CompareCardPage: React.FC = () => {
             </tbody>
             <tfoot className='md:hidden'>
               <tr className='flex gap-4'>
-                <td className='hidden md:w-[23%]' />
+                <td className='hidden' />
                 {cards?.map((card) => (
-                  <td className='md:w-[23%] w-1/2' key={card.id}>
-                    <ButtonComponent
-                      title='Mở thẻ ngay'
-                      active
-                      styles={{
-                        width: "100%",
-                      }}
-                    />
+                  <td className='w-1/2' key={card.id}>
+                    <ButtonComponent title='Mở thẻ ngay' active styles={{ width: "100%" }} />
                   </td>
                 ))}
               </tr>
             </tfoot>
           </table>
-        </WapperContainer>
-      </div>
+        </div>
+      </WapperContainer>
     </div>
   );
 };
 
 const TitleCompare = ({ title }: { title: string }) => {
   return (
-    <td className='p-4 bg-white w-[23%] border-[1px] hidden md:block border-solid rounded-xl border-gray-5'>
+    <td className='p-4 bg-white w-[24%] border-[1px] hidden md:block border-solid rounded-xl border-gray-5'>
       <div className='flex gap-2'>
         <div className='min-w-6'>
           <div className='relative w-full h-6'>
@@ -198,7 +217,7 @@ const TitleCompareMobile = ({ title }: { title: string }) => {
 
 const WapperContentCompare = ({ children }: { children: React.ReactNode }) => {
   return (
-    <td className='md:w-[23%] w-1/2 p-4 border-[1px] bg-white border-solid rounded-xl border-gray-5'>{children}</td>
+    <td className='md:w-[24%] w-1/2 p-4 border-[1px] bg-white border-solid rounded-xl border-gray-5'>{children}</td>
   );
 };
 export default CompareCardPage;

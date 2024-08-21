@@ -36,7 +36,7 @@ const config: Config = {
         footer: "url('/footer.svg')",
         banner: "url('/banner.svg')",
         "banner-tablet": "url('/banner-tablet.svg')",
-        hero: "url('/Hero.png')",
+        hero: "url('/hero.svg')",
       },
     },
   },

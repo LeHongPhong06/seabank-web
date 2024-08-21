@@ -71,15 +71,18 @@ export default function Home() {
   return (
     <main className='min-h-[70vh] bg-white'>
       <WapperContainer>
-        <div className='py-6 lg:py-8 px-4 lg:px-2 xl:px-0 flex flex-col gap-6 lg:gap-8'>
+        <div className='py-6 px-4 flex flex-col gap-6 lg:gap-8'>
           <div className='flex md:flex-row flex-col items-center gap-4 md:p-2 md:rounded-2xl md:gap-[10px] md:bg-gray-four'>
             <SelectComponent className='w-full md:hidden block' options={options} placeholder='Chọn hạng mục' />
             <SelectSearchMD className='w-[234px] md:block hidden' options={options} placeholder='Chọn hạng mục' />
-            <InputComponent affixWapperClass='md:hidden bg-gradient-primary' />
+            <InputComponent
+              affixWapperClass='md:hidden bg-gradient-primary rounded-xl'
+              preffix={<SearchOutlined className='text-primary text-xl' />}
+            />
             <InputComponent
               affixWapperClass='hidden md:block md:p-[1px] rounded-[16px] bg-gray-text'
               containerClass='rounded-[15px]'
-              preffix={<SearchOutlined className='text-gray-process-text' />}
+              preffix={<SearchOutlined className='text-primary text-xl' />}
             />
           </div>
           <div className='flex flex-col gap-2'>

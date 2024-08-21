@@ -17,15 +17,15 @@ type Props = {
 const CardIncentives: React.FC<Props> = ({ data }) => {
   const { startDate, endDate } = data;
   const currentDate = new Date().getTime();
-  const process = (): string => {
+  const process = (): number => {
     if (currentDate < startDate) {
-      return "0%";
+      return 0;
     } else if (currentDate > endDate) {
-      return "100%";
+      return 100;
     } else {
       const totalDuration = endDate - startDate;
       const elapsedDuration = currentDate - startDate;
-      return `[${Math.round((elapsedDuration / totalDuration) * 100)}%]`;
+      return Math.round((elapsedDuration / totalDuration) * 100);
     }
   };
   const dataProcess = process();
@@ -43,8 +43,8 @@ const CardIncentives: React.FC<Props> = ({ data }) => {
         </div>
         <div className='w-full h-[5px] bg-gray-process rounded-full relative'>
           <div
-            style={{ width: dataProcess }}
-            className={`bg-red absolute ${dataProcess === "w-full" ? "rounded-full" : "rounded-l-full"} top-0 bottom-0`}
+            style={{ width: `${dataProcess}%` }}
+            className={`bg-red absolute ${dataProcess === 100 ? "rounded-full" : "rounded-l-full"} top-0 bottom-0`}
           />
         </div>
       </div>

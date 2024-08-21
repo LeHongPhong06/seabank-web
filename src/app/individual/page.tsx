@@ -25,7 +25,6 @@ const IndividualPage: React.FC = () => {
   const [isMobile, isTablet] = useBreakpointScreen();
   const isChooseMobile = isMobile && (cardSelects || []).length > 1;
   const isChooseTablet = isTablet && (cardSelects || []).length > 2;
-
   const dataCategory = [
     {
       key: 1,
@@ -49,7 +48,7 @@ const IndividualPage: React.FC = () => {
       <WapperContainer>
         <div className='md:py-12'>
           <div className='h-[454px] w-full md:p-0 p-4 bg-banner md:bg-banner-tablet bg-no-repeat bg-cover bg-center md:rounded-xl'>
-            <div className='flex flex-col gap-4 justify-between md:justify-center md:px-24 rounded-xl md:max-w-[606px] pt-6 md:pt-0 px-4 h-full bg-[linear-gradient(180deg,_#FFF_15.27%,_rgba(255,_255,_255,_0.00)_47.83%)] md:bg-[linear-gradient(180deg,_#E0E0E0_0%,_#CDD2D8_100%)] md:[clip-path:polygon(97%_0,_93%_37%,_100%_86%,_96%_100%,_45%_100%,_0_100%,_0_0)]'>
+            <div className='flex flex-col gap-4 justify-between md:justify-center md:px-12 lg:px-24 rounded-xl md:w-1/2 pt-6 md:pt-0 px-4 h-full bg-[linear-gradient(180deg,_#FFF_15.27%,_rgba(255,_255,_255,_0.00)_47.83%)] md:bg-[linear-gradient(180deg,_#E0E0E0_0%,_#CDD2D8_100%)] md:[clip-path:polygon(97%_0,_93%_37%,_100%_86%,_96%_100%,_45%_100%,_0_100%,_0_0)]'>
               <div className='flex flex-col gap-2'>
                 <p className='text-[22px] md:text-[32px] text-black font-bold'>Thẻ</p>
                 <p className='text-sm md:text-base leading-[22px] text-black'>

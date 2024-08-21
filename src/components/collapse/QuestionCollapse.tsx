@@ -6,7 +6,11 @@ const QuestionCollapse = (props: GetProps<typeof Collapse>) => {
     <ConfigProvider
       theme={{
         components: {
-          Collapse: {},
+          Collapse: {
+            colorText: "rgba(0, 0, 0, 0.85)",
+            fontSize: 18,
+            headerPadding: "12px 0px",
+          },
         },
       }}
     >

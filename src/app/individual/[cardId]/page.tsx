@@ -7,21 +7,21 @@ import CardIndividual from "@/components/cards/CardIndividual";
 import QuestionCollapse from "@/components/collapse/QuestionCollapse";
 import TabsComponent from "@/components/tabs/TabsComponent";
 import TitleComponent from "@/components/TitleComponent";
+import ToolbarCompareCard from "@/components/toolbars/ToolbarCompareCard";
 import WapperContainer from "@/components/wappers/WapperContainer";
 import { useCard, useCardDispatch } from "@/context/card";
 import { dataCards } from "@/data/card";
 import { dataEndow, dataIncentives } from "@/data/endow";
 import { useBreakpointScreen } from "@/hooks/breakpoint";
-import { CarOutlined, CreditCardOutlined } from "@ant-design/icons";
-import { useParams } from "next/navigation";
+import { CreditCardOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
+import { CollapseProps } from "antd";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-type Props = {};
-
-const CardPageDetail = (props: Props) => {
+const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
+  const router = useRouter();
   const cardSelects = useCard();
   const cardDispatch = useCardDispatch();
-  const params = useParams<{ cardId: string }>();
   const { cardId } = params;
   const [cardType, setCardType] = useState(1);
   const [isMobile, isTablet] = useBreakpointScreen();
@@ -49,17 +49,68 @@ const CardPageDetail = (props: Props) => {
       label: "Biểu phí & Biểu mẫu",
     },
   ];
-  const dataQuestions = [
+  const dataQuestions: CollapseProps["items"] = [
     {
-      title: "Ai có thể sử dụng dịch vụ Ngân hàng số SeABank?",
+      key: 1,
+      label: "Ai có thể sử dụng dịch vụ Ngân hàng số SeABank?",
+      children: (
+        <div className='border-b-[1px] border-solid border-gray-process text-base font-normal pb-8'>
+          <p>Dịch vụ SB Digibank được cung cấp cho khách hàng cá nhân có đủ đồng thời các điều kiện sau:</p>
+          <ul className='list-disc'>
+            <li className='ml-8 marker:text-[12px]'>
+              Có tài khoản thanh toán tại SeABank (Đối tượng khách hàng được mở tài khoản thanh toán theo quy định của
+              SeABank tại từng thời kỳ);
+            </li>
+            <li className='ml-8 marker:text-[12px]'>
+              Có số điện thoại đăng ký mạng viễn thông của Việt Nam (Số điện thoại đăng ký của Quý khách phải đăng ký
+              thuê bao chính chủ tại công ty viễn thông thực hiện theo quy định của SeABank tại từng thời kỳ);
+            </li>
+            <li className='ml-8 marker:text-[12px]'>
+              Đăng ký sử dụng dịch vụ và chấp nhận các điều khoản, điều kiện cung cấp sử dụng dịch vụ Ngân hàng điện tử;
+              các điều kiện giao dịch chung về bảo vệ dữ liệu cá nhân của Vietcombank…
+            </li>
+            <li className='ml-8 marker:text-[12px]'>
+              Có thiết bị (máy tính, thiết bị di động…) kết nối internet. Trường hợp Quý khách sử dụng Dịch vụ SB
+              Digibank trên ứng dụng di động, thiết bị di động cần đáp ứng:
+              <ul className='list-disc'>
+                <li className='ml-12 marker:text-[12px]'>
+                  Sử dụng hệ điều hành iOS phiên bản từ 13.0 trở lên hoặc hệ điều hành Android phiên bản từ 6.0 trở lên
+                  hoặc theo quy định của SeABank tại từng thời kỳ.
+                </li>
+                <li className='ml-12 marker:text-[12px]'>
+                  Thiết bị di động không bị can thiệp (thiết bị sử dụng hệ điều hành Android không bị hook, root; thiết
+                  bị sử dụng hệ điều hành iOS không bị jailbreak).
+                </li>
+                <li className='ml-12 marker:text-[12px]'>
+                  Thiết bị di động sử dụng hệ điều hành Android không cài đặt các ứng dụng trợ năng (Accessibility)
+                  thuộc danh sách nghi ngờ tiềm ẩn rủi ro theo quy định của SeABank trong từng thời kỳ.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      ),
+      style: { fontWeight: 600 },
+    },
+    {
+      key: 2,
+      label: "Có phải dịch vụ Ngân hàng số SeABank hoạt động liên tục 24 giờ?",
+      children: <></>,
+      style: { fontWeight: 600 },
+    },
+    {
+      key: 3,
+      label: "Dịch vụ Ngân hàng số SeABank là gì?",
+      children: <></>,
+      style: { fontWeight: 600 },
     },
   ];
   return (
     <section className='bg-white'>
       <WapperContainer>
-        <div className='md:py-12'>
+        <div className='md:py-12 md:px-4'>
           <div className='h-[454px] w-full md:p-0 p-4 bg-banner md:bg-banner-tablet bg-no-repeat bg-cover bg-center md:rounded-xl'>
-            <div className='flex flex-col gap-4 justify-between md:justify-center md:px-24 rounded-xl md:max-w-[606px] pt-6 md:pt-0 px-4 h-full bg-[linear-gradient(180deg,_#FFF_15.27%,_rgba(255,_255,_255,_0.00)_47.83%)] md:bg-[linear-gradient(180deg,_#E0E0E0_0%,_#CDD2D8_100%)] md:[clip-path:polygon(97%_0,_93%_37%,_100%_86%,_96%_100%,_45%_100%,_0_100%,_0_0)]'>
+            <div className='flex flex-col gap-4 justify-between md:justify-center md:px-14 lg:px-24 rounded-xl md:w-1/2 pt-6 md:pt-0 px-4 h-full bg-[linear-gradient(180deg,_#FFF_15.27%,_rgba(255,_255,_255,_0.00)_47.83%)] md:bg-[linear-gradient(180deg,_#E0E0E0_0%,_#CDD2D8_100%)] md:[clip-path:polygon(97%_0,_93%_37%,_100%_86%,_96%_100%,_45%_100%,_0_100%,_0_0)]'>
               <div className='flex flex-col gap-2'>
                 <p className='text-[22px] md:text-[32px] text-black font-bold'>Thẻ</p>
                 <p className='text-sm md:text-base leading-[22px] text-black'>
@@ -89,10 +140,7 @@ const CardPageDetail = (props: Props) => {
             <TitleComponent
               title='Chi Tiết'
               subTitle='Thông Tin'
-              styles={{
-                flexDirection: "row-reverse",
-                justifyContent: "start",
-              }}
+              styles={{ flexDirection: "row-reverse", justifyContent: "start" }}
             />
           </div>
           <div className='py-4 md:py-[20px]'>
@@ -106,36 +154,32 @@ const CardPageDetail = (props: Props) => {
               })}
             </div>
           </div>
-          <div className='md:bg-hero md:bg-cover md:bg-center md:bg-no-repeat md:p-6 md:rounded-xl'>
-            <h3 className='mb-2 text-black font-semibold text-[18px]'>Chi tiết ưu đãi</h3>
-            <div className='flex flex-col gap-4'>
-              {dataEndow.map((item) => (
-                <p className='text-base leading-6 text-black' key={item.id}>
-                  <span className='font-semibold'>{`Ưu đãi ${item.id}: `}</span>
-                  {item.content}
-                </p>
-              ))}
-              <div className='max-w-[400px] md:flex md:gap-4 hidden'>
-                <ButtonComponent title='Đăng ký' active styles={{ flex: 1 }} preffix={<CreditCardOutlined />} />
-                <ButtonCard
-                  title='Ưu đãi'
-                  active
-                  styles='flex-1'
-                  preffix={<CreditCardOutlined className='text-red' />}
-                />
+          <div className='relative md:bg-center before:bg-cover before:opacity-20 before:bg-no-repeat before:bg-right md:p-6 md:rounded-xl md:before:bg-hero before:rounded-xl before:absolute before:w-2/3 before:top-0 before:bottom-0 before:right-0 md:bg-[#F3F4F4]'>
+            <div className='z-50'>
+              <h3 className='mb-2 text-black font-semibold text-[18px]'>Chi tiết ưu đãi</h3>
+              <div className='flex flex-col gap-4 z-10'>
+                {dataEndow.map((item) => (
+                  <p className='text-base leading-6 text-black' key={item.id}>
+                    <span className='font-semibold'>{`Ưu đãi ${item.id}: `}</span>
+                    {item.content}
+                  </p>
+                ))}
+                <div className='max-w-[400px] md:flex md:gap-4 hidden z-50'>
+                  <ButtonComponent title='Đăng ký' active styles={{ flex: 1 }} preffix={<CreditCardOutlined />} />
+                  <ButtonCard
+                    title='Ưu đãi'
+                    active
+                    styles='flex-1'
+                    preffix={<CreditCardOutlined className='text-red' />}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className='px-4 py-6'>
           <div className='flex items-center justify-between mb-4'>
-            <TitleComponent
-              title='Sản Phẩm'
-              subTitle='Liên Quan'
-              styles={{
-                flexDirection: "row-reverse",
-              }}
-            />
+            <TitleComponent title='Sản Phẩm' subTitle='Liên Quan' styles={{ flexDirection: "row-reverse" }} />
             <ButtonLink title='Xem tất cả' />
           </div>
           <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
@@ -154,14 +198,14 @@ const CardPageDetail = (props: Props) => {
           </section>
         </div>
       </WapperContainer>
-      <div className='bg-white md:bg-gray'>
+      <div className='bg-white md:bg-gray-four'>
         <WapperContainer>
-          <div className='px-4 p-6 md:pt-12'>
+          <div className='py-4 md:py-12 px-4'>
             <div className='flex items-center justify-between mb-4'>
               <TitleComponent title='Ưu Đãi' subTitle='Liên Quan' styles={{ flexDirection: "row-reverse" }} />
               <ButtonLink title='Xem tất cả' />
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
               {dataIncentives.map((item) => (
                 <CardIncentives data={item} key={item.id} />
               ))}
@@ -169,14 +213,26 @@ const CardPageDetail = (props: Props) => {
           </div>
         </WapperContainer>
       </div>
-      <div className='bg-gray-process hidden md:block'>
+      <div className='bg-white hidden md:block'>
         <WapperContainer>
-          <div className='pt-12'>
+          <div className='md:py-12 px-4'>
             <TitleComponent title='Các Câu Hỏi' subTitle='Liên Quan' styles={{ flexDirection: "row-reverse" }} />
-            <QuestionCollapse />
+            <QuestionCollapse
+              items={dataQuestions}
+              expandIcon={({ isActive }) => (isActive ? <UpOutlined /> : <DownOutlined />)}
+            />
           </div>
         </WapperContainer>
       </div>
+      {(cardSelects || []).length > 0 && (
+        <ToolbarCompareCard
+          disableSelect={isChooseMobile || isChooseTablet}
+          onCompare={() => router.push("/individual/compare")}
+          cardSelects={cardSelects || []}
+          onCancel={() => cardDispatch?.({ type: "clear" })}
+          onDeleteItem={(id) => cardDispatch?.({ type: "change", payload: { id } })}
+        />
+      )}
     </section>
   );
 };

@@ -33,7 +33,9 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
-
+*:focus-visible {
+  outline: none;
+}
 .ant-select-arrow {
   color: #262626 !important;
 }

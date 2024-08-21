@@ -23,7 +23,7 @@ const InputComponent: React.FC<Props> = ({
 }) => {
   return (
     <div
-      className={`${affixWapperClass} p-[2px] w-full h-full rounded-xl focus-within:[box-shadow:0_0_0_4px_rgba(221,_27,_28,_0.1)]`}
+      className={`${affixWapperClass} p-[2px] w-full h-full focus-within:[box-shadow:0_0_0_4px_rgba(221,_27,_28,_0.1)]`}
     >
       <div
         className={`px-4 py-[13.12px] w-full h-full bg-white rounded-[10px] flex items-center gap-2 ${containerClass}`}

@@ -25,7 +25,11 @@ const ButtonCard: React.FC<Props> = ({
   textStyles,
 }) => {
   return (
-    <div className={`${styles} rounded-xl ${active ? "bg-gradient-primary" : "bg-gray"} font-semibold p-[1px]`}>
+    <div
+      className={`${styles}  rounded-xl ${
+        active ? "bg-transparent md:bg-gradient-primary" : "bg-gray"
+      } font-semibold p-[1px]`}
+    >
       <button
         disabled={!active && disabled}
         className={`flex justify-center px-3 py-2 items-center gap-[8px] w-full h-full font-bold text-base ${

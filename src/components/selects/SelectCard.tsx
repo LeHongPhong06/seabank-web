@@ -5,19 +5,26 @@ import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { ConfigProvider, GetProps, Input, Popover } from "antd";
 import React from "react";
 import styles from "./select.module.css";
-import { TooltipRef } from "antd/es/tooltip";
 
 type Props = {
-  popoverRef?: React.LegacyRef<TooltipRef> | null;
   inputProps?: GetProps<typeof Input>;
   cardSelect: Array<Card>;
   onSelect: (card: Card) => void;
   dataCard?: Array<Card>;
-  onSwap?: (card: Card) => void;
   popoverProps?: GetProps<typeof Popover>;
+  open?: boolean;
+  onOpenChange: (trigger: boolean) => void;
 };
 
-const SelectCard: React.FC<Props> = ({ dataCard, cardSelect, onSelect, inputProps, popoverProps, popoverRef }) => {
+const SelectCard: React.FC<Props> = ({
+  onOpenChange,
+  dataCard,
+  cardSelect,
+  onSelect,
+  inputProps,
+  popoverProps,
+  open,
+}) => {
   const ContainerPopover = () => {
     return (
       <div className='max-h-[385px] w-[342px] bg-white'>
@@ -74,16 +81,20 @@ const SelectCard: React.FC<Props> = ({ dataCard, cardSelect, onSelect, inputProp
       }}
     >
       <Popover
+        open={open}
         placement='bottomRight'
         content={<ContainerPopover />}
+        onOpenChange={onOpenChange}
         trigger={"click"}
         id='popover-chosse-card'
         {...popoverProps}
-        ref={popoverRef}
       >
-        <div className='relative p-[1px] h-[152px] hover:cursor-pointer bg-transparent rounded-xl hover:bg-gradient-primary active:shadow-select-card'>
-          <div className='p-2 rounded-xl bg-gray-5 h-full'>
-            <div className='rounded-xl border-dashed border-[1px] h-full flex justify-center items-center border-gray bg-white'>
+        <div
+          className='relative p-[1px] h-[152px] hover:cursor-pointer bg-transparent rounded-xl hover:bg-gradient-primary active:shadow-select-card'
+          onClick={() => onOpenChange(true)}
+        >
+          <div className='p-2 md:p-4 rounded-[11px] bg-gray-5 h-full'>
+            <div className='rounded-xl border-dashed border-[2px] h-full flex justify-center items-center border-gray bg-white'>
               <PlusOutlined className='text-gray-text' />
             </div>
           </div>
