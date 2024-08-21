@@ -46,7 +46,7 @@ const IndividualPage: React.FC = () => {
   return (
     <section className='bg-white'>
       <WapperContainer>
-        <div className='md:py-12'>
+        <div className='md:py-12 md:px-4'>
           <div className='h-[454px] w-full md:p-0 p-4 bg-banner md:bg-banner-tablet bg-no-repeat bg-cover bg-center md:rounded-xl'>
             <div className='flex flex-col gap-4 justify-between md:justify-center md:px-12 lg:px-24 rounded-xl md:w-1/2 pt-6 md:pt-0 px-4 h-full bg-[linear-gradient(180deg,_#FFF_15.27%,_rgba(255,_255,_255,_0.00)_47.83%)] md:bg-[linear-gradient(180deg,_#E0E0E0_0%,_#CDD2D8_100%)] md:[clip-path:polygon(97%_0,_93%_37%,_100%_86%,_96%_100%,_45%_100%,_0_100%,_0_0)]'>
               <div className='flex flex-col gap-2'>
@@ -73,33 +73,35 @@ const IndividualPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <section className='px-4 pb-0 md:pb-4 flex flex-col gap-4'>
-          <TitleComponent subTitle='Danh sách' title='Sản phẩm' />
-          <TabsComponent data={dataCategory} onSelect={(key) => setCardType(key)} idSelect={cardType} />
-          <div className='flex justify-between items-center gap-4'>
-            <div className='hidden md:flex gap-4 flex-wrap'>
-              {dataCategory.map((item) => {
-                const isCardTypeSelect = cardType === item.key;
-                return (
-                  <ButtonComponent
-                    title={item.label}
-                    key={item.key}
-                    styles={{ fontWeight: 500 }}
-                    active={isCardTypeSelect}
-                    onClick={() => setCardType(item.key)}
-                  />
-                );
-              })}
-            </div>
-            <div className='hidden md:block'>
-              <ButtonDefault
-                title={"Bộ lọc"}
-                preffix={<FilterOutlined className='text-black' />}
-                styles={{ textWrap: "nowrap", minWidth: 110, fontWeight: 500 }}
-              />
+        <section className='px-4 pt-4 md:pt-0 md:pb-12  flex flex-col gap-4 md:gap-6'>
+          <div className='flex flex-col gap-4'>
+            <TitleComponent title='Danh sách Sản phẩm' />
+            <TabsComponent data={dataCategory} onSelect={(key) => setCardType(key)} idSelect={cardType} />
+            <div className='flex justify-between items-center gap-4'>
+              <div className='hidden md:flex gap-4 flex-wrap'>
+                {dataCategory.map((item) => {
+                  const isCardTypeSelect = cardType === item.key;
+                  return (
+                    <ButtonComponent
+                      title={item.label}
+                      key={item.key}
+                      styles={{ fontWeight: 500 }}
+                      active={isCardTypeSelect}
+                      onClick={() => setCardType(item.key)}
+                    />
+                  );
+                })}
+              </div>
+              <div className='hidden md:block'>
+                <ButtonDefault
+                  title={"Bộ lọc"}
+                  preffix={<FilterOutlined className='text-black' />}
+                  styles={{ textWrap: "nowrap", minWidth: 110, fontWeight: 500 }}
+                />
+              </div>
             </div>
           </div>
-          <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+          <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6'>
             {dataCards.map((item) => {
               const isSelectItem = cardSelects?.find((card) => card.id === item.id);
               return (
@@ -118,16 +120,18 @@ const IndividualPage: React.FC = () => {
           </section>
         </section>
       </WapperContainer>
-      <div className='py-6 lg:py-8 bg-white md:bg-gray'>
+      <div className='bg-white md:bg-gray'>
         <WapperContainer>
-          <div className='flex justify-between px-4 mb-4 md:mb-6'>
-            <TitleComponent subTitle='Nỗi Bật' title='Ưu Đãi' styles={{ flexDirection: "row-reverse" }} />
-            <ButtonLink title='Xem tất cả' />
-          </div>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4'>
-            {dataIncentives.map((item) => (
-              <CardIncentives data={item} key={item.id} />
-            ))}
+          <div className='flex flex-col gap-4 md:gap-6 px-4 py-6 md:py-0 md:pt-12'>
+            <div className='flex justify-between'>
+              <TitleComponent title='Ưu Đãi Nỗi Bật' />
+              <ButtonLink title='Xem tất cả' />
+            </div>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6'>
+              {dataIncentives.map((item) => (
+                <CardIncentives data={item} key={item.id} />
+              ))}
+            </div>
           </div>
         </WapperContainer>
       </div>

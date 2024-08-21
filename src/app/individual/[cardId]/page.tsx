@@ -137,11 +137,7 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
         </div>
         <div className='px-4 pt-6'>
           <div>
-            <TitleComponent
-              title='Chi Tiết'
-              subTitle='Thông Tin'
-              styles={{ flexDirection: "row-reverse", justifyContent: "start" }}
-            />
+            <TitleComponent title='Thông Tin Chi Tiết' />
           </div>
           <div className='py-4 md:py-[20px]'>
             <div className='md:hidden'>
@@ -179,7 +175,7 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
         </div>
         <div className='px-4 py-6'>
           <div className='flex items-center justify-between mb-4'>
-            <TitleComponent title='Sản Phẩm' subTitle='Liên Quan' styles={{ flexDirection: "row-reverse" }} />
+            <TitleComponent title='Sản Phẩm Liên Quan' />
             <ButtonLink title='Xem tất cả' />
           </div>
           <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
@@ -202,7 +198,7 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
         <WapperContainer>
           <div className='py-4 md:py-12 px-4'>
             <div className='flex items-center justify-between mb-4'>
-              <TitleComponent title='Ưu Đãi' subTitle='Liên Quan' styles={{ flexDirection: "row-reverse" }} />
+              <TitleComponent title='Ưu Đãi Liên Quan' />
               <ButtonLink title='Xem tất cả' />
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
@@ -216,7 +212,7 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
       <div className='bg-white hidden md:block'>
         <WapperContainer>
           <div className='md:py-12 px-4'>
-            <TitleComponent title='Các Câu Hỏi' subTitle='Liên Quan' styles={{ flexDirection: "row-reverse" }} />
+            <TitleComponent title='Các Câu Hỏi Liên Quan' />
             <QuestionCollapse
               items={dataQuestions}
               expandIcon={({ isActive }) => (isActive ? <UpOutlined /> : <DownOutlined />)}

@@ -1,17 +1,18 @@
 import React, { CSSProperties } from "react";
 
 type Props = {
-  subTitle?: string;
   title?: string;
   styles?: CSSProperties;
 };
 
-const TitleComponent: React.FC<Props> = ({ subTitle, title, styles }) => {
+const TitleComponent: React.FC<Props> = ({ title, styles }) => {
   return (
-    <div className='inline-flex gap-[5px] text-[20px] md:text-2xl font-bold leading-7' style={styles}>
-      <span className='text-black capitalize'>{subTitle}</span>
-      <span className='text-transparent bg-gradient-primary bg-clip-text capitalize'>{title}</span>
-    </div>
+    <h2
+      className='text-transparent bg-gradient-primary leading-10 bg-clip-text capitalize text-2xl font-bold'
+      style={styles}
+    >
+      {title}
+    </h2>
   );
 };
 

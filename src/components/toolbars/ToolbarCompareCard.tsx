@@ -57,16 +57,20 @@ const ToolbarCompareCard: React.FC<Props> = ({
               )}
             </div>
             <div className='flex items-center lg:w-[312px] justify-center'>
-              <div className='flex gap-3 lg:flex-col-reverse w-full'>
-                <ButtonDefault title='Dừng so sánh' styles={{ maxHeight: 42, flex: 1 }} onClick={onCancel} />
-                <ButtonComponent
-                  disabled={cardSelects.length < 2}
-                  title='So sánh thẻ'
-                  styles={{ maxHeight: 42, flex: 1 }}
-                  onClick={onCompare}
-                  active={cardSelects.length > 1}
-                  textStyles={{ fontSize: 16, fontWeight: 500 }}
-                />
+              <div className='flex gap-4 lg:flex-col-reverse w-full'>
+                <div className='flex-1'>
+                  <ButtonDefault title='Dừng so sánh' onClick={onCancel} />
+                </div>
+                <div className='flex-1'>
+                  <ButtonComponent
+                    disabled={cardSelects.length < 2}
+                    title='So sánh thẻ'
+                    styles={{ maxHeight: 42, width: "100%" }}
+                    onClick={onCompare}
+                    active={cardSelects.length > 1}
+                    textStyles={{ fontSize: 16, fontWeight: 500 }}
+                  />
+                </div>
               </div>
             </div>
           </section>

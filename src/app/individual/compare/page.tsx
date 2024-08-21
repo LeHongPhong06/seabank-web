@@ -29,13 +29,13 @@ const CompareCardPage: React.FC = () => {
       <WapperContainer>
         <div className='p-4'>
           <div className='mb-4 md:hidden'>
-            <TitleComponent subTitle='Thẻ' title='So sánh' styles={{ flexDirection: "row-reverse" }} />
+            <TitleComponent title='So sánh Thẻ' />
           </div>
           <table className='w-full'>
             <thead>
               <tr className='flex gap-4 md:mb-4 mb-6'>
                 <th className='w-[24%] rounded-xl p-4 bg-gray-5 md:flex justify-center items-start flex-col hidden'>
-                  <TitleComponent subTitle='Thẻ' title='So sánh' styles={{ flexDirection: "row-reverse" }} />
+                  <TitleComponent title='So sánh thẻ' />
                   <div className='text-left font-medium'>
                     {cards?.map((item) => (
                       <p className='text-black text-sm leading-[22px]' key={item.id}>
