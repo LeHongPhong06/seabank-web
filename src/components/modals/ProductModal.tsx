@@ -49,10 +49,7 @@ const ModalWapper: React.FC<ModalWapperProps> = ({ modalProps, children }) => {
   const [isMobile] = useBreakpointScreen();
   const modalStyles: ModalProps["styles"] = {
     header: { display: "none" },
-    content: {
-      borderRadius: isMobile ? 12 : 24,
-      padding: 0,
-    },
+    content: { borderRadius: isMobile ? 12 : 24, padding: 0 },
   };
   return (
     <Modal footer={null} destroyOnClose closable={false} width={"80%"} styles={modalStyles} {...modalProps}>

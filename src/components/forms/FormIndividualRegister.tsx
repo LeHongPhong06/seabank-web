@@ -14,7 +14,7 @@ import {
 import { ConfigProvider, RadioGroupProps } from "antd";
 import { CheckboxGroupProps } from "antd/lib/checkbox";
 import { CSSProperties } from "react";
-import ButtonComponent from "../buttons/ButtonComponent";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 
 const FormIndividualRegister = () => {
   const dispatch = useAppDispatch();
@@ -89,13 +89,15 @@ const FormIndividualRegister = () => {
         >
           <CloseOutlined className='text-white text-xl' />
         </div>
-        <div className='mb-4 md:flex md:flex-col gap-[10px]  md:items-center'>
+        <div className='mb-4 flex flex-col gap-2 md:items-center'>
           <h3 className='capitalize leading-7 bg-gradient-primary text-transparent bg-clip-text font-bold text-xl md:text-2xl'>
             Đăng ký tư vấn
           </h3>
-          <p className='leading-[18px] font-semibold text-sm md:text-base md:text-center'>
+          <p className='leading-[18px] font-medium text-sm md:text-base md:text-center'>
             <span className='text-black'>SeABank mang đến giải pháp tài chính phù hợp cho</span>
-            <span className='text-red ml-1'>Cá nhân</span>
+            <span className='text-transparent bg-gradient-primary bg-clip-text font-semibold capitalize ml-1'>
+              Cá nhân
+            </span>
           </p>
         </div>
         <ProForm
@@ -105,12 +107,13 @@ const FormIndividualRegister = () => {
               return (
                 <div className='md:flex md:justify-center'>
                   <div className='w-full md:w-[190px] h-12'>
-                    <ButtonComponent
-                      onClick={() => props.submit()}
-                      preffix={<CreditCardFilled />}
-                      title='Đăng ký'
-                      active
-                      styles={{ height: "100%", width: "100%" }}
+                    <ButtonPrimary
+                      buttonProps={{
+                        children: "Đăng ký",
+                        onClick: () => props.submit(),
+                        icon: <CreditCardFilled />,
+                        style: { width: "100%", height: "100%" },
+                      }}
                     />
                   </div>
                 </div>
@@ -140,6 +143,10 @@ const FormIndividualRegister = () => {
           <ProFormRadio.Group
             label={<LabelInput title='Giới tính' />}
             options={optionRadioGender}
+            style={{
+              fontSize: 16,
+              fontWeight: 400,
+            }}
             colProps={{ xs: 24, md: 12 }}
           />
           <ProFormText placeholder={"Email"} label={<LabelInput title='Email' />} colProps={{ xs: 24, md: 12 }} />

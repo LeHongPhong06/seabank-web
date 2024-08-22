@@ -77,13 +77,15 @@ const FormSupport = () => {
         >
           <CloseOutlined className='text-white text-xl' />
         </div>
-        <div className='mb-4 sm:flex sm:flex-col gap-[10px] sm:items-center'>
+        <div className='mb-4 flex flex-col gap-2 sm:items-center'>
           <h3 className='capitalize leading-7 bg-gradient-primary text-transparent bg-clip-text font-bold text-xl md:text-2xl'>
             Hỗ trợ chung
           </h3>
-          <p className='leading-[18px] font-semibold text-sm md:text-base sm:text-center'>
+          <p className='leading-[18px] font-medium text-sm md:text-base sm:text-center'>
             <span className='text-black'>Cổng thông tin chăm sóc Khách hàng đầu tiên trên thị trường</span>
-            <span className='text-red ml-1'>Ngân Hàng</span>
+            <span className='text-transparent bg-gradient-primary bg-clip-text ml-1 font-semibold capitalize'>
+              Ngân Hàng
+            </span>
           </p>
         </div>
         <ProForm formRef={formRef} onFinish={onFinish} grid rowProps={{ gutter: { md: 16 } }} submitter={false}>
@@ -174,7 +176,7 @@ const LabelInput = ({ title, styles }: { title: string; styles?: CSSProperties }
 
 const TitleGroupFields = ({ title, subTitle }: { title: React.ReactNode; subTitle?: string }) => {
   return (
-    <div className='mb-2 md:mb-4'>
+    <div className='mb-2 md:mb-4 pl-1'>
       <p className='text-base bg-gradient-primary bg-clip-text text-transparent font-semibold mb-2'>{title}</p>
       <p className='text-sm font-medium leading-[22px]'>{subTitle}</p>
     </div>

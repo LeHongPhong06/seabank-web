@@ -6,7 +6,7 @@ import { CloseOutlined, CreditCardFilled } from "@ant-design/icons";
 import { ProForm, ProFormSelect, ProFormText } from "@ant-design/pro-components";
 import { ConfigProvider } from "antd";
 import { CSSProperties } from "react";
-import ButtonComponent from "../buttons/ButtonComponent";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 
 const FormBusinessRegister = () => {
   const dispatch = useAppDispatch();
@@ -57,7 +57,9 @@ const FormBusinessRegister = () => {
           </h3>
           <p className='leading-[18px] font-semibold text-sm md:text-base md:text-center'>
             <span className='text-black'>SeABank mang đến giải pháp tài chính phù hợp cho</span>
-            <span className='text-red ml-1'>Doanh nghiệp</span>
+            <span className='text-transparent bg-gradient-primary bg-clip-text ml-1 font-semibold capitalize'>
+              Doanh nghiệp
+            </span>
           </p>
         </div>
         <ProForm
@@ -67,12 +69,13 @@ const FormBusinessRegister = () => {
               return (
                 <div className='md:flex md:justify-center'>
                   <div className='w-full md:w-[190px] h-12'>
-                    <ButtonComponent
-                      onClick={() => props.submit()}
-                      preffix={<CreditCardFilled />}
-                      title='Đăng ký'
-                      active
-                      styles={{ height: "100%", width: "100%" }}
+                    <ButtonPrimary
+                      buttonProps={{
+                        children: "Đăng ký",
+                        onClick: () => () => props.submit(),
+                        icon: <CreditCardFilled />,
+                        style: { width: "100%", height: "100%" },
+                      }}
                     />
                   </div>
                 </div>
