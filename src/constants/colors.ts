@@ -6,4 +6,5 @@ export const colors = {
   WHITE: "#FFFFFF",
   GRAY_BTN: "#E8E8E8",
   PRIMARY_GRADIENT: "linear-gradient(95deg, rgba(221,26,28,1) 0%, rgba(158,30,31,1) 100%)",
+  PRIMARY_OUTLINE: "rgba(221, 27, 28, 0.1)",
 };

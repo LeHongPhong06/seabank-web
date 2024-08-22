@@ -2,6 +2,7 @@
 import icon from "@/assets/images/icons/mingcute.svg";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
 import ButtonDefault from "@/components/buttons/ButtonDefault";
+import ButtonPrimary from "@/components/buttons/ButtonPrimary";
 import SelectCard from "@/components/selects/SelectCard";
 import TitleComponent from "@/components/TitleComponent";
 import WapperContainer from "@/components/wappers/WapperContainer";
@@ -185,7 +186,13 @@ const CompareCardPage: React.FC = () => {
             <div className='md:hidden'>
               <LayoutCompare>
                 {cards?.map((card) => (
-                  <ButtonComponent active title='Mở thẻ ngay' key={card.id} />
+                  <ButtonPrimary
+                    buttonProps={{
+                      children: "Mở thẻ ngay",
+                      style: { height: 42 },
+                    }}
+                    key={card.id}
+                  />
                 ))}
               </LayoutCompare>
             </div>

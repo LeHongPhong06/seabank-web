@@ -36,13 +36,6 @@ body {
 *:focus-visible {
   outline: none;
 }
-.ant-select-arrow {
-  color: #262626 !important;
-}
-
-#select-header > .ant-select-selector {
-  box-shadow: 0 0 0 2px rgba(221, 27, 28, 0.1) !important;
-}
 
 .scrollbar-none {
   -ms-overflow-style: none;

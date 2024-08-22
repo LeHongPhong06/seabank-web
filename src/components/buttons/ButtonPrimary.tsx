@@ -12,23 +12,22 @@ const ButtonPrimary: React.FC<Props> = ({ buttonProps }) => {
       theme={{
         components: {
           Button: {
-            defaultHoverBorderColor: "rgba(221, 27, 28, 0.1)",
             defaultHoverColor: colors.WHITE,
             defaultActiveColor: colors.RED,
             colorBorder: "transparent",
-            borderRadius: 8,
+            borderRadius: 12,
             fontSize: 16,
-            colorBgContainer: colors.PRIMARY_GRADIENT,
+            controlHeight: 48,
+            fontWeight: 600,
             colorText: colors.WHITE,
-            primaryShadow: "0 0 0 1px rgba(221, 27, 28, 0.1)",
-            colorPrimaryActive: colors.PRIMARY_GRADIENT,
-            colorPrimary: colors.PRIMARY_GRADIENT,
-            colorPrimaryBg: colors.PRIMARY_GRADIENT,
+            colorPrimaryHover: colors.RED,
+            colorPrimaryActive: colors.RED,
+            colorPrimary: colors.RED,
           },
         },
       }}
     >
-      <Button type='default' {...buttonProps} />
+      <Button type='primary' {...buttonProps} className='bg-gradient-primary' />
     </ConfigProvider>
   );
 };

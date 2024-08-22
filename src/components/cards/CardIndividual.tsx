@@ -6,6 +6,7 @@ import Image from "next/image";
 import React from "react";
 import ButtonCard from "../buttons/ButtonCard";
 import ButtonComponent from "../buttons/ButtonComponent";
+import ButtonPrimary from "../buttons/ButtonPrimary";
 
 type Props = {
   data: Card;
@@ -59,13 +60,13 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
             />
           </div>
           <div className='flex-1'>
-            <ButtonComponent
-              active
-              title='Đăng ký tư vấn'
-              styles={{ width: "100%", height: "100%" }}
-              textStyles={{ fontSize: 16 }}
-              onClick={() => onRegister?.(data.id)}
-              preffix={<CreditCardOutlined className='text-base' />}
+            <ButtonPrimary
+              buttonProps={{
+                children: "Đăng ký tư vấn",
+                style: { width: "100%", height: "100%" },
+                onClick: () => onRegister?.(data.id),
+                icon: <CreditCardOutlined className='text-base' />,
+              }}
             />
           </div>
         </div>

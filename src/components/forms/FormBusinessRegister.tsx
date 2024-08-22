@@ -1,0 +1,139 @@
+"use client";
+import { colors } from "@/constants/colors";
+import { useAppDispatch } from "@/hooks/redux";
+import { setChangeOpenModalBusinessRegister } from "@/stores/slices/product";
+import { CloseOutlined, CreditCardFilled } from "@ant-design/icons";
+import { ProForm, ProFormSelect, ProFormText } from "@ant-design/pro-components";
+import { ConfigProvider } from "antd";
+import { CSSProperties } from "react";
+import ButtonComponent from "../buttons/ButtonComponent";
+
+const FormBusinessRegister = () => {
+  const dispatch = useAppDispatch();
+  const onFinish = (values: any) => {
+    console.log("values", values);
+  };
+  return (
+    <ConfigProvider
+      theme={{
+        components: {
+          Input: {
+            controlHeight: 48,
+            colorBorder: colors.GRAY_BTN,
+            colorTextPlaceholder: colors.GRAY_BTN,
+            activeBorderColor: colors.RED,
+            hoverBorderColor: colors.RED,
+            borderRadius: 12,
+            paddingInline: 16,
+            fontSize: 16,
+            activeShadow: "0 0 0 2px rgba(221, 27, 28, 0.1)",
+          },
+          Select: {
+            paddingSM: 16,
+            borderRadius: 12,
+            fontSize: 16,
+            controlHeight: 48,
+            colorPrimary: colors.RED,
+            colorBorder: colors.GRAY_BTN,
+            colorTextPlaceholder: colors.GRAY_BTN,
+            paddingContentHorizontal: 16,
+            colorPrimaryHover: colors.RED,
+            colorPrimaryBorder: colors.RED,
+            controlOutline: "rgba(221, 27, 28, 0.1)",
+          },
+        },
+      }}
+    >
+      <div className='relative px-4 py-6 sm:px-16 sm:py-12'>
+        <div
+          className='absolute left-0 right-0 mx-auto size-14 -translate-y-24 sm:-translate-y-32 bg-[rgba(0,_0,_0,_0.65)] flex justify-center items-center rounded-full hover:cursor-pointer hover:bg-black'
+          onClick={() => dispatch(setChangeOpenModalBusinessRegister(false))}
+        >
+          <CloseOutlined className='text-white text-xl' />
+        </div>
+        <div className='mb-4 md:flex md:flex-col gap-[10px] md:items-center'>
+          <h3 className='capitalize leading-7 bg-gradient-primary text-transparent bg-clip-text font-bold text-xl md:text-2xl'>
+            Đăng ký tư vấn
+          </h3>
+          <p className='leading-[18px] font-semibold text-sm md:text-base md:text-center'>
+            <span className='text-black'>SeABank mang đến giải pháp tài chính phù hợp cho</span>
+            <span className='text-red ml-1'>Doanh nghiệp</span>
+          </p>
+        </div>
+        <ProForm
+          onFinish={onFinish}
+          submitter={{
+            render(props, dom) {
+              return (
+                <div className='md:flex md:justify-center'>
+                  <div className='w-full md:w-[190px] h-12'>
+                    <ButtonComponent
+                      onClick={() => props.submit()}
+                      preffix={<CreditCardFilled />}
+                      title='Đăng ký'
+                      active
+                      styles={{ height: "100%", width: "100%" }}
+                    />
+                  </div>
+                </div>
+              );
+            },
+          }}
+          grid
+          rowProps={{ gutter: { md: 16 } }}
+        >
+          <ProFormText
+            rules={[
+              {
+                required: true,
+                message: (
+                  <span className='bg-gradient-primary text-transparent bg-clip-text text-base font-medium leading-[22px]'>
+                    Please enter name
+                  </span>
+                ),
+              },
+            ]}
+            name={"fullName"}
+            placeholder={"Tên doanh nghiệp"}
+            label={<LabelInput title='Tên doanh nghiệp' />}
+            colProps={{ xs: 24, md: 12 }}
+          />
+          <ProFormText
+            placeholder={"Mã số doanh nghiệp"}
+            label={<LabelInput title='Mã số doanh nghiệp' />}
+            colProps={{ xs: 24, md: 12 }}
+          />
+          <ProFormSelect
+            placeholder={"Chọn tỉnh thành"}
+            label={<LabelInput title='Tỉnh/Thành phố' />}
+            colProps={{ xs: 24, md: 12 }}
+          />
+          <ProFormText
+            placeholder={"Người liên hệ"}
+            label={<LabelInput title='Người liên hệ' />}
+            colProps={{ xs: 24, md: 12 }}
+          />
+          <ProFormText
+            placeholder={"Số điện thoại"}
+            label={<LabelInput title='Số điện thoại' />}
+            colProps={{ xs: 24, md: 12 }}
+          />
+          <ProFormSelect placeholder={"Email"} label={<LabelInput title='Email' />} colProps={{ xs: 24, md: 12 }} />
+          <ProFormText
+            placeholder={"Sản phẩm cần tư vấn"}
+            label={<LabelInput title='Sản phẩm cần tư vấn' />}
+            colProps={{ xs: 24, md: 12 }}
+          />
+        </ProForm>
+      </div>
+    </ConfigProvider>
+  );
+};
+const LabelInput = ({ title, styles }: { title: string; styles?: CSSProperties }) => {
+  return (
+    <span className='text-base font-medium text-black leading-normal' style={styles}>
+      {title}
+    </span>
+  );
+};
+export default FormBusinessRegister;

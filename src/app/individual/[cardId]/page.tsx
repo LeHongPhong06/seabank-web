@@ -2,6 +2,7 @@
 import ButtonCard from "@/components/buttons/ButtonCard";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
 import ButtonLink from "@/components/buttons/ButtonLink";
+import ButtonPrimary from "@/components/buttons/ButtonPrimary";
 import CardIncentives from "@/components/cards/CardIncentives";
 import CardIndividual from "@/components/cards/CardIndividual";
 import QuestionCollapse from "@/components/collapse/QuestionCollapse";
@@ -119,11 +120,12 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
                 </p>
               </div>
               <div className='flex gap-4 max-h-[42px] z-20'>
-                <ButtonComponent
-                  title='Đăng ký'
-                  preffix={<CreditCardOutlined />}
-                  styles={{ width: "50%", fontWeight: 500, fontSize: 16 }}
-                  active
+                <ButtonPrimary
+                  buttonProps={{
+                    children: "Đăng ký",
+                    style: { width: "50%", height: "100%", fontWeight: 500 },
+                    icon: <CreditCardOutlined />,
+                  }}
                 />
                 <ButtonCard
                   title='Ưu đãi'
@@ -161,7 +163,13 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
                   </p>
                 ))}
                 <div className='max-w-[400px] md:flex md:gap-4 hidden z-50'>
-                  <ButtonComponent title='Đăng ký' active styles={{ flex: 1 }} preffix={<CreditCardOutlined />} />
+                  <ButtonPrimary
+                    buttonProps={{
+                      children: "Đăng ký",
+                      style: { flex: 1, fontWeight: 500 },
+                      icon: <CreditCardOutlined />,
+                    }}
+                  />
                   <ButtonCard
                     title='Ưu đãi'
                     active

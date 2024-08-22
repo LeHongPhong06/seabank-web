@@ -20,11 +20,12 @@ const SelectComponent = (selectProps: GetProps<typeof Select>) => {
             borderRadiusLG: 12,
             fontSize: 16,
             paddingContentVerticalSM: 13.5,
+            controlOutline: colors.PRIMARY_OUTLINE,
           },
         },
       }}
     >
-      <Select {...selectProps} id='select-header' />
+      <Select {...selectProps} />
     </ConfigProvider>
   );
 };
