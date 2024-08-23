@@ -17,7 +17,7 @@ type Props = {
 const CardIncentives: React.FC<Props> = ({ data }) => {
   const { startDate, endDate } = data;
   const currentDate = new Date().getTime();
-  const process = (): number => {
+  const fomartProcess = (): number => {
     if (currentDate < startDate) {
       return 0;
     } else if (currentDate > endDate) {
@@ -28,12 +28,18 @@ const CardIncentives: React.FC<Props> = ({ data }) => {
       return Math.round((elapsedDuration / totalDuration) * 100);
     }
   };
-  const dataProcess = process();
+  const process = fomartProcess();
   const dateFormat = (date: number) => moment(date).format("DD/MM/YYYY");
   return (
     <div className='p-0 md:p-4 rounded-xl flex flex-col gap-[18px] bg-white'>
       <div className='relative h-[220px] w-full rounded-[10px]'>
-        <Image alt={`incentives-${data.id}`} fill src={data.image} className='object-cover rounded-[10px]' />
+        <Image
+          alt={`incentives-${data.id}`}
+          fill
+          src={data.image}
+          className='object-cover rounded-[10px]'
+          sizes='100%'
+        />
       </div>
       <div className='flex flex-col gap-3'>
         <h4 className='text-lg font-semibold text-black'>{data.title}</h4>
@@ -43,8 +49,8 @@ const CardIncentives: React.FC<Props> = ({ data }) => {
         </div>
         <div className='w-full h-[5px] bg-gray-process rounded-full relative'>
           <div
-            style={{ width: `${dataProcess}%` }}
-            className={`bg-red absolute ${dataProcess === 100 ? "rounded-full" : "rounded-l-full"} top-0 bottom-0`}
+            style={{ width: `${process}%` }}
+            className={`bg-red absolute ${process === 100 ? "rounded-full" : "rounded-l-full"} top-0 bottom-0`}
           />
         </div>
       </div>

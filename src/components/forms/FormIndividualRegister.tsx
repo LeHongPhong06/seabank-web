@@ -76,7 +76,7 @@ const FormIndividualRegister = () => {
       <div className='relative px-4 py-6 sm:px-16 sm:py-12'>
         <div
           className='absolute left-0 right-0 mx-auto size-14 -translate-y-24 sm:-translate-y-32 bg-[rgba(0,_0,_0,_0.65)] flex justify-center items-center rounded-full hover:cursor-pointer hover:bg-black'
-          onClick={() => productDispatch?.({ type: "changeModalIndividual", payload: true })}
+          onClick={() => productDispatch?.({ type: "changeModalIndividual", payload: false })}
         >
           <CloseOutlined className='text-white text-xl' />
         </div>
@@ -147,7 +147,12 @@ const FormIndividualRegister = () => {
             <Input.TextArea placeholder={"Nhập nội dung"} />
           </Form.Item>
           <Form.Item>
-            <Checkbox.Group options={optionCheckBox} />
+            <Checkbox.Group
+              options={optionCheckBox}
+              style={{
+                fontWeight: 500,
+              }}
+            />
           </Form.Item>
           <div className='md:flex md:justify-center'>
             <Form.Item style={{ marginBottom: 0 }}>

@@ -2,8 +2,10 @@ import { Breakpoint } from "antd";
 import { useEffect, useState } from "react";
 
 function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return { width, height };
+  if (typeof window !== "undefined") {
+    const { innerWidth: width, innerHeight: height } = window;
+    return { width, height };
+  }
 }
 
 export function useWindowDimensions() {
@@ -36,6 +38,7 @@ export function getBreakPoint(width: number): Breakpoint {
 }
 
 export const getBreakpointCurrent = () => {
-  const { width } = useWindowDimensions();
+  const size = useWindowDimensions();
+  const width = size?.width || 0;
   return getBreakPoint(width);
 };

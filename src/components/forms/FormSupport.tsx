@@ -64,7 +64,7 @@ const FormSupport = () => {
       <div className='relative px-4 py-6 sm:px-16 sm:py-12'>
         <div
           className='absolute left-0 right-0 mx-auto size-14 -translate-y-24 sm:-translate-y-32 bg-[rgba(0,_0,_0,_0.65)] flex justify-center items-center rounded-full hover:cursor-pointer hover:bg-black'
-          onClick={() => productDispatch?.({ type: "changeModalBusiness", payload: true })}
+          onClick={() => productDispatch?.({ type: "changeModalSupport", payload: false })}
         >
           <CloseOutlined className='text-white text-xl' />
         </div>
@@ -135,7 +135,13 @@ const FormSupport = () => {
               <TitleGroupField title={"4. Lựa chọn phương thức phản hồi từ ngân hàng"} />
               <WapperItemField>
                 <Form.Item>
-                  <Checkbox.Group options={optionCheckBox} />
+                  <Checkbox.Group
+                    options={optionCheckBox}
+                    style={{
+                      gap: 6,
+                      fontWeight: 500,
+                    }}
+                  />
                 </Form.Item>
               </WapperItemField>
               <div className='flex gap-2 w-full md:w-[250px] h-12'>

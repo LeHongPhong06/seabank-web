@@ -38,6 +38,7 @@ const ToolbarCompareCard: React.FC<Props> = ({ onCompare, onCancel, onDeleteItem
                     alt={`card-${item.id}`}
                     src={item.image || ""}
                     fill
+                    sizes='100%'
                     className='object-cover rounded-xl'
                   />
                 </div>

@@ -27,6 +27,7 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
             fill
             src={data.image ?? ""}
             className='object-cover rounded-xl rounded-tr-3xl'
+            sizes='100%'
           />
         </div>
         <h3 className='text-[18px] text-black font-semibold lg:min-h-[44px]'>{data.title}</h3>

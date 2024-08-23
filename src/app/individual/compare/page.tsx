@@ -63,6 +63,7 @@ const CompareCardPage: React.FC = () => {
                               src={card.image ?? ""}
                               alt={card.title ?? ""}
                               fill
+                              sizes='100%'
                               className='object-cover rounded-[11px]'
                             />
                           </div>
