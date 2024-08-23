@@ -11,24 +11,24 @@ import TitleComponent from "@/components/TitleComponent";
 import ToolbarCompareCard from "@/components/toolbars/ToolbarCompareCard";
 import WapperContainer from "@/components/wappers/WapperContainer";
 import { useCard, useCardDispatch } from "@/context/card";
+import { useProductDispatch } from "@/context/product";
 import { dataCards } from "@/data/card";
 import { dataIncentives } from "@/data/endow";
-import { useBreakpointScreen } from "@/hooks/breakpoint";
-import { useAppDispatch } from "@/hooks/redux";
-import { setChangeOpenModalInvidualRegister } from "@/stores/slices/product";
+import { getBreakpointCurrent } from "@/hooks/breakpoint";
 import { CaretDownOutlined, CreditCardOutlined, FilterOutlined } from "@ant-design/icons";
+import _ from "lodash";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const IndividualPage: React.FC = () => {
   const router = useRouter();
   const cardSelects = useCard();
-  const dispatch = useAppDispatch();
   const cardDispatch = useCardDispatch();
+  const productDispatch = useProductDispatch();
   const [cardType, setCardType] = useState<number>(1);
-  const [isMobile, isTablet] = useBreakpointScreen();
+  const isMobile = _.includes(["xs", "sm"], getBreakpointCurrent());
   const isChooseMobile = isMobile && (cardSelects || []).length > 1;
-  const isChooseTablet = isTablet && (cardSelects || []).length > 2;
+  const isChooseTablet = !isMobile && (cardSelects || []).length > 2;
   const dataCategory = [
     {
       key: 1,
@@ -115,7 +115,7 @@ const IndividualPage: React.FC = () => {
                     key={item.id}
                     disabled={isChooseMobile || isChooseTablet}
                     data={item}
-                    onRegister={() => dispatch(setChangeOpenModalInvidualRegister(true))}
+                    onRegister={() => productDispatch?.({ type: "changeModalIndividual", payload: true })}
                     isSelect={isSelectItem ? true : false}
                     onCompare={() => cardDispatch?.({ type: "change", payload: item })}
                   />
@@ -146,16 +146,16 @@ const IndividualPage: React.FC = () => {
             </div>
           </WapperContainer>
         </div>
-        {(cardSelects || []).length > 0 && (
-          <ToolbarCompareCard
-            disableSelect={isChooseMobile || isChooseTablet}
-            onCompare={() => router.push("/individual/compare")}
-            cardSelects={cardSelects || []}
-            onCancel={() => cardDispatch?.({ type: "clear" })}
-            onDeleteItem={(id) => cardDispatch?.({ type: "change", payload: { id } })}
-          />
-        )}
       </section>
+      {(cardSelects || []).length > 0 && (
+        <ToolbarCompareCard
+          disableSelect={isChooseMobile || isChooseTablet}
+          onCompare={() => router.push("/individual/compare")}
+          cardSelects={cardSelects || []}
+          onCancel={() => cardDispatch?.({ type: "clear" })}
+          onDeleteItem={(id) => cardDispatch?.({ type: "change", payload: { id } })}
+        />
+      )}
       <ProductModal />
     </React.Fragment>
   );

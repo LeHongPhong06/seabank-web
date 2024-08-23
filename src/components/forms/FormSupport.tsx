@@ -1,25 +1,16 @@
 "use client";
 import { colors } from "@/constants/colors";
-import { useAppDispatch } from "@/hooks/redux";
-import { setChangeOpenModalSupport } from "@/stores/slices/product";
+import { useProductDispatch } from "@/context/product";
 import { CloseOutlined, PaperClipOutlined } from "@ant-design/icons";
-import {
-  ProForm,
-  ProFormCheckbox,
-  ProFormInstance,
-  ProFormSelect,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components";
-import { ConfigProvider } from "antd";
+import { Checkbox, ConfigProvider, Form, Input, Select } from "antd";
 import { CheckboxGroupProps } from "antd/lib/checkbox";
-import { CSSProperties, useRef } from "react";
+import { CSSProperties } from "react";
 import ButtonComponent from "../buttons/ButtonComponent";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 
 const FormSupport = () => {
-  const formRef = useRef<ProFormInstance>(null);
-  const dispatch = useAppDispatch();
+  const [formRef] = Form.useForm();
+  const productDispatch = useProductDispatch();
   const optionCheckBox: CheckboxGroupProps["options"] = [
     {
       value: "1",
@@ -73,7 +64,7 @@ const FormSupport = () => {
       <div className='relative px-4 py-6 sm:px-16 sm:py-12'>
         <div
           className='absolute left-0 right-0 mx-auto size-14 -translate-y-24 sm:-translate-y-32 bg-[rgba(0,_0,_0,_0.65)] flex justify-center items-center rounded-full hover:cursor-pointer hover:bg-black'
-          onClick={() => dispatch(setChangeOpenModalSupport(false))}
+          onClick={() => productDispatch?.({ type: "changeModalBusiness", payload: true })}
         >
           <CloseOutlined className='text-white text-xl' />
         </div>
@@ -88,45 +79,48 @@ const FormSupport = () => {
             </span>
           </p>
         </div>
-        <ProForm formRef={formRef} onFinish={onFinish} grid rowProps={{ gutter: { md: 16 } }} submitter={false}>
-          <ProForm.Group colProps={{ xs: { span: 24 }, md: { span: 12 } }}>
-            <ProForm.Group
-              title={"1. Chọn sản phẩm / Dịch vụ cần hỗ trợ"}
-              titleRender={(title: React.ReactNode) => <TitleGroupFields title={title} />}
-              titleStyle={{ marginBottom: 0 }}
-            >
-              <ProFormSelect placeholder={"Chọn sản phẩm"} label={<LabelInput title='Sản phẩm' />} />
-              <ProFormSelect placeholder={"Chọn dịch vụ"} label={<LabelInput title='Dịch vụ cần hỗ trợ' />} />
-            </ProForm.Group>
-            <ProForm.Group
-              title={"2. Nhập thông tin khách hàng"}
-              titleStyle={{ marginBottom: 0 }}
-              titleRender={(title: React.ReactNode) => <TitleGroupFields title={title} />}
-            >
-              <ProFormText name={"name"} placeholder={"Nhập họ và tên"} label={<LabelInput title='Họ và tên' />} />
-              <ProFormText placeholder={"Số điện thoại"} label={<LabelInput title='Nhập số điện thoại' />} />
-              <ProFormText placeholder={"Email"} label={<LabelInput title='Nhập email' />} />
-            </ProForm.Group>
-          </ProForm.Group>
-          <ProForm.Group colProps={{ xs: { span: 24 }, md: { span: 12 } }}>
-            <ProForm.Group
-              title={"3. Nội dung cần hỗ trợ"}
-              titleStyle={{ marginBottom: 0 }}
-              titleRender={(title: React.ReactNode) => (
-                <TitleGroupFields
-                  title={title}
-                  subTitle='SeABank cam kết bảo mật toàn bộ các thông tin cá nhân của Khách hàng đã đăng ký với ngân hàng. Tuy nhiên, để tránh việc thông tin có thể bị khai thác trên đường truyền tin. Quý khách vui lòng KHÔNG ĐIỀN những thông tin cá nhân quan trọng cần bảo mật (mã CVV, tên truy cập, mật khẩu, mã PIN, mã OTP...) vào mục nội dung cần hỗ trợ.'
-                />
-              )}
-            >
-              <ProFormTextArea
-                label={<LabelInput title='Nội dung' />}
-                placeholder={"Nhập nội dung"}
-                fieldProps={{
-                  autoSize: { maxRows: 8, minRows: 4 },
-                }}
+        <Form onFinish={onFinish} layout='vertical' form={formRef}>
+          <div className='flex flex-col md:flex-row md:gap-4'>
+            <div className='flex-1'>
+              <TitleGroupField title={"1. Chọn sản phẩm / Dịch vụ cần hỗ trợ"} />
+              <WapperItemField>
+                <Form.Item label={<LabelInput title='Sản phẩm' />}>
+                  <Select placeholder={"Chọn sản phẩm"} />
+                </Form.Item>
+              </WapperItemField>
+              <WapperItemField>
+                <Form.Item label={<LabelInput title='Dịch vụ cần hỗ trợ' />}>
+                  <Select placeholder={"Chọn dịch vụ"} />
+                </Form.Item>
+              </WapperItemField>
+              <TitleGroupField title={"2. Nhập thông tin khách hàng"} />
+              <WapperItemField>
+                <Form.Item label={<LabelInput title='Họ và tên' />}>
+                  <Input placeholder={"Nhập họ và tên"} />
+                </Form.Item>
+              </WapperItemField>
+              <WapperItemField>
+                <Form.Item label={<LabelInput title='Số điện thoại' />}>
+                  <Input placeholder={"Nhập số điện thoại"} />
+                </Form.Item>
+              </WapperItemField>
+              <WapperItemField>
+                <Form.Item label={<LabelInput title='Email' />}>
+                  <Input placeholder={"Nhập email"} />
+                </Form.Item>
+              </WapperItemField>
+            </div>
+            <div className='flex-1'>
+              <TitleGroupField
+                title={"3. Nội dung cần hỗ trợ"}
+                subTitle='SeABank cam kết bảo mật toàn bộ các thông tin cá nhân của Khách hàng đã đăng ký với ngân hàng. Tuy nhiên, để tránh việc thông tin có thể bị khai thác trên đường truyền tin. Quý khách vui lòng KHÔNG ĐIỀN những thông tin cá nhân quan trọng cần bảo mật (mã CVV, tên truy cập, mật khẩu, mã PIN, mã OTP...) vào mục nội dung cần hỗ trợ.'
               />
-              <ProForm.Item>
+              <WapperItemField>
+                <Form.Item label={<LabelInput title='Nội dung' />}>
+                  <Input.TextArea placeholder={"Nhập nội dung"} />
+                </Form.Item>
+              </WapperItemField>
+              <Form.Item>
                 <div className='flex gap-2'>
                   <PaperClipOutlined className='[rotate:135deg] text-base' />
                   <p className='text-sm font-medium'>
@@ -137,31 +131,26 @@ const FormSupport = () => {
                     </span>
                   </p>
                 </div>
-              </ProForm.Item>
-            </ProForm.Group>
-            <ProForm.Group
-              title={"4. Lựa chọn phương thức phản hồi từ ngân hàng"}
-              titleRender={(title: React.ReactNode) => <TitleGroupFields title={title} />}
-              titleStyle={{ marginBottom: 0 }}
-            >
-              <ProFormCheckbox.Group options={optionCheckBox} fieldProps={{ style: { fontWeight: 500 } }} />
+              </Form.Item>
+              <TitleGroupField title={"4. Lựa chọn phương thức phản hồi từ ngân hàng"} />
+              <WapperItemField>
+                <Form.Item>
+                  <Checkbox.Group options={optionCheckBox} />
+                </Form.Item>
+              </WapperItemField>
               <div className='flex gap-2 w-full md:w-[250px] h-12'>
-                <ButtonComponent
-                  title='Làm lại'
-                  styles={{ width: "100%" }}
-                  onClick={() => formRef.current?.setFields}
-                />
+                <ButtonComponent title='Làm lại' styles={{ width: "100%" }} />
                 <ButtonPrimary
                   buttonProps={{
-                    onClick: () => formRef.current?.submit(),
+                    onClick: () => formRef.submit(),
                     children: "Gửi yêu cầu",
                     style: { width: "100%" },
                   }}
                 />
               </div>
-            </ProForm.Group>
-          </ProForm.Group>
-        </ProForm>
+            </div>
+          </div>
+        </Form>
       </div>
     </ConfigProvider>
   );
@@ -174,12 +163,17 @@ const LabelInput = ({ title, styles }: { title: string; styles?: CSSProperties }
   );
 };
 
-const TitleGroupFields = ({ title, subTitle }: { title: React.ReactNode; subTitle?: string }) => {
+const TitleGroupField = ({ title, subTitle }: { title: string; subTitle?: string }) => {
   return (
-    <div className='mb-2 md:mb-4 pl-1'>
-      <p className='text-base bg-gradient-primary bg-clip-text text-transparent font-semibold mb-2'>{title}</p>
+    <div className='mb-2 md:mb-3'>
+      <p className='text-base bg-gradient-primary bg-clip-text text-transparent font-semibold mb-2 pl-1'>{title}</p>
       <p className='text-sm font-medium leading-[22px]'>{subTitle}</p>
     </div>
   );
 };
+
+const WapperItemField = ({ children }: { children: React.ReactNode }) => {
+  return <div className='md:flex-1'>{children}</div>;
+};
+
 export default FormSupport;

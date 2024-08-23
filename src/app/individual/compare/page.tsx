@@ -8,8 +8,9 @@ import TitleComponent from "@/components/TitleComponent";
 import WapperContainer from "@/components/wappers/WapperContainer";
 import { useCard, useCardDispatch } from "@/context/card";
 import { dataCards } from "@/data/card";
-import { useBreakpointScreen } from "@/hooks/breakpoint";
+import { getBreakpointCurrent } from "@/hooks/breakpoint";
 import { CloseCircleFilled, DownOutlined } from "@ant-design/icons";
+import _ from "lodash";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ import React, { useEffect, useState } from "react";
 const CompareCardPage: React.FC = () => {
   const router = useRouter();
   const cards = useCard();
-  const [isMobile, isTablet] = useBreakpointScreen();
+  const isMobile = _.includes(["xs", "sm"], getBreakpointCurrent());
   const [openCardSelect, setOpenCardSelect] = useState(false);
   const cardDispatch = useCardDispatch();
   useEffect(() => {
@@ -100,7 +101,7 @@ const CompareCardPage: React.FC = () => {
                     />
                   </div>
                 )}
-                {isTablet && (cards || []).length < 3 && (
+                {!isMobile && (cards || []).length < 3 && (
                   <div className='w-full'>
                     <SelectCard
                       onOpenChange={(open) => setOpenCardSelect(open)}

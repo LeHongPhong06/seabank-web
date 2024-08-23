@@ -13,10 +13,11 @@ import WapperContainer from "@/components/wappers/WapperContainer";
 import { useCard, useCardDispatch } from "@/context/card";
 import { dataCards } from "@/data/card";
 import { dataEndow, dataIncentives } from "@/data/endow";
-import { useBreakpointScreen } from "@/hooks/breakpoint";
+import { getBreakpointCurrent } from "@/hooks/breakpoint";
 import { CreditCardOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { CollapseProps } from "antd";
 import { useRouter } from "next/navigation";
+import _ from "lodash";
 import { useState } from "react";
 
 const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
@@ -25,9 +26,9 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
   const cardDispatch = useCardDispatch();
   const { cardId } = params;
   const [cardType, setCardType] = useState(1);
-  const [isMobile, isTablet] = useBreakpointScreen();
+  const isMobile = _.includes(["xs", "sm"], getBreakpointCurrent());
   const isChooseMobile = isMobile && (cardSelects || []).length > 1;
-  const isChooseTablet = isTablet && (cardSelects || []).length > 2;
+  const isChooseTablet = !isMobile && (cardSelects || []).length > 2;
   const btnList = [
     {
       key: 1,
@@ -138,9 +139,7 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
           </div>
         </div>
         <div className='px-4 pt-6'>
-          <div>
-            <TitleComponent title='Thông Tin Chi Tiết' />
-          </div>
+          <TitleComponent title='Thông Tin Chi Tiết' />
           <div className='py-4 md:py-[20px]'>
             <div className='md:hidden'>
               <TabsComponent data={btnList} onSelect={(key) => setCardType(key)} idSelect={cardType} />

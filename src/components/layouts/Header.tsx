@@ -7,7 +7,6 @@ import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import InconSearchHeader from "../icons/InconSearchHeader";
 import WapperContainer from "../wappers/WapperContainer";
 
 const Header: React.FC = () => {
@@ -41,7 +40,6 @@ const Header: React.FC = () => {
               Trang chủ
             </Button>
             <div className='flex items-center gap-8 py-2 xl:p-0'>
-              <InconSearchHeader />
               <div className='relative size-6'>
                 <Image alt='logo-vietnam' src={logoVietNam} fill />
               </div>

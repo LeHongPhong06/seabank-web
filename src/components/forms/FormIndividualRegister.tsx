@@ -1,23 +1,14 @@
 "use client";
 import { colors } from "@/constants/colors";
-import { useAppDispatch } from "@/hooks/redux";
-import { setChangeOpenModalInvidualRegister } from "@/stores/slices/product";
+import { useProductDispatch } from "@/context/product";
 import { CloseOutlined, CreditCardFilled } from "@ant-design/icons";
-import {
-  ProForm,
-  ProFormCheckbox,
-  ProFormRadio,
-  ProFormSelect,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components";
-import { ConfigProvider, RadioGroupProps } from "antd";
+import { Checkbox, ConfigProvider, Form, Input, Radio, RadioGroupProps, Select } from "antd";
 import { CheckboxGroupProps } from "antd/lib/checkbox";
 import { CSSProperties } from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 
 const FormIndividualRegister = () => {
-  const dispatch = useAppDispatch();
+  const productDispatch = useProductDispatch();
   const optionRadioGender: RadioGroupProps["options"] = [
     {
       label: <LabelInput title='Nam' styles={{ fontWeight: 400 }} />,
@@ -85,7 +76,7 @@ const FormIndividualRegister = () => {
       <div className='relative px-4 py-6 sm:px-16 sm:py-12'>
         <div
           className='absolute left-0 right-0 mx-auto size-14 -translate-y-24 sm:-translate-y-32 bg-[rgba(0,_0,_0,_0.65)] flex justify-center items-center rounded-full hover:cursor-pointer hover:bg-black'
-          onClick={() => dispatch(setChangeOpenModalInvidualRegister(false))}
+          onClick={() => productDispatch?.({ type: "changeModalIndividual", payload: true })}
         >
           <CloseOutlined className='text-white text-xl' />
         </div>
@@ -100,77 +91,90 @@ const FormIndividualRegister = () => {
             </span>
           </p>
         </div>
-        <ProForm
-          onFinish={onFinish}
-          submitter={{
-            render(props, dom) {
-              return (
-                <div className='md:flex md:justify-center'>
-                  <div className='w-full md:w-[190px] h-12'>
-                    <ButtonPrimary
-                      buttonProps={{
-                        children: "Đăng ký",
-                        onClick: () => props.submit(),
-                        icon: <CreditCardFilled />,
-                        style: { width: "100%", height: "100%" },
-                      }}
-                    />
-                  </div>
-                </div>
-              );
-            },
-          }}
-          grid
-          rowProps={{ gutter: { md: 16 } }}
-        >
-          <ProFormText
-            rules={[
-              {
-                required: true,
-                message: "Please enter name",
-              },
-            ]}
-            name={"fullName"}
-            placeholder={"Họ và tên"}
-            label={<LabelInput title='Họ và tên' />}
-            colProps={{ xs: 24, md: 12 }}
-          />
-          <ProFormText
-            placeholder={"Số điện thoại"}
-            label={<LabelInput title='Số điện thoại' />}
-            colProps={{ xs: 24, md: 12 }}
-          />
-          <ProFormRadio.Group
-            label={<LabelInput title='Giới tính' />}
-            options={optionRadioGender}
-            style={{
-              fontSize: 16,
-              fontWeight: 400,
-            }}
-            colProps={{ xs: 24, md: 12 }}
-          />
-          <ProFormText placeholder={"Email"} label={<LabelInput title='Email' />} colProps={{ xs: 24, md: 12 }} />
-          <ProFormSelect
-            placeholder={"Chọn tỉnh thành"}
-            label={<LabelInput title='Nơi ở' />}
-            colProps={{ xs: 24, md: 12 }}
-          />
-          <ProFormSelect
-            placeholder={"Chọn lĩnh vực"}
-            label={<LabelInput title='Lĩnh vực quan tâm' />}
-            colProps={{ xs: 24, md: 12 }}
-          />
-          <ProFormTextArea label={<LabelInput title='Ghi chú' />} placeholder={"Nhập nội dung"} />
-          <ProFormCheckbox.Group
-            options={optionCheckBox}
-            fieldProps={{
-              style: { fontWeight: 500 },
-            }}
-          />
-        </ProForm>
+        <Form onFinish={onFinish} layout='vertical'>
+          <WapperGroupField>
+            <WapperItemField>
+              <Form.Item
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter name",
+                  },
+                ]}
+                name={"fullName"}
+                label={<LabelInput title='Họ và tên' />}
+              >
+                <Input placeholder={"Họ và tên"} />
+              </Form.Item>
+            </WapperItemField>
+            <WapperItemField>
+              <Form.Item label={<LabelInput title='Số điện thoại' />}>
+                <Input placeholder={"Số điện thoại"} />
+              </Form.Item>
+            </WapperItemField>
+          </WapperGroupField>
+          <WapperGroupField>
+            <WapperItemField>
+              <Form.Item label={<LabelInput title='Giới tính' />}>
+                <Radio.Group
+                  options={optionRadioGender}
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 400,
+                  }}
+                />
+              </Form.Item>
+            </WapperItemField>
+            <WapperItemField>
+              <Form.Item label={<LabelInput title='Email' />}>
+                <Input placeholder={"Email"} />
+              </Form.Item>
+            </WapperItemField>
+          </WapperGroupField>
+          <WapperGroupField>
+            <WapperItemField>
+              <Form.Item label={<LabelInput title='Nơi ở' />}>
+                <Select placeholder={"Chọn tỉnh thành"} />
+              </Form.Item>
+            </WapperItemField>
+            <WapperItemField>
+              <Form.Item label={<LabelInput title='Lĩnh vực quan tâm' />}>
+                <Select placeholder={"Chọn lĩnh vực"} />
+              </Form.Item>
+            </WapperItemField>
+          </WapperGroupField>
+          <Form.Item label={<LabelInput title='Ghi chú' />}>
+            <Input.TextArea placeholder={"Nhập nội dung"} />
+          </Form.Item>
+          <Form.Item>
+            <Checkbox.Group options={optionCheckBox} />
+          </Form.Item>
+          <div className='md:flex md:justify-center'>
+            <Form.Item style={{ marginBottom: 0 }}>
+              <div className='md:min-w-[190px] w-full'>
+                <ButtonPrimary
+                  buttonProps={{
+                    icon: <CreditCardFilled />,
+                    htmlType: "submit",
+                    children: "Đăng ký",
+                    style: { width: "100%", height: "100%" },
+                  }}
+                />
+              </div>
+            </Form.Item>
+          </div>
+        </Form>
       </div>
     </ConfigProvider>
   );
+};
+
+const WapperGroupField = ({ children }: { children: React.ReactNode }) => {
+  return <div className='md:flex md:gap-4'>{children}</div>;
+};
+
+const WapperItemField = ({ children }: { children: React.ReactNode }) => {
+  return <div className='md:flex-1'>{children}</div>;
 };
 
 const LabelInput = ({ title, styles }: { title: string; styles?: CSSProperties }) => {
