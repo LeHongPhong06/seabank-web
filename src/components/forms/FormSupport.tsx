@@ -1,30 +1,30 @@
 "use client";
 import { colors } from "@/constants/colors";
-import { useProductDispatch } from "@/context/product";
+import { ProductContext } from "@/context/product";
 import { CloseOutlined, PaperClipOutlined } from "@ant-design/icons";
 import { Checkbox, ConfigProvider, Form, Input, Select } from "antd";
 import { CheckboxGroupProps } from "antd/lib/checkbox";
-import { CSSProperties } from "react";
+import { CSSProperties, useContext, useState } from "react";
 import ButtonComponent from "../buttons/ButtonComponent";
 import ButtonPrimary from "../buttons/ButtonPrimary";
+import file from "@/assets/images/icons/file.svg";
+import Image from "next/image";
 
 const FormSupport = () => {
-  const [formRef] = Form.useForm();
-  const productDispatch = useProductDispatch();
+  const [optionConctacts, setOptionContacts] = useState<Array<string>>([]);
+  const productContext = useContext(ProductContext);
+  const { dispatch } = productContext;
   const optionCheckBox: CheckboxGroupProps["options"] = [
     {
-      value: "1",
+      value: "phone",
       label: "Nhận phản hồi qua điện thoại",
     },
     {
-      value: "2",
+      value: "email",
       label: "Nhận phản hồi qua email",
     },
   ];
-  const onFinish = (values: any) => {
-    console.log("values", values);
-  };
-
+  const onFinish = (values: any) => {};
   return (
     <ConfigProvider
       theme={{
@@ -56,7 +56,8 @@ const FormSupport = () => {
           Checkbox: {
             controlInteractiveSize: 18,
             colorPrimaryHover: colors.RED,
-            colorPrimary: colors.RED,
+            colorPrimaryBorderHover: colors.GRAY_BTN,
+            colorPrimary: "rgba(221, 26, 28, 0.5)",
           },
         },
       }}
@@ -64,7 +65,7 @@ const FormSupport = () => {
       <div className='relative px-4 py-6 sm:px-16 sm:py-12'>
         <div
           className='absolute left-0 right-0 mx-auto size-14 -translate-y-24 sm:-translate-y-32 bg-[rgba(0,_0,_0,_0.65)] flex justify-center items-center rounded-full hover:cursor-pointer hover:bg-black'
-          onClick={() => productDispatch?.({ type: "changeModalSupport", payload: false })}
+          onClick={() => dispatch?.({ type: "changeModalSupport", payload: { modalCustomerSupport: false } })}
         >
           <CloseOutlined className='text-white text-xl' />
         </div>
@@ -79,7 +80,7 @@ const FormSupport = () => {
             </span>
           </p>
         </div>
-        <Form onFinish={onFinish} layout='vertical' form={formRef}>
+        <Form layout='vertical' onFinish={onFinish}>
           <div className='flex flex-col md:flex-row md:gap-4'>
             <div className='flex-1'>
               <TitleGroupField title={"1. Chọn sản phẩm / Dịch vụ cần hỗ trợ"} />
@@ -95,17 +96,17 @@ const FormSupport = () => {
               </WapperItemField>
               <TitleGroupField title={"2. Nhập thông tin khách hàng"} />
               <WapperItemField>
-                <Form.Item label={<LabelInput title='Họ và tên' />}>
+                <Form.Item label={<LabelInput title='Họ và tên' />} name={"fullName"}>
                   <Input placeholder={"Nhập họ và tên"} />
                 </Form.Item>
               </WapperItemField>
               <WapperItemField>
-                <Form.Item label={<LabelInput title='Số điện thoại' />}>
+                <Form.Item label={<LabelInput title='Số điện thoại' />} name={"phone"}>
                   <Input placeholder={"Nhập số điện thoại"} />
                 </Form.Item>
               </WapperItemField>
               <WapperItemField>
-                <Form.Item label={<LabelInput title='Email' />}>
+                <Form.Item label={<LabelInput title='Email' />} name={"email"}>
                   <Input placeholder={"Nhập email"} />
                 </Form.Item>
               </WapperItemField>
@@ -116,13 +117,15 @@ const FormSupport = () => {
                 subTitle='SeABank cam kết bảo mật toàn bộ các thông tin cá nhân của Khách hàng đã đăng ký với ngân hàng. Tuy nhiên, để tránh việc thông tin có thể bị khai thác trên đường truyền tin. Quý khách vui lòng KHÔNG ĐIỀN những thông tin cá nhân quan trọng cần bảo mật (mã CVV, tên truy cập, mật khẩu, mã PIN, mã OTP...) vào mục nội dung cần hỗ trợ.'
               />
               <WapperItemField>
-                <Form.Item label={<LabelInput title='Nội dung' />}>
+                <Form.Item label={<LabelInput title='Nội dung' />} name={"content"}>
                   <Input.TextArea placeholder={"Nhập nội dung"} />
                 </Form.Item>
               </WapperItemField>
               <Form.Item>
-                <div className='flex gap-2'>
-                  <PaperClipOutlined className='[rotate:135deg] text-base' />
+                <div className='flex gap-3'>
+                  <div className='relative size-4 mt-1'>
+                    <Image src={file} alt='icon-file' sizes='100%' fill className='object-contain' />
+                  </div>
                   <p className='text-sm font-medium'>
                     <span className='mr-1 underline text-red hover:cursor-pointer'>Đính kèm file</span>
                     <span>
@@ -134,21 +137,18 @@ const FormSupport = () => {
               </Form.Item>
               <TitleGroupField title={"4. Lựa chọn phương thức phản hồi từ ngân hàng"} />
               <WapperItemField>
-                <Form.Item>
-                  <Checkbox.Group
-                    options={optionCheckBox}
-                    style={{
-                      gap: 6,
-                      fontWeight: 500,
-                    }}
-                  />
-                </Form.Item>
+                <Checkbox.Group
+                  options={optionCheckBox}
+                  style={{ fontWeight: 500, marginBottom: 24, gap: 6 }}
+                  value={optionConctacts}
+                  onChange={(values) => setOptionContacts(values)}
+                />
               </WapperItemField>
               <div className='flex gap-2 w-full md:w-[250px] h-12'>
                 <ButtonComponent title='Làm lại' styles={{ width: "100%" }} />
                 <ButtonPrimary
                   buttonProps={{
-                    onClick: () => formRef.submit(),
+                    htmlType: "submit",
                     children: "Gửi yêu cầu",
                     style: { width: "100%" },
                   }}

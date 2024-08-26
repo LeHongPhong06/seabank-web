@@ -1,4 +1,3 @@
-import { Card } from "@/context/card/data";
 import { CloseCircleFilled, PlusOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -9,11 +8,11 @@ import WapperContainer from "../wappers/WapperContainer";
 
 type Props = {
   disableSelect?: boolean;
-  cardSelects: Array<Card>;
-  onCompare?: () => void;
-  onCancel?: () => void;
+  cardSelects: Array<any>;
+  onCompare: () => void;
+  onCancel: () => void;
   footerToolbarProps?: any;
-  onDeleteItem: (id: number) => void;
+  onDeleteItem: (item: any) => void;
 };
 
 const ToolbarCompareCard: React.FC<Props> = ({ onCompare, onCancel, onDeleteItem, cardSelects, disableSelect }) => {
@@ -28,15 +27,15 @@ const ToolbarCompareCard: React.FC<Props> = ({ onCompare, onCancel, onDeleteItem
           <div className='grid gap-[20px] grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 lg:auto-cols-max'>
             {cardSelects.map((item) => {
               return (
-                <div className='relative w-full h-24 rounded-xl' key={item.id}>
+                <div className='relative w-full h-24 rounded-xl' key={item?.id}>
                   <CloseCircleFilled
                     className='absolute text-white z-20 top-[5px] lg:top-0 right-[5px] block hover:cursor-pointer lg:text-lg'
-                    onClick={() => onDeleteItem(item.id)}
+                    onClick={() => onDeleteItem(item)}
                   />
                   <Image
                     priority={false}
-                    alt={`card-${item.id}`}
-                    src={item.image || ""}
+                    alt={`card-${item?.id}`}
+                    src={item?.image || ""}
                     fill
                     sizes='100%'
                     className='object-cover rounded-xl'

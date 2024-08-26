@@ -8,11 +8,8 @@ import { CollapseProps } from "antd/lib";
 import Image from "next/image";
 import React from "react";
 import WapperContainer from "../wappers/WapperContainer";
-import { useProductDispatch } from "@/context/product";
-import ButtonDefault from "../buttons/ButtonDefault";
 
 const Footer: React.FC = () => {
-  const productDispatch = useProductDispatch();
   const data = [
     {
       id: "1",
@@ -151,10 +148,6 @@ const Footer: React.FC = () => {
   }));
   return (
     <footer className='bg-footer bg-no-repeat bg-cover bg-center bg-white py-6'>
-      <ButtonDefault
-        title='Hỗ trợ tôi'
-        onClick={() => productDispatch?.({ type: "changeModalSupport", payload: true })}
-      />
       <WapperContainer>
         <div className='md:hidden'>
           <Collapse

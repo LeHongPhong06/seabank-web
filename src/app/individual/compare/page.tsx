@@ -6,26 +6,26 @@ import ButtonPrimary from "@/components/buttons/ButtonPrimary";
 import SelectCard from "@/components/selects/SelectCard";
 import TitleComponent from "@/components/TitleComponent";
 import WapperContainer from "@/components/wappers/WapperContainer";
-import { useCard, useCardDispatch } from "@/context/card";
+import { ProductContext } from "@/context/product";
 import { dataCards } from "@/data/card";
 import { getBreakpointCurrent } from "@/hooks/breakpoint";
 import { CloseCircleFilled, DownOutlined } from "@ant-design/icons";
 import _ from "lodash";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const CompareCardPage: React.FC = () => {
   const router = useRouter();
-  const cards = useCard();
   const isMobile = _.includes(["xs", "sm"], getBreakpointCurrent());
   const [openCardSelect, setOpenCardSelect] = useState(false);
-  const cardDispatch = useCardDispatch();
+  const productContext = useContext(ProductContext);
+  const { state, dispatch } = productContext;
   useEffect(() => {
     return () => {
-      cardDispatch?.({ type: "clear" });
+      dispatch?.({ type: "clearProductCompares", payload: {} });
     };
-  }, [cardDispatch]);
+  }, []);
   return (
     <div className='bg-white min-h-[80vh]'>
       <WapperContainer>
@@ -35,21 +35,21 @@ const CompareCardPage: React.FC = () => {
           </div>
           <div className='flex flex-col gap-4'>
             <div>
-              <LayoutCompare>
+              <LayoutCompareProduct>
                 <div className='w-full rounded-xl p-4 bg-gray-5 lg:flex justify-center items-start flex-col hidden'>
                   <TitleComponent title='So sánh thẻ' />
                   <div className='text-left font-medium'>
-                    {cards?.map((item) => (
+                    {state.productListCompares?.map((item) => (
                       <p className='text-black text-sm leading-[22px]' key={item.id}>
                         {item.title}
                       </p>
                     ))}
                   </div>
                 </div>
-                {cards?.map((card) => (
+                {state.productListCompares.map((product) => (
                   <div
                     className='w-full flex flex-col gap-2 md:gap-3 min-h-64 justify-between p-2 lg:p-4 rounded-xl bg-gray-5'
-                    key={card.id}
+                    key={product.id}
                   >
                     <div>
                       <div className='flex items-center flex-col gap-[6px]'>
@@ -57,11 +57,13 @@ const CompareCardPage: React.FC = () => {
                           <div className='relative h-full w-full rounded-[11px]'>
                             <CloseCircleFilled
                               className='absolute text-white z-20 top-[5px] lg:top-0 right-[5px] block hover:cursor-pointer lg:text-lg'
-                              onClick={() => cardDispatch?.({ type: "delete", payload: { id: card.id } })}
+                              onClick={() =>
+                                dispatch?.({ type: "changeProductCompare", payload: { productCompare: product } })
+                              }
                             />
                             <Image
-                              src={card.image ?? ""}
-                              alt={card.title ?? ""}
+                              src={product.image}
+                              alt={product.title}
                               fill
                               sizes='100%'
                               className='object-cover rounded-[11px]'
@@ -71,7 +73,7 @@ const CompareCardPage: React.FC = () => {
                         <DownOutlined className='text-gray-process-text text-base text-center md:hidden' />
                       </div>
                       <p className='text-left text-base font-semibold leading-[22px] text-black mt-2 md:mt-[18px]'>
-                        {card.title}
+                        {product.title}
                       </p>
                     </div>
                     <div className='flex items-center gap-3'>
@@ -79,7 +81,7 @@ const CompareCardPage: React.FC = () => {
                         <ButtonDefault
                           title='Xem chi tiết'
                           styles={{ fontWeight: 500, width: "100%" }}
-                          onClick={() => router.push(`/individual/${card.id}`)}
+                          onClick={() => router.push(`/individual/${product.id}`)}
                         />
                       </div>
                       <div className='flex-1'>
@@ -88,115 +90,115 @@ const CompareCardPage: React.FC = () => {
                     </div>
                   </div>
                 ))}
-                {isMobile && (cards || []).length < 2 && (
+                {isMobile && state.productListCompares.length < 2 && (
                   <div className='w-full'>
                     <SelectCard
                       onOpenChange={(open) => setOpenCardSelect(open)}
                       open={openCardSelect}
                       dataCard={dataCards}
-                      cardSelect={cards || []}
-                      onSelect={(card) => {
-                        cardDispatch?.({ type: "change", payload: card });
+                      cardSelect={state?.productListCompares}
+                      onSelect={(product) => {
+                        dispatch?.({ type: "changeProductCompare", payload: { productCompare: product } });
                         setOpenCardSelect(false);
                       }}
                     />
                   </div>
                 )}
-                {!isMobile && (cards || []).length < 3 && (
+                {!isMobile && state.productListCompares.length < 3 && (
                   <div className='w-full'>
                     <SelectCard
                       onOpenChange={(open) => setOpenCardSelect(open)}
                       open={openCardSelect}
                       dataCard={dataCards}
-                      cardSelect={cards || []}
-                      onSelect={(card) => {
-                        cardDispatch?.({ type: "change", payload: card });
+                      cardSelect={state.productListCompares}
+                      onSelect={(product) => {
+                        dispatch?.({ type: "changeProductCompare", payload: { productCompare: product } });
                         setOpenCardSelect(false);
                       }}
                     />
                   </div>
                 )}
-              </LayoutCompare>
+              </LayoutCompareProduct>
             </div>
             <div>
               <TitleCompareMobile title='Đặc điểm/Tiện ích sản phẩm' />
-              <LayoutCompare>
+              <LayoutCompareProduct>
                 <TitleCompare title='Đặc điểm/Tiện ích sản phẩm' />
-                {cards?.map((card) => (
-                  <WapperContentCompare key={card.id}>
+                {state.productListCompares.map((product) => (
+                  <WapperContentCompare key={product.id}>
                     <p className='text-base font-semibold text-black'>Đặc điểm</p>
-                    {card.remuneration?.map((item) => (
+                    {product.remuneration.map((item: any) => (
                       <li key={item} className='text-gray-text text-sm'>
                         {item}
                       </li>
                     ))}
                     <p className='text-base font-semibold text-black mt-4'>Lợi ích</p>
-                    {card.remuneration?.map((item) => (
+                    {product.remuneration.map((item: any) => (
                       <li key={item} className='text-gray-text text-sm'>
                         {item}
                       </li>
                     ))}
                   </WapperContentCompare>
                 ))}
-              </LayoutCompare>
+              </LayoutCompareProduct>
             </div>
             <div>
               <TitleCompareMobile title='Điều kiện sử dụng' />
-              <LayoutCompare>
+              <LayoutCompareProduct>
                 <TitleCompare title='Điều kiện sử dụng' />
-                {cards?.map((card) => (
-                  <WapperContentCompare key={card.id}>
-                    {card.remuneration?.map((item) => (
+                {state.productListCompares.map((product) => (
+                  <WapperContentCompare key={product.id}>
+                    {product.remuneration.map((item: any) => (
                       <p key={item} className='text-gray-text text-sm'>
                         {item}
                       </p>
                     ))}
                   </WapperContentCompare>
                 ))}
-              </LayoutCompare>
+              </LayoutCompareProduct>
             </div>
             <div>
               <TitleCompareMobile title='Đối tượng áp dụng' />
-              <LayoutCompare>
+              <LayoutCompareProduct>
                 <TitleCompare title='Đối tượng áp dụng' />
-                {cards?.map((card) => (
-                  <WapperContentCompare key={card.id}>
-                    {card.remuneration?.map((item) => (
+                {state.productListCompares.map((product) => (
+                  <WapperContentCompare key={product.id}>
+                    {product.remuneration.map((item: any) => (
                       <p key={item} className='text-gray-text text-sm'>
                         {item}
                       </p>
                     ))}
                   </WapperContentCompare>
                 ))}
-              </LayoutCompare>
+              </LayoutCompareProduct>
             </div>
             <div>
               <TitleCompareMobile title='Hồ sơ đăng ký' />
-              <LayoutCompare>
+              <LayoutCompareProduct>
                 <TitleCompare title='Hồ sơ đăng ký' />
-                {cards?.map((card) => (
-                  <WapperContentCompare key={card.id}>
-                    {card.remuneration?.map((item) => (
+                {state.productListCompares.map((product) => (
+                  <WapperContentCompare key={product.id}>
+                    {product.remuneration.map((item: any) => (
                       <p key={item} className='text-gray-text text-sm'>
                         {item}
                       </p>
                     ))}
                   </WapperContentCompare>
                 ))}
-              </LayoutCompare>
+              </LayoutCompareProduct>
             </div>
             <div className='md:hidden'>
-              <LayoutCompare>
-                {cards?.map((card) => (
+              <LayoutCompareProduct>
+                {state.productListCompares.map((product: any) => (
                   <ButtonPrimary
                     buttonProps={{
                       children: "Mở thẻ ngay",
                       style: { height: 42 },
                     }}
-                    key={card.id}
+                    key={product.id}
                   />
                 ))}
-              </LayoutCompare>
+              </LayoutCompareProduct>
             </div>
           </div>
         </div>
@@ -234,7 +236,7 @@ const WapperContentCompare = ({ children }: { children: React.ReactNode }) => {
   return <div className='w-full p-4 border-[1px] bg-white border-solid rounded-xl border-gray-5'>{children}</div>;
 };
 
-const LayoutCompare = ({ children }: { children: React.ReactNode }) => {
+const LayoutCompareProduct = ({ children }: { children: React.ReactNode }) => {
   return <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6`}>{children}</div>;
 };
 export default CompareCardPage;

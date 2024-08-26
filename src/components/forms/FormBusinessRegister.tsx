@@ -1,16 +1,14 @@
 "use client";
 import { colors } from "@/constants/colors";
-import { useProductDispatch } from "@/context/product";
+import { ProductContext } from "@/context/product";
 import { CloseOutlined, CreditCardFilled } from "@ant-design/icons";
 import { ConfigProvider, Form, Input, Select } from "antd";
-import { CSSProperties } from "react";
+import { CSSProperties, useContext } from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 
 const FormBusinessRegister = () => {
-  const productDispatch = useProductDispatch();
-  const onFinish = (values: any) => {
-    console.log("values", values);
-  };
+  const productContext = useContext(ProductContext);
+  const { dispatch } = productContext;
   return (
     <ConfigProvider
       theme={{
@@ -45,7 +43,7 @@ const FormBusinessRegister = () => {
       <div className='relative px-4 py-6 sm:px-16 sm:py-12'>
         <div
           className='absolute left-0 right-0 mx-auto size-14 -translate-y-24 sm:-translate-y-32 bg-[rgba(0,_0,_0,_0.65)] flex justify-center items-center rounded-full hover:cursor-pointer hover:bg-black'
-          onClick={() => productDispatch?.({ type: "changeModalBusiness", payload: false })}
+          onClick={() => dispatch?.({ type: "changeModalBusiness", payload: { modalBusinessRegister: false } })}
         >
           <CloseOutlined className='text-white text-xl' />
         </div>
@@ -60,7 +58,7 @@ const FormBusinessRegister = () => {
             </span>
           </p>
         </div>
-        <Form onFinish={onFinish} layout='vertical'>
+        <Form layout='vertical'>
           <WapperGroupField>
             <WapperItemField>
               <Form.Item
@@ -76,41 +74,41 @@ const FormBusinessRegister = () => {
                   },
                 ]}
               >
-                <Input name={"fullName"} placeholder={"Tên doanh nghiệp"} />
+                <Input name={"companyName"} placeholder={"Tên doanh nghiệp"} />
               </Form.Item>
             </WapperItemField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Mã số doanh nghiệp' />}>
+              <Form.Item label={<LabelInput title='Mã số doanh nghiệp' />} name={"taxCode"}>
                 <Input placeholder={"Mã số doanh nghiệp"} />
               </Form.Item>
             </WapperItemField>
           </WapperGroupField>
           <WapperGroupField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Mã số doanh nghiệp' />}>
+              <Form.Item label={<LabelInput title='Tỉnh thành' />} name={"province"}>
                 <Select placeholder={"Chọn tỉnh thành"} />
               </Form.Item>
             </WapperItemField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Người liên hệ' />}>
+              <Form.Item label={<LabelInput title='Người liên hệ' />} name={"fullName"}>
                 <Input placeholder={"Người liên hệ"} />
               </Form.Item>
             </WapperItemField>
           </WapperGroupField>
           <WapperGroupField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Số điện thoại' />}>
+              <Form.Item label={<LabelInput title='Số điện thoại' />} name={"phone"}>
                 <Input placeholder={"Số điện thoại"} />
               </Form.Item>
             </WapperItemField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Email' />}>
+              <Form.Item label={<LabelInput title='Email' />} name={"email"}>
                 <Input placeholder={"Email"} />
               </Form.Item>
             </WapperItemField>
           </WapperGroupField>
           <div className='md:w-[calc(50%-8px)]'>
-            <Form.Item label={<LabelInput title='Sản phẩm cần tư vấn' />}>
+            <Form.Item label={<LabelInput title='Sản phẩm cần tư vấn' />} name={"referral"}>
               <Select placeholder={"Sản phẩm cần tư vấn"} />
             </Form.Item>
           </div>
@@ -120,7 +118,6 @@ const FormBusinessRegister = () => {
                 <ButtonPrimary
                   buttonProps={{
                     icon: <CreditCardFilled />,
-                    htmlType: "submit",
                     children: "Đăng ký",
                     style: { width: "100%", height: "100%" },
                   }}

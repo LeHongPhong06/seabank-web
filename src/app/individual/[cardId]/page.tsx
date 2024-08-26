@@ -6,29 +6,30 @@ import ButtonPrimary from "@/components/buttons/ButtonPrimary";
 import CardIncentives from "@/components/cards/CardIncentives";
 import CardIndividual from "@/components/cards/CardIndividual";
 import QuestionCollapse from "@/components/collapse/QuestionCollapse";
+import ProductModal from "@/components/modals/ProductModal";
 import TabsComponent from "@/components/tabs/TabsComponent";
 import TitleComponent from "@/components/TitleComponent";
 import ToolbarCompareCard from "@/components/toolbars/ToolbarCompareCard";
 import WapperContainer from "@/components/wappers/WapperContainer";
-import { useCard, useCardDispatch } from "@/context/card";
+import { ProductContext } from "@/context/product";
 import { dataCards } from "@/data/card";
 import { dataEndow, dataIncentives } from "@/data/endow";
 import { getBreakpointCurrent } from "@/hooks/breakpoint";
 import { CreditCardOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { CollapseProps } from "antd";
-import { useRouter } from "next/navigation";
 import _ from "lodash";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
 
 const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
   const router = useRouter();
-  const cardSelects = useCard();
-  const cardDispatch = useCardDispatch();
+  const productContext = useContext(ProductContext);
+  const { state, dispatch } = productContext;
   const { cardId } = params;
   const [cardType, setCardType] = useState(1);
   const isMobile = _.includes(["xs", "sm"], getBreakpointCurrent());
-  const isChooseMobile = isMobile && (cardSelects || []).length > 1;
-  const isChooseTablet = !isMobile && (cardSelects || []).length > 2;
+  const isChooseMobile = isMobile && state.productListCompares.length > 1;
+  const isChooseTablet = !isMobile && state.productListCompares.length > 2;
   const btnList = [
     {
       key: 1,
@@ -187,14 +188,20 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
           </div>
           <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {dataCards.map((item) => {
-              const isSelectItem = cardSelects?.find((card) => card.id === item.id);
+              const isSelectItem = state.productListCompares.find((card) => card.id === item.id);
               return (
                 <CardIndividual
                   key={item.id}
                   disabled={isChooseMobile || isChooseTablet}
                   data={item}
+                  onRegister={() =>
+                    dispatch?.({
+                      type: "changeModalSupport",
+                      payload: { modalCustomerSupport: true },
+                    })
+                  }
                   isSelect={isSelectItem ? true : false}
-                  onCompare={() => cardDispatch?.({ type: "change", payload: item })}
+                  onCompare={() => dispatch?.({ type: "changeProductCompare", payload: { productCompare: item } })}
                 />
               );
             })}
@@ -227,15 +234,16 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
           </div>
         </WapperContainer>
       </div>
-      {(cardSelects || []).length > 0 && (
+      {state.productListCompares.length > 0 && (
         <ToolbarCompareCard
           disableSelect={isChooseMobile || isChooseTablet}
           onCompare={() => router.push("/individual/compare")}
-          cardSelects={cardSelects || []}
-          onCancel={() => cardDispatch?.({ type: "clear" })}
-          onDeleteItem={(id) => cardDispatch?.({ type: "change", payload: { id } })}
+          cardSelects={state.productListCompares}
+          onCancel={() => dispatch?.({ type: "clearProductCompares", payload: {} })}
+          onDeleteItem={(item) => dispatch?.({ type: "changeProductCompare", payload: { productCompare: item } })}
         />
       )}
+      <ProductModal />
     </section>
   );
 };

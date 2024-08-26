@@ -1,19 +1,17 @@
-import icon from "@/assets/images/icons/mingcute.svg";
 import border from "@/assets/images/icons/card-border.svg";
-import { Card, PayloadAction } from "@/context/card/data";
+import icon from "@/assets/images/icons/mingcute.svg";
 import { CheckOutlined, CreditCardOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import React from "react";
 import ButtonCard from "../buttons/ButtonCard";
-import ButtonComponent from "../buttons/ButtonComponent";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 
 type Props = {
-  data: Card;
+  data: any;
   isSelect: boolean;
   disabled?: boolean;
-  onRegister?: (id: number) => void;
-  onCompare: (payload: PayloadAction) => void;
+  onRegister: () => void;
+  onCompare: () => void;
 };
 
 const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister, onCompare }) => {
@@ -47,7 +45,7 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
               disabled={disabled}
               active={isSelect}
               title='So sánh'
-              onClick={() => onCompare?.({ type: "change", payload: { id: data.id } })}
+              onClick={onCompare}
               preffix={
                 isSelect ? (
                   <div className='bg-gradient-primary size-6 flex justify-center items-center rounded-full'>
@@ -65,7 +63,7 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
               buttonProps={{
                 children: "Đăng ký tư vấn",
                 style: { width: "100%", height: "100%" },
-                onClick: () => onRegister?.(data.id),
+                onClick: onRegister,
                 icon: <CreditCardOutlined className='text-base' />,
               }}
             />

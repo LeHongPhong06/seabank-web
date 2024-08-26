@@ -1,14 +1,18 @@
 "use client";
 import { colors } from "@/constants/colors";
-import { useProductDispatch } from "@/context/product";
+import { ProductContext } from "@/context/product";
 import { CloseOutlined, CreditCardFilled } from "@ant-design/icons";
 import { Checkbox, ConfigProvider, Form, Input, Radio, RadioGroupProps, Select } from "antd";
 import { CheckboxGroupProps } from "antd/lib/checkbox";
-import { CSSProperties } from "react";
+import { CSSProperties, useContext, useState } from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
+import { actionsFormRegisterConsulting } from "./actions";
 
 const FormIndividualRegister = () => {
-  const productDispatch = useProductDispatch();
+  const [accpectCondition, setAccpectCondition] = useState<Array<string>>([]);
+  const productContext = useContext(ProductContext);
+  const { dispatch } = productContext;
+
   const optionRadioGender: RadioGroupProps["options"] = [
     {
       label: <LabelInput title='Nam' styles={{ fontWeight: 400 }} />,
@@ -25,13 +29,14 @@ const FormIndividualRegister = () => {
   ];
   const optionCheckBox: CheckboxGroupProps["options"] = [
     {
-      value: "test",
+      value: "accpet",
       label:
         "Bằng cách tích vào ô này, tôi đồng ý cung cấp và cho phép ngân hàng xử lý những dữ liệu trên để nhận thông báo từ SeABank.",
     },
   ];
-  const onFinish = (values: any) => {
-    console.log("values", values);
+  const onFinish = async (values: any) => {
+    const res = await actionsFormRegisterConsulting(values);
+    console.log("res", res);
   };
   return (
     <ConfigProvider
@@ -76,7 +81,7 @@ const FormIndividualRegister = () => {
       <div className='relative px-4 py-6 sm:px-16 sm:py-12'>
         <div
           className='absolute left-0 right-0 mx-auto size-14 -translate-y-24 sm:-translate-y-32 bg-[rgba(0,_0,_0,_0.65)] flex justify-center items-center rounded-full hover:cursor-pointer hover:bg-black'
-          onClick={() => productDispatch?.({ type: "changeModalIndividual", payload: false })}
+          onClick={() => dispatch?.({ type: "changeModalIndividual", payload: { modalIndividualRegister: false } })}
         >
           <CloseOutlined className='text-white text-xl' />
         </div>
@@ -91,7 +96,7 @@ const FormIndividualRegister = () => {
             </span>
           </p>
         </div>
-        <Form onFinish={onFinish} layout='vertical'>
+        <Form layout='vertical' onFinish={onFinish}>
           <WapperGroupField>
             <WapperItemField>
               <Form.Item
@@ -108,59 +113,52 @@ const FormIndividualRegister = () => {
               </Form.Item>
             </WapperItemField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Số điện thoại' />}>
+              <Form.Item label={<LabelInput title='Số điện thoại' />} name={"phone"}>
                 <Input placeholder={"Số điện thoại"} />
               </Form.Item>
             </WapperItemField>
           </WapperGroupField>
           <WapperGroupField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Giới tính' />}>
-                <Radio.Group
-                  options={optionRadioGender}
-                  style={{
-                    fontSize: 16,
-                    fontWeight: 400,
-                  }}
-                />
+              <Form.Item label={<LabelInput title='Giới tính' />} name={"gender"}>
+                <Radio.Group options={optionRadioGender} style={{ fontSize: 16, fontWeight: 400 }} />
               </Form.Item>
             </WapperItemField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Email' />}>
+              <Form.Item label={<LabelInput title='Email' />} name={"email"}>
                 <Input placeholder={"Email"} />
               </Form.Item>
             </WapperItemField>
           </WapperGroupField>
           <WapperGroupField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Nơi ở' />}>
+              <Form.Item label={<LabelInput title='Nơi ở' />} name={"province"}>
                 <Select placeholder={"Chọn tỉnh thành"} />
               </Form.Item>
             </WapperItemField>
             <WapperItemField>
-              <Form.Item label={<LabelInput title='Lĩnh vực quan tâm' />}>
+              <Form.Item label={<LabelInput title='Lĩnh vực quan tâm' />} name={"type"}>
                 <Select placeholder={"Chọn lĩnh vực"} />
               </Form.Item>
             </WapperItemField>
           </WapperGroupField>
-          <Form.Item label={<LabelInput title='Ghi chú' />}>
+          <Form.Item label={<LabelInput title='Ghi chú' />} name={"content"}>
             <Input.TextArea placeholder={"Nhập nội dung"} />
           </Form.Item>
-          <Form.Item>
-            <Checkbox.Group
-              options={optionCheckBox}
-              style={{
-                fontWeight: 500,
-              }}
-            />
-          </Form.Item>
+          <Checkbox.Group
+            value={accpectCondition}
+            options={optionCheckBox}
+            style={{ fontWeight: 500, marginBottom: 16 }}
+            onChange={(event) => setAccpectCondition(event)}
+          />
           <div className='md:flex md:justify-center'>
             <Form.Item style={{ marginBottom: 0 }}>
               <div className='md:min-w-[190px] w-full'>
                 <ButtonPrimary
                   buttonProps={{
-                    icon: <CreditCardFilled />,
+                    disabled: accpectCondition.length < 1,
                     htmlType: "submit",
+                    icon: <CreditCardFilled />,
                     children: "Đăng ký",
                     style: { width: "100%", height: "100%" },
                   }}
