@@ -9,12 +9,11 @@ import QuestionCollapse from "@/components/collapse/QuestionCollapse";
 import ProductModal from "@/components/modals/ProductModal";
 import TabsComponent from "@/components/tabs/TabsComponent";
 import TitleComponent from "@/components/TitleComponent";
-import ToolbarCompareCard from "@/components/toolbars/ToolbarCompareCard";
 import WapperContainer from "@/components/wappers/WapperContainer";
 import { ProductContext } from "@/context/product";
 import { dataCards } from "@/data/card";
 import { dataEndow, dataIncentives } from "@/data/endow";
-import { getBreakpointCurrent } from "@/hooks/breakpoint";
+import { useGetBreakpointCurrent } from "@/hooks/breakpoint";
 import { CreditCardOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { CollapseProps } from "antd";
 import _ from "lodash";
@@ -27,7 +26,7 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
   const { state, dispatch } = productContext;
   const { cardId } = params;
   const [cardType, setCardType] = useState(1);
-  const isMobile = _.includes(["xs", "sm"], getBreakpointCurrent());
+  const isMobile = _.includes(["xs", "sm"], useGetBreakpointCurrent());
   const isChooseMobile = isMobile && state.productListCompares.length > 1;
   const isChooseTablet = !isMobile && state.productListCompares.length > 2;
   const btnList = [
@@ -234,7 +233,7 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
           </div>
         </WapperContainer>
       </div>
-      {state.productListCompares.length > 0 && (
+      {/* {state.productListCompares.length > 0 && (
         <ToolbarCompareCard
           disableSelect={isChooseMobile || isChooseTablet}
           onCompare={() => router.push("/individual/compare")}
@@ -242,7 +241,7 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
           onCancel={() => dispatch?.({ type: "clearProductCompares", payload: {} })}
           onDeleteItem={(item) => dispatch?.({ type: "changeProductCompare", payload: { productCompare: item } })}
         />
-      )}
+      )} */}
       <ProductModal />
     </section>
   );

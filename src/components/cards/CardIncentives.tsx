@@ -39,6 +39,7 @@ const CardIncentives: React.FC<Props> = ({ data }) => {
           src={data.image}
           className='object-cover rounded-[10px]'
           sizes='100%'
+          priority
         />
       </div>
       <div className='flex flex-col gap-3'>

@@ -1,3 +1,4 @@
+"use client";
 import { Breakpoint } from "antd";
 import { useEffect, useState } from "react";
 
@@ -37,7 +38,7 @@ export function getBreakPoint(width: number): Breakpoint {
   }
 }
 
-export const getBreakpointCurrent = () => {
+export const useGetBreakpointCurrent = () => {
   const size = useWindowDimensions();
   const width = size?.width || 0;
   return getBreakPoint(width);

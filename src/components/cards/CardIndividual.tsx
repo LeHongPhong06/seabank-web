@@ -19,7 +19,7 @@ const CardIndividual: React.FC<Props> = ({ data, disabled, isSelect, onRegister,
     <div className={`p-[2px] ${isSelect ? "bg-gradient-primary" : "bg-gray"}  rounded-xl w-full hover:shadow-card`}>
       <div className='p-4 h-full w-full gap-3 flex flex-col bg-white rounded-[10px]'>
         <div className='relative w-full min-h-[220px] h-full rounded-lg'>
-          <Image alt={"border"} src={border} height={36.97} width={36.97} className='absolute top-0 right-0 z-10' />
+          <Image alt={"border"} src={border} height={37} width={37} className='absolute top-0 right-0 z-10' />
           <Image
             alt={`image-card-${data.id}`}
             fill

@@ -1,6 +1,6 @@
 "use client";
 import { ProductContext } from "@/context/product";
-import { getBreakpointCurrent } from "@/hooks/breakpoint";
+import { useGetBreakpointCurrent } from "@/hooks/breakpoint";
 import { GetProps, Modal, ModalProps } from "antd";
 import _ from "lodash";
 import React, { useContext } from "react";
@@ -47,7 +47,7 @@ const ProductModal = () => {
 };
 
 const ModalWapper: React.FC<ModalWapperProps> = ({ modalProps, children }) => {
-  const isMobile = _.includes(["xs", "sm"], getBreakpointCurrent());
+  const isMobile = _.includes(["xs", "sm"], useGetBreakpointCurrent());
   const modalStyles: ModalProps["styles"] = {
     header: { display: "none" },
     content: {

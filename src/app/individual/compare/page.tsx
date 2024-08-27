@@ -8,7 +8,7 @@ import TitleComponent from "@/components/TitleComponent";
 import WapperContainer from "@/components/wappers/WapperContainer";
 import { ProductContext } from "@/context/product";
 import { dataCards } from "@/data/card";
-import { getBreakpointCurrent } from "@/hooks/breakpoint";
+import { useGetBreakpointCurrent } from "@/hooks/breakpoint";
 import { CloseCircleFilled, DownOutlined } from "@ant-design/icons";
 import _ from "lodash";
 import Image from "next/image";
@@ -17,7 +17,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 const CompareCardPage: React.FC = () => {
   const router = useRouter();
-  const isMobile = _.includes(["xs", "sm"], getBreakpointCurrent());
+  const isMobile = _.includes(["xs", "sm"], useGetBreakpointCurrent());
   const [openCardSelect, setOpenCardSelect] = useState(false);
   const productContext = useContext(ProductContext);
   const { state, dispatch } = productContext;

@@ -30,6 +30,12 @@ const config: Config = {
         card: "30px 50px 80px 0px rgba(0, 0, 0, 0.15)",
         "select-card": "0 0 0 2px rgba(221, 27, 28, 0.1)",
       },
+      padding: {
+        "px-primary": "0px 16px",
+      },
+      maxWidth: {
+        "max-w-primary": "1440px",
+      },
       backgroundImage: {
         "gradient-primary": "linear-gradient(95deg, rgba(221,26,28,1) 0%, rgba(158,30,31,1) 100%)",
         "gradient-black": "linear-gradient(180deg, rgba(0, 0, 0, 0) 67.5%, rgba(33, 33, 33, 0.70) 100%)",
