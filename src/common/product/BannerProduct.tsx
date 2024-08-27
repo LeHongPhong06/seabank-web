@@ -1,3 +1,4 @@
+"use client";
 import ButtonDefault from "@/components/buttons/ButtonDefault";
 import ButtonPrimary from "@/components/buttons/ButtonPrimary";
 import { CreditCardOutlined } from "@ant-design/icons";

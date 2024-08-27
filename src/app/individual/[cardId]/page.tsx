@@ -1,4 +1,5 @@
 "use client";
+import ToolbarCompareProduct from "@/common/product/ToolbarCompareProduct";
 import ButtonCard from "@/components/buttons/ButtonCard";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
 import ButtonLink from "@/components/buttons/ButtonLink";
@@ -233,16 +234,8 @@ const CardPageDetail = ({ params }: { params: { cardId: string } }) => {
           </div>
         </WapperContainer>
       </div>
-      {/* {state.productListCompares.length > 0 && (
-        <ToolbarCompareCard
-          disableSelect={isChooseMobile || isChooseTablet}
-          onCompare={() => router.push("/individual/compare")}
-          cardSelects={state.productListCompares}
-          onCancel={() => dispatch?.({ type: "clearProductCompares", payload: {} })}
-          onDeleteItem={(item) => dispatch?.({ type: "changeProductCompare", payload: { productCompare: item } })}
-        />
-      )} */}
       <ProductModal />
+      <ToolbarCompareProduct />
     </section>
   );
 };

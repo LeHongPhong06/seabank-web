@@ -24,8 +24,8 @@ const IndividualPage: React.FC = () => {
           </WapperContainer>
         </div>
       </section>
-      <ToolbarCompareProduct productList={dataCards} />
       <ProductModal />
+      <ToolbarCompareProduct />
     </React.Fragment>
   );
 };
