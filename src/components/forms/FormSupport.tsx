@@ -3,17 +3,33 @@ import file from "@/assets/images/icons/file.svg";
 import { colors } from "@/constants/colors";
 import { ProductContext } from "@/context/product";
 import { CloseOutlined, DeleteOutlined, FileOutlined } from "@ant-design/icons";
-import { Checkbox, ConfigProvider, Form, Input, message, Select } from "antd";
+import {
+  Checkbox,
+  Col,
+  ConfigProvider,
+  Form,
+  GetProp,
+  Input,
+  message,
+  Row,
+  Select,
+  SelectProps,
+  Upload,
+  UploadProps,
+} from "antd";
 import { CheckboxGroupProps } from "antd/lib/checkbox";
 import Image from "next/image";
-import React, { CSSProperties, useContext, useRef, useState } from "react";
+import React, { CSSProperties, useContext, useState } from "react";
 import ButtonComponent from "../buttons/ButtonComponent";
 import ButtonPrimary from "../buttons/ButtonPrimary";
+import arrowSelect from "@/assets/images/icons/arrow-down.svg";
+import SelectForm from "../selects/SelectForm";
+
+type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 const FormSupport = () => {
   const [formRef] = Form.useForm();
-  const [optionConctacts, setOptionContacts] = useState<Array<string>>([]);
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<FileType>();
   const productContext = useContext(ProductContext);
   const { dispatch } = productContext;
   const optionCheckBox: CheckboxGroupProps["options"] = [
@@ -26,19 +42,31 @@ const FormSupport = () => {
       label: "Nhận phản hồi qua email",
     },
   ];
-  const onChangeChooseFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = event.currentTarget.files;
-    const file = fileList?.[0];
-    if (file) {
-      const isLt3M = file.size / 1024 / 1024 < 0.3;
-      if (!isLt3M) {
-        message.error(`Dung lượng file không được vượt quá 3MB`);
-        return false;
-      }
-      setFile(file);
+  const optionProducts: SelectProps["options"] = [
+    {
+      label: "Thẻ tín dụng",
+      value: 1,
+    },
+    {
+      label: "Thẻ ghi nợ",
+      value: 2,
+    },
+  ];
+  const onBeforeUpload = (file: FileType) => {
+    const isLt3M = file.size / 1024 / 1024 < 3;
+    if (!isLt3M) {
+      message.error({
+        content: "Image must smaller than 3MB!",
+      });
+      return false;
     }
+    setFile(file);
+    formRef.setFieldsValue({ file });
+    return true;
   };
-  const onFinish = (values: any) => {};
+  const onFinish = (values: any) => {
+    console.log("values", values);
+  };
   return (
     <ConfigProvider
       theme={{
@@ -94,58 +122,109 @@ const FormSupport = () => {
             </span>
           </p>
         </div>
-        <Form layout='vertical' onFinish={onFinish} form={formRef}>
-          <div className='flex flex-col md:flex-row md:gap-4'>
-            <div className='flex-1'>
-              <TitleGroupField title={"1. Chọn sản phẩm / Dịch vụ cần hỗ trợ"} />
-              <Form.Item label={<LabelInput title='Sản phẩm' />}>
-                <Select placeholder={"Chọn sản phẩm"} />
-              </Form.Item>
-              <Form.Item label={<LabelInput title='Dịch vụ cần hỗ trợ' />}>
-                <Select placeholder={"Chọn dịch vụ"} />
-              </Form.Item>
-              <TitleGroupField title={"2. Nhập thông tin khách hàng"} />
-              <Form.Item label={<LabelInput title='Họ và tên' />} name={"fullName"}>
-                <Input placeholder={"Nhập họ và tên"} />
-              </Form.Item>
-              <Form.Item label={<LabelInput title='Số điện thoại' />} name={"phone"}>
-                <Input placeholder={"Nhập số điện thoại"} />
-              </Form.Item>
-              <Form.Item label={<LabelInput title='Email' />} name={"email"}>
-                <Input placeholder={"Nhập email"} />
-              </Form.Item>
-            </div>
-            <div className='flex-1'>
-              <TitleGroupField
-                title={"3. Nội dung cần hỗ trợ"}
-                subTitle='SeABank cam kết bảo mật toàn bộ các thông tin cá nhân của Khách hàng đã đăng ký với ngân hàng. Tuy nhiên, để tránh việc thông tin có thể bị khai thác trên đường truyền tin. Quý khách vui lòng KHÔNG ĐIỀN những thông tin cá nhân quan trọng cần bảo mật (mã CVV, tên truy cập, mật khẩu, mã PIN, mã OTP...) vào mục nội dung cần hỗ trợ.'
-              />
-              <Form.Item label={<LabelInput title='Nội dung' />} name={"content"}>
-                <Input.TextArea placeholder={"Nhập nội dung"} />
-              </Form.Item>
-              <Form.Item>
-                <FormItemChooseFile onChange={onChangeChooseFile} value={file} onDelele={() => setFile(undefined)} />
-              </Form.Item>
-              <TitleGroupField title={"4. Lựa chọn phương thức phản hồi từ ngân hàng"} />
-              <Checkbox.Group
-                options={optionCheckBox}
-                style={{ fontWeight: 500, marginBottom: 24, gap: 6 }}
-                value={optionConctacts}
-                onChange={(values) => setOptionContacts(values)}
-              />
-              <div className='flex gap-2 w-full md:w-[250px] h-12'>
-                <ButtonComponent title='Làm lại' styles={{ width: "100%" }} onClick={() => formRef.resetFields()} />
-                <ButtonPrimary
-                  buttonProps={{
-                    disabled: optionConctacts.length < 1,
-                    htmlType: "submit",
-                    children: "Gửi yêu cầu",
-                    style: { width: "100%" },
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+        <Form layout='vertical' onFinish={onFinish} form={formRef} className='register-advise-form'>
+          <Row
+            gutter={[
+              { xs: 0, md: 16 },
+              { xs: 16, sm: 16, md: 0 },
+            ]}
+          >
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
+              <Row gutter={[0, { xs: 8, sm: 16, md: 24 }]}>
+                <Col span={24}>
+                  <Row gutter={[0, { xs: 8, sm: 16 }]}>
+                    <Col span={24}>
+                      <TitleGroupField title={"1. Chọn sản phẩm / Dịch vụ cần hỗ trợ"} />
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item label={<LabelInput title='Sản phẩm' />}>
+                        <SelectForm placeholder={"Chọn sản phẩm"} options={optionProducts} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item label={<LabelInput title='Dịch vụ cần hỗ trợ' />}>
+                        <SelectForm placeholder={"Chọn dịch vụ"} options={optionProducts} />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Col>
+                <Col span={24}>
+                  <Row gutter={[0, { xs: 8, sm: 16 }]}>
+                    <Col span={24}>
+                      <TitleGroupField title={"2. Nhập thông tin khách hàng"} />
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item label={<LabelInput title='Họ và tên' />} name={"fullName"}>
+                        <Input placeholder={"Nhập họ và tên"} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item label={<LabelInput title='Số điện thoại' />} name={"phone"}>
+                        <Input placeholder={"Nhập số điện thoại"} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item label={<LabelInput title='Email' />} name={"email"}>
+                        <Input placeholder={"Nhập email"} />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
+              <Row gutter={[0, { xs: 8, sm: 16, md: 24 }]}>
+                <Col span={24}>
+                  <Row gutter={[0, { xs: 8, sm: 16 }]}>
+                    <Col span={24}>
+                      <TitleGroupField
+                        title={"3. Nội dung cần hỗ trợ"}
+                        subTitle='SeABank cam kết bảo mật toàn bộ các thông tin cá nhân của Khách hàng đã đăng ký với ngân hàng. Tuy nhiên, để tránh việc thông tin có thể bị khai thác trên đường truyền tin. Quý khách vui lòng KHÔNG ĐIỀN những thông tin cá nhân quan trọng cần bảo mật (mã CVV, tên truy cập, mật khẩu, mã PIN, mã OTP...) vào mục nội dung cần hỗ trợ.'
+                      />
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item label={<LabelInput title='Nội dung' />} name={"content"}>
+                        <Input.TextArea placeholder={"Nhập nội dung"} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item name={"file"}>
+                        <FormItemChooseFile
+                          onBeforeUpload={onBeforeUpload}
+                          value={file}
+                          onDelele={() => setFile(undefined)}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Col>
+                <Col span={24}>
+                  <Row gutter={[0, { xs: 8, sm: 16 }]}>
+                    <Col span={24}>
+                      <TitleGroupField title={"4. Lựa chọn phương thức phản hồi từ ngân hàng"} />
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item name={"options"}>
+                        <Checkbox.Group options={optionCheckBox} style={{ fontWeight: 500, gap: 6 }} />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Col>
+                <Col span={24}>
+                  <div className='flex gap-2 w-full md:w-[250px] h-12'>
+                    <ButtonComponent title='Làm lại' styles={{ width: "100%" }} onClick={() => formRef.resetFields()} />
+                    <ButtonPrimary
+                      buttonProps={{
+                        htmlType: "submit",
+                        children: "Gửi yêu cầu",
+                        style: { width: "100%" },
+                      }}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </Form>
       </div>
     </ConfigProvider>
@@ -154,14 +233,13 @@ const FormSupport = () => {
 
 const FormItemChooseFile = ({
   value,
-  onChange,
+  onBeforeUpload,
   onDelele,
 }: {
-  value?: File;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: FileType;
+  onBeforeUpload: (file: FileType) => boolean;
   onDelele: () => void;
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
   const formatFileSize = () => {
     if (value) {
       const kilobytes = value.size / 1024;
@@ -180,14 +258,19 @@ const FormItemChooseFile = ({
           <div className='relative size-4 mt-1'>
             <Image src={file} alt='icon-file' sizes='100%' fill className='object-contain' />
           </div>
-          <p className='text-sm font-medium'>
-            <span className='mr-1 underline text-red hover:cursor-pointer' onClick={() => inputRef.current?.click()}>
-              Đính kèm file
-            </span>
+          <div className='text-sm font-medium'>
+            <Upload
+              showUploadList={false}
+              multiple={false}
+              accept='.xls,.xlsx,.pdf,.docx,.doc,.jpg, .jpeg, .png, .gif, .bmp'
+              beforeUpload={onBeforeUpload}
+            >
+              <span className='mr-1 underline text-red hover:cursor-pointer text-nowrap'>Đính kèm file</span>
+            </Upload>
             <span>
               (Tài liệu đính kèm là file *.jpg, *.jpeg, *.png, *.docx, *.pdf, *.xlsx có tổng dung lượng tối đa 3MB)
             </span>
-          </p>
+          </div>
         </div>
         {value && (
           <div className='w-full rounded-xl p-[1px] bg-gradient-primary'>
@@ -202,14 +285,6 @@ const FormItemChooseFile = ({
           </div>
         )}
       </div>
-      <input
-        onChange={onChange}
-        type='file'
-        style={{ display: "none" }}
-        multiple={false}
-        ref={inputRef}
-        accept='.jpg, .jpeg, .png, .docx, .xlsx, .pdf'
-      />
     </React.Fragment>
   );
 };
@@ -224,9 +299,9 @@ const LabelInput = ({ title, styles }: { title: string; styles?: CSSProperties }
 
 const TitleGroupField = ({ title, subTitle }: { title: string; subTitle?: string }) => {
   return (
-    <div className='mb-2 md:mb-3'>
-      <p className='text-base bg-gradient-primary bg-clip-text text-transparent font-semibold mb-2 pl-1'>{title}</p>
-      <p className='text-sm font-medium leading-[22px]'>{subTitle}</p>
+    <div>
+      <p className='text-base leading- bg-gradient-primary bg-clip-text text-transparent font-semibold pl-1'>{title}</p>
+      {subTitle && <p className='text-sm font-medium leading-[22px] mt-2'>{subTitle}</p>}
     </div>
   );
 };

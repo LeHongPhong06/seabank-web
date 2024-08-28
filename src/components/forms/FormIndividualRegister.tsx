@@ -2,11 +2,12 @@
 import { colors } from "@/constants/colors";
 import { ProductContext } from "@/context/product";
 import { CloseOutlined, CreditCardFilled } from "@ant-design/icons";
-import { Checkbox, ConfigProvider, Form, Input, Radio, RadioGroupProps, Select } from "antd";
+import { Checkbox, Col, ConfigProvider, Form, Input, Radio, RadioGroupProps, Row, Select } from "antd";
 import { CheckboxGroupProps } from "antd/lib/checkbox";
 import { CSSProperties, useContext, useState } from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
 import { actionsFormRegisterConsulting } from "./actions";
+import SelectForm from "../selects/SelectForm";
 
 const FormIndividualRegister = () => {
   const [accpectCondition, setAccpectCondition] = useState<Array<string>>([]);
@@ -57,19 +58,6 @@ const FormIndividualRegister = () => {
             controlOutline: colors.PRIMARY_OUTLINE,
             colorPrimary: colors.RED,
           },
-          Select: {
-            paddingSM: 16,
-            borderRadius: 12,
-            fontSize: 16,
-            controlHeight: 48,
-            colorPrimary: colors.RED,
-            colorBorder: colors.GRAY_BTN,
-            colorTextPlaceholder: colors.GRAY_BTN,
-            paddingContentHorizontal: 16,
-            colorPrimaryHover: colors.RED,
-            colorPrimaryBorder: colors.RED,
-            controlOutline: colors.PRIMARY_OUTLINE,
-          },
           Checkbox: {
             controlInteractiveSize: 18,
             colorPrimaryHover: colors.RED,
@@ -96,9 +84,14 @@ const FormIndividualRegister = () => {
             </span>
           </p>
         </div>
-        <Form layout='vertical' onFinish={onFinish}>
-          <WapperGroupField>
-            <WapperItemField>
+        <Form layout='vertical' onFinish={onFinish} className='register-advise-form'>
+          <Row
+            gutter={[
+              { xs: 0, md: 16 },
+              { xs: 8, sm: 16 },
+            ]}
+          >
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item
                 rules={[
                   {
@@ -111,78 +104,70 @@ const FormIndividualRegister = () => {
               >
                 <Input placeholder={"Họ và tên"} />
               </Form.Item>
-            </WapperItemField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Số điện thoại' />} name={"phone"}>
                 <Input placeholder={"Số điện thoại"} />
               </Form.Item>
-            </WapperItemField>
-          </WapperGroupField>
-          <WapperGroupField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Giới tính' />} name={"gender"}>
                 <Radio.Group options={optionRadioGender} style={{ fontSize: 16, fontWeight: 400 }} />
               </Form.Item>
-            </WapperItemField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Email' />} name={"email"}>
                 <Input placeholder={"Email"} />
               </Form.Item>
-            </WapperItemField>
-          </WapperGroupField>
-          <WapperGroupField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Nơi ở' />} name={"province"}>
-                <Select placeholder={"Chọn tỉnh thành"} />
+                <SelectForm placeholder={"Chọn tỉnh thành"} />
               </Form.Item>
-            </WapperItemField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Lĩnh vực quan tâm' />} name={"type"}>
-                <Select placeholder={"Chọn lĩnh vực"} />
+                <SelectForm placeholder={"Chọn lĩnh vực"} />
               </Form.Item>
-            </WapperItemField>
-          </WapperGroupField>
-          <Form.Item label={<LabelInput title='Ghi chú' />} name={"content"}>
-            <Input.TextArea placeholder={"Nhập nội dung"} />
-          </Form.Item>
-          <Checkbox.Group
-            value={accpectCondition}
-            options={optionCheckBox}
-            style={{ fontWeight: 500, marginBottom: 16 }}
-            onChange={(event) => setAccpectCondition(event)}
-          />
-          <div className='md:flex md:justify-center'>
-            <Form.Item style={{ marginBottom: 0 }}>
-              <div className='md:min-w-[190px] w-full'>
-                <ButtonPrimary
-                  buttonProps={{
-                    disabled: accpectCondition.length < 1,
-                    htmlType: "submit",
-                    icon: <CreditCardFilled />,
-                    children: "Đăng ký",
-                    style: { width: "100%", height: "100%" },
-                  }}
-                />
-              </div>
-            </Form.Item>
-          </div>
+            </Col>
+            <Col span={24}>
+              <Form.Item label={<LabelInput title='Ghi chú' />} name={"content"}>
+                <Input.TextArea placeholder={"Nhập nội dung"} />
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Checkbox.Group
+                value={accpectCondition}
+                options={optionCheckBox}
+                style={{ fontWeight: 500 }}
+                onChange={(event) => setAccpectCondition(event)}
+              />
+            </Col>
+            <Col className='md:flex md:justify-center mt-6' span={24}>
+              <Form.Item style={{ marginBottom: 0 }}>
+                <div className='md:min-w-[190px] w-full'>
+                  <ButtonPrimary
+                    buttonProps={{
+                      disabled: accpectCondition.length < 1,
+                      htmlType: "submit",
+                      icon: <CreditCardFilled />,
+                      children: "Đăng ký",
+                      style: { width: "100%", height: "100%" },
+                    }}
+                  />
+                </div>
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </div>
     </ConfigProvider>
   );
 };
 
-const WapperGroupField = ({ children }: { children: React.ReactNode }) => {
-  return <div className='md:flex md:gap-4'>{children}</div>;
-};
-
-const WapperItemField = ({ children }: { children: React.ReactNode }) => {
-  return <div className='md:flex-1'>{children}</div>;
-};
-
 const LabelInput = ({ title, styles }: { title: string; styles?: CSSProperties }) => {
   return (
-    <span className='text-base font-medium text-black leading-normal' style={styles}>
+    <span className='text-base font-semibold text-black leading-normal' style={styles}>
       {title}
     </span>
   );

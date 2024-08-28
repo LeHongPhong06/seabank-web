@@ -2,9 +2,10 @@
 import { colors } from "@/constants/colors";
 import { ProductContext } from "@/context/product";
 import { CloseOutlined, CreditCardFilled } from "@ant-design/icons";
-import { ConfigProvider, Form, Input, Select } from "antd";
+import { Col, ConfigProvider, Form, Input, Row, Select } from "antd";
 import { CSSProperties, useContext } from "react";
 import ButtonPrimary from "../buttons/ButtonPrimary";
+import SelectForm from "../selects/SelectForm";
 
 const FormBusinessRegister = () => {
   const productContext = useContext(ProductContext);
@@ -23,19 +24,6 @@ const FormBusinessRegister = () => {
             paddingInline: 16,
             fontSize: 16,
             activeShadow: "0 0 0 2px rgba(221, 27, 28, 0.1)",
-          },
-          Select: {
-            paddingSM: 16,
-            borderRadius: 12,
-            fontSize: 16,
-            controlHeight: 48,
-            colorPrimary: colors.RED,
-            colorBorder: colors.GRAY_BTN,
-            colorTextPlaceholder: colors.GRAY_BTN,
-            paddingContentHorizontal: 16,
-            colorPrimaryHover: colors.RED,
-            colorPrimaryBorder: colors.RED,
-            controlOutline: "rgba(221, 27, 28, 0.1)",
           },
         },
       }}
@@ -58,9 +46,14 @@ const FormBusinessRegister = () => {
             </span>
           </p>
         </div>
-        <Form layout='vertical'>
-          <WapperGroupField>
-            <WapperItemField>
+        <Form layout='vertical' className='register-advise-form'>
+          <Row
+            gutter={[
+              { xs: 0, md: 16 },
+              { xs: 8, sm: 16 },
+            ]}
+          >
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item
                 label={<LabelInput title='Tên doanh nghiệp' />}
                 rules={[
@@ -76,55 +69,51 @@ const FormBusinessRegister = () => {
               >
                 <Input name={"companyName"} placeholder={"Tên doanh nghiệp"} />
               </Form.Item>
-            </WapperItemField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Mã số doanh nghiệp' />} name={"taxCode"}>
                 <Input placeholder={"Mã số doanh nghiệp"} />
               </Form.Item>
-            </WapperItemField>
-          </WapperGroupField>
-          <WapperGroupField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Tỉnh thành' />} name={"province"}>
-                <Select placeholder={"Chọn tỉnh thành"} />
+                <SelectForm placeholder={"Chọn tỉnh thành"} />
               </Form.Item>
-            </WapperItemField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Người liên hệ' />} name={"fullName"}>
                 <Input placeholder={"Người liên hệ"} />
               </Form.Item>
-            </WapperItemField>
-          </WapperGroupField>
-          <WapperGroupField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Số điện thoại' />} name={"phone"}>
                 <Input placeholder={"Số điện thoại"} />
               </Form.Item>
-            </WapperItemField>
-            <WapperItemField>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
               <Form.Item label={<LabelInput title='Email' />} name={"email"}>
                 <Input placeholder={"Email"} />
               </Form.Item>
-            </WapperItemField>
-          </WapperGroupField>
-          <div className='md:w-[calc(50%-8px)]'>
-            <Form.Item label={<LabelInput title='Sản phẩm cần tư vấn' />} name={"referral"}>
-              <Select placeholder={"Sản phẩm cần tư vấn"} />
-            </Form.Item>
-          </div>
-          <div className='md:flex md:justify-center'>
-            <Form.Item style={{ marginBottom: 0 }}>
-              <div className='md:min-w-[190px] w-full'>
-                <ButtonPrimary
-                  buttonProps={{
-                    icon: <CreditCardFilled />,
-                    children: "Đăng ký",
-                    style: { width: "100%", height: "100%" },
-                  }}
-                />
-              </div>
-            </Form.Item>
-          </div>
+            </Col>
+            <Col xs={{ span: 24 }} md={{ span: 12 }}>
+              <Form.Item label={<LabelInput title='Sản phẩm cần tư vấn' />} name={"referral"}>
+                <SelectForm placeholder={"Sản phẩm cần tư vấn"} />
+              </Form.Item>
+            </Col>
+            <Col className='md:flex md:justify-center mt-2' span={24}>
+              <Form.Item>
+                <div className='md:min-w-[190px] w-full'>
+                  <ButtonPrimary
+                    buttonProps={{
+                      icon: <CreditCardFilled />,
+                      children: "Đăng ký",
+                      style: { width: "100%", height: "100%" },
+                    }}
+                  />
+                </div>
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </div>
     </ConfigProvider>

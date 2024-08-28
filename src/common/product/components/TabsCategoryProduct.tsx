@@ -19,10 +19,6 @@ const TabsCategoryProduct = (props: GetProps<typeof Tabs>) => {
       key: "the-tin-dung-quoc-te",
       label: "Thẻ tín dụng quốc tế",
     },
-    {
-      key: "uu-dai-noi-bat",
-      label: "Ưu đãi nổi bật",
-    },
   ];
   return (
     <ConfigProvider
@@ -30,18 +26,17 @@ const TabsCategoryProduct = (props: GetProps<typeof Tabs>) => {
         components: {
           Tabs: {
             inkBarColor: colors.RED,
-            colorText: colors.GRAY_BTN,
+            colorText: colors.GRAY,
             itemSelectedColor: colors.RED,
-            itemColor: colors.GRAY_BTN,
+            itemColor: colors.GRAY,
             titleFontSize: 16,
             itemHoverColor: colors.TEXT,
-            fontWeightStrong: 600,
             itemActiveColor: colors.TEXT,
           },
         },
       }}
     >
-      <Tabs {...props} items={dataCategory} onChange={(e) => router.push(e)} />
+      <Tabs {...props} items={dataCategory} more={{ trigger: "click" }} onChange={(e) => router.push(e)} />
     </ConfigProvider>
   );
 };

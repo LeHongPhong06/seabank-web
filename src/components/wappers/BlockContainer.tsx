@@ -24,18 +24,18 @@ const BlockContainer: React.FC<Props> = ({
     <section
       className={`m-auto block-app ${clsx({
         "hidden md:block": hiddenInMobile,
-        "hidden lg:block xl:hidden": hiddenInTablet,
-        "xl:hidden": hiddenInDesktop,
+        "md:hidden sm:block": hiddenInTablet,
+        "xl:hidden block": hiddenInDesktop,
         "w-full": isFullWidth,
-        "px-primary": !isFullWidth,
+        "px-4": !isFullWidth,
         "xl:px-0": true,
         [blockStyles]: typeof blockStyles === "string",
       })}`}
     >
       <div
         className={`h-full ${clsx({
-          "max-w-primary": !isFullWidth,
-          "mx-auto": true,
+          "max-w-[1440px]": !isFullWidth,
+          "mx-auto": !isFullWidth,
           flex: flex,
           "justify-center": flex,
         })}`}
