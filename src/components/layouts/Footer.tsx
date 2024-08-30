@@ -7,7 +7,7 @@ import { Collapse, Divider } from "antd";
 import { CollapseProps } from "antd/lib";
 import Image from "next/image";
 import React from "react";
-import WapperContainer from "../wappers/WapperContainer";
+import BlockContainer from "../BlockContainer";
 
 const Footer: React.FC = () => {
   const data = [
@@ -148,7 +148,7 @@ const Footer: React.FC = () => {
   }));
   return (
     <footer className='bg-footer bg-no-repeat bg-cover bg-center bg-white py-6'>
-      <WapperContainer>
+      <BlockContainer>
         <div className='md:hidden'>
           <Collapse
             bordered={false}
@@ -206,7 +206,7 @@ const Footer: React.FC = () => {
             <p className='font-medium text-black'>contact@seabank.com.vn</p>
           </div>
         </section>
-      </WapperContainer>
+      </BlockContainer>
     </footer>
   );
 };

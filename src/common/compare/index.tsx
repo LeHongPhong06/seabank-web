@@ -1,17 +1,18 @@
+"use client";
 import icon from "@/assets/images/icons/mingcute.svg";
+import arrowDown from "@/assets/images/icons/arrow-down-product-compare.svg";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
 import ButtonDefault from "@/components/buttons/ButtonDefault";
 import ButtonPrimary from "@/components/buttons/ButtonPrimary";
 import SelectCard from "@/components/selects/SelectCard";
 import TitleComponent from "@/components/TitleComponent";
-import BlockContainer from "@/components/wappers/BlockContainer";
-import WapperContainer from "@/components/wappers/WapperContainer";
+import BlockContainer from "@/components/BlockContainer";
 import { ProductContext } from "@/context/product";
 import { useGetBreakpointCurrent } from "@/hooks/breakpoint";
 import { CloseCircleFilled, DownOutlined } from "@ant-design/icons";
 import _ from "lodash";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 type Props = { productList: Array<any> };
 
@@ -28,15 +29,15 @@ const CompareProductPage: React.FC<Props> = ({ productList }) => {
     };
   }, []);
   return (
-    <BlockContainer blockStyles='py-6'>
+    <BlockContainer blockStyles='py-6 bg-white'>
       <BlockContainer blockStyles='mb-4' hiddenInTablet>
-        <TitleComponent title='So sánh Thẻ' />
+        <TitleComponent title='So sánh sản phầm' />
       </BlockContainer>
       <div className='flex flex-col gap-4'>
         <div>
           <LayoutCompareProduct>
             <div className='w-full rounded-xl p-4 bg-gray-5 lg:flex justify-center items-start flex-col hidden'>
-              <TitleComponent title='So sánh thẻ' />
+              <TitleComponent title='So sánh sản phẩm' />
               <div className='text-left font-medium'>
                 {productListCompares.map((item) => (
                   <p className='text-black text-sm leading-[22px]' key={item.id}>
@@ -69,7 +70,7 @@ const CompareProductPage: React.FC<Props> = ({ productList }) => {
                         />
                       </div>
                     </div>
-                    <DownOutlined className='text-gray-process-text text-base text-center md:hidden' />
+                    <Image src={arrowDown} alt='icon' width={24} height={12} />
                   </div>
                   <p className='text-left text-base font-semibold leading-[22px] text-black mt-2 md:mt-[18px]'>
                     {product.title}
@@ -80,7 +81,7 @@ const CompareProductPage: React.FC<Props> = ({ productList }) => {
                     <ButtonDefault
                       title='Xem chi tiết'
                       styles={{ fontWeight: 500, width: "100%" }}
-                      onClick={() => router.push(`/individual/${product.id}`)}
+                      onClick={() => router.push(`/ca-nhan/san-pham-dich-vu/the/${product.id}`)}
                     />
                   </div>
                   <div className='flex-1'>
@@ -186,7 +187,7 @@ const CompareProductPage: React.FC<Props> = ({ productList }) => {
             ))}
           </LayoutCompareProduct>
         </div>
-        <div className='md:hidden'>
+        <BlockContainer isFullWidth hiddenInTablet>
           <LayoutCompareProduct>
             {productListCompares.map((product: any) => (
               <ButtonPrimary
@@ -198,7 +199,7 @@ const CompareProductPage: React.FC<Props> = ({ productList }) => {
               />
             ))}
           </LayoutCompareProduct>
-        </div>
+        </BlockContainer>
       </div>
     </BlockContainer>
   );

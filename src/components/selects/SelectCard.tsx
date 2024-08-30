@@ -1,6 +1,5 @@
 "use client";
 import { colors } from "@/constants/colors";
-import { Card } from "@/context/card/data";
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { ConfigProvider, GetProps, Input, Popover } from "antd";
 import React from "react";
@@ -8,9 +7,9 @@ import styles from "./select.module.css";
 
 type Props = {
   inputProps?: GetProps<typeof Input>;
-  cardSelect: Array<Card>;
-  onSelect: (card: Card) => void;
-  dataCard?: Array<Card>;
+  cardSelect: Array<any>;
+  onSelect: (card: any) => void;
+  dataCard?: Array<any>;
   popoverProps?: GetProps<typeof Popover>;
   open?: boolean;
   onOpenChange: (trigger: boolean) => void;
@@ -28,7 +27,11 @@ const SelectCard: React.FC<Props> = ({
   const ContainerPopover = () => {
     return (
       <div className='max-h-[385px] w-[342px] bg-white'>
-        <Input prefix={<SearchOutlined className='text-black text-xl mr-2' />} {...inputProps} />
+        <Input
+          prefix={<SearchOutlined className='text-black text-xl mr-2' />}
+          {...inputProps}
+          placeholder='Tìm kiếm sản phẩm'
+        />
         <div className={`flex flex-col mt-3 gap-1 max-h-[274px] overflow-y-scroll ${styles.selectCard}`}>
           {dataCard?.map((item) => {
             const cardItem = cardSelect?.find((card) => card.id === item.id);

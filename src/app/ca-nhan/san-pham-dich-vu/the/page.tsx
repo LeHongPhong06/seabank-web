@@ -4,7 +4,7 @@ import { Skeleton } from "antd";
 import dynamic from "next/dynamic";
 import React from "react";
 
-const GroupProductCommonPage = dynamic(() => import("@/common/product/page"), {
+const GroupProductCommonPage = dynamic(() => import("@/common/product"), {
   loading: () => <Skeleton active />,
 });
 

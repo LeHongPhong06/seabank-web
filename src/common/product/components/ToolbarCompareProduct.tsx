@@ -1,10 +1,10 @@
+import BlockContainer from "@/components/BlockContainer";
 import ButtonDefault from "@/components/buttons/ButtonDefault";
 import { CloseCircleFilled, PlusOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 import ButtonComponent from "../../../components/buttons/ButtonComponent";
-import WapperContainer from "../../../components/wappers/WapperContainer";
 
 type Props = {
   onCompare: () => void;
@@ -28,8 +28,8 @@ const ToolbarCompareProduct: React.FC<Props> = ({
         transition={{ duration: 0.25, ease: "backInOut" }}
         className='fixed bottom-0 left-0 right-0 bg-white z-[100] min-h-fit [box-shadow:0px_4px_4px_0px_rgba(0,_0,_0,_0.25)] backdrop-filter backdrop-blur-md'
       >
-        <WapperContainer>
-          <section className='grid gap-4 lg:gap-[36px] p-4 lg:grid-cols-[1fr_312px]'>
+        <BlockContainer>
+          <section className='grid gap-4 lg:gap-[36px] py-4 lg:grid-cols-[1fr_312px]'>
             <div className='grid gap-[20px] grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 lg:auto-cols-max'>
               {productListCompare.map((item) => {
                 return (
@@ -63,7 +63,7 @@ const ToolbarCompareProduct: React.FC<Props> = ({
                 <div className='flex-1'>
                   <ButtonComponent
                     disabled={productListCompare.length < 2}
-                    title='So sánh thẻ'
+                    title='So sánh sản phẩm'
                     styles={{ maxHeight: 42, width: "100%" }}
                     onClick={onCompare}
                     active={productListCompare.length > 1}
@@ -73,7 +73,7 @@ const ToolbarCompareProduct: React.FC<Props> = ({
               </div>
             </div>
           </section>
-        </WapperContainer>
+        </BlockContainer>
       </motion.div>
     )
   );

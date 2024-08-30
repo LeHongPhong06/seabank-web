@@ -9,6 +9,7 @@ type Props = {
   hiddenInTablet?: boolean;
   isFullWidth?: boolean;
   flex?: boolean;
+  spaceBetween?: boolean;
 };
 
 const BlockContainer: React.FC<Props> = ({
@@ -19,6 +20,7 @@ const BlockContainer: React.FC<Props> = ({
   hiddenInDesktop,
   hiddenInMobile,
   hiddenInTablet,
+  spaceBetween,
 }) => {
   return (
     <section
@@ -38,6 +40,7 @@ const BlockContainer: React.FC<Props> = ({
           "mx-auto": !isFullWidth,
           flex: flex,
           "justify-center": flex,
+          "justify-between": spaceBetween,
         })}`}
       >
         {children}

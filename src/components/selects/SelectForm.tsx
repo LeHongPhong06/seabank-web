@@ -1,8 +1,7 @@
+import arrowSelect from "@/assets/images/icons/arrow-down.svg";
 import { colors } from "@/constants/colors";
 import { ConfigProvider, GetProps, Select } from "antd";
 import Image from "next/image";
-import React from "react";
-import arrowSelect from "@/assets/images/icons/arrow-down.svg";
 
 const SelectForm = (props: GetProps<typeof Select>) => {
   return (
@@ -30,10 +29,6 @@ const SelectForm = (props: GetProps<typeof Select>) => {
   );
 };
 const SuffixSelect = () => {
-  return (
-    <div className='relative w-[24px] h-[12px]'>
-      <Image src={arrowSelect} fill alt='icon-select' />
-    </div>
-  );
+  return <Image src={arrowSelect} alt='icon-select' width={24} height={12} />;
 };
 export default SelectForm;

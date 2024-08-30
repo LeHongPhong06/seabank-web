@@ -1,44 +1,9 @@
-"use client";
-import { colors } from "@/constants/colors";
-import { ConfigProvider, GetProps, Tabs } from "antd";
-import { useRouter } from "next/navigation";
 import React from "react";
 
-const TabsCategoryProduct = (props: GetProps<typeof Tabs>) => {
-  const router = useRouter();
-  const dataCategory = [
-    {
-      key: "the-ghi-no-noi-dia",
-      label: "Thẻ ghi nợ nội địa",
-    },
-    {
-      key: "the-ghi-no-quoc-te",
-      label: "Thẻ ghi nợ quốc tế",
-    },
-    {
-      key: "the-tin-dung-quoc-te",
-      label: "Thẻ tín dụng quốc tế",
-    },
-  ];
-  return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Tabs: {
-            inkBarColor: colors.RED,
-            colorText: colors.GRAY,
-            itemSelectedColor: colors.RED,
-            itemColor: colors.GRAY,
-            titleFontSize: 16,
-            itemHoverColor: colors.TEXT,
-            itemActiveColor: colors.TEXT,
-          },
-        },
-      }}
-    >
-      <Tabs {...props} items={dataCategory} more={{ trigger: "click" }} onChange={(e) => router.push(e)} />
-    </ConfigProvider>
-  );
+type Props = {};
+
+const TabsCategoryProduct = (props: Props) => {
+  return <div>TabsCategoryProduct</div>;
 };
 
 export default TabsCategoryProduct;

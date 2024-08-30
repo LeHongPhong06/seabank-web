@@ -1,6 +1,4 @@
-import ButtonComponent from "@/components/buttons/ButtonComponent";
 import CardIndividual from "@/components/cards/CardIndividual";
-import { CaretDownOutlined } from "@ant-design/icons";
 import React from "react";
 
 type ListProductProps = {
@@ -34,9 +32,6 @@ const ListProduct: React.FC<ListProductProps> = ({
             />
           );
         })}
-        <div className='block md:hidden'>
-          <ButtonComponent title='Xem thêm' styles={{ height: 48, width: "100%" }} affix={<CaretDownOutlined />} />
-        </div>
       </section>
     </section>
   );
