@@ -1,4 +1,5 @@
 "use client";
+import BlockContainer from "@/components/BlockContainer";
 import ButtonComponent from "@/components/buttons/ButtonComponent";
 import InputComponent from "@/components/inputs/InputComponent";
 import NotFoundData from "@/components/NotFoundData";
@@ -7,7 +8,6 @@ import SearchResult from "@/components/searchs/SearchResult";
 import SelectComponent from "@/components/selects/SelectComponent";
 import SelectSearchMD from "@/components/selects/SelectSearchMD";
 import TitleComponent from "@/components/TitleComponent";
-import WapperContainer from "@/components/wappers/WapperContainer";
 import { ArrowDownOutlined, SearchOutlined } from "@ant-design/icons";
 import { SelectProps } from "antd/lib";
 import React, { useState } from "react";
@@ -70,7 +70,7 @@ export default function Home() {
   ];
   return (
     <main className='min-h-[70vh] bg-white'>
-      <WapperContainer>
+      <BlockContainer>
         <div className='py-6 px-4 flex flex-col gap-6 lg:gap-8'>
           <div className='flex md:flex-row flex-col items-center gap-4 md:p-2 md:rounded-2xl md:gap-[10px] md:bg-gray-four'>
             <SelectComponent className='w-full md:hidden block' options={options} placeholder='Chọn hạng mục' />
@@ -148,7 +148,7 @@ export default function Home() {
             </div>
           )}
         </div>
-      </WapperContainer>
+      </BlockContainer>
     </main>
   );
 }

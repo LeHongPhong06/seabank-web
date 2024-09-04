@@ -10,6 +10,7 @@ import SelectForm from "../selects/SelectForm";
 const FormBusinessRegister = () => {
   const productContext = useContext(ProductContext);
   const { dispatch } = productContext;
+  const onFinish = () => {};
   return (
     <ConfigProvider
       theme={{
@@ -46,7 +47,7 @@ const FormBusinessRegister = () => {
             </span>
           </p>
         </div>
-        <Form layout='vertical' className='register-advise-form'>
+        <Form layout='vertical' className='register-advise-form' onFinish={onFinish}>
           <Row
             gutter={[
               { xs: 0, md: 16 },
@@ -59,11 +60,7 @@ const FormBusinessRegister = () => {
                 rules={[
                   {
                     required: true,
-                    message: (
-                      <span className='bg-gradient-primary text-transparent bg-clip-text text-base font-medium leading-[22px]'>
-                        Please enter name
-                      </span>
-                    ),
+                    message: "Please enter name",
                   },
                 ]}
               >
@@ -71,7 +68,16 @@ const FormBusinessRegister = () => {
               </Form.Item>
             </Col>
             <Col xs={{ span: 24 }} md={{ span: 12 }}>
-              <Form.Item label={<LabelInput title='Mã số doanh nghiệp' />} name={"taxCode"}>
+              <Form.Item
+                label={<LabelInput title='Mã số doanh nghiệp' />}
+                name={"taxCode"}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter name",
+                  },
+                ]}
+              >
                 <Input placeholder={"Mã số doanh nghiệp"} />
               </Form.Item>
             </Col>
@@ -107,6 +113,7 @@ const FormBusinessRegister = () => {
                     buttonProps={{
                       icon: <CreditCardFilled />,
                       children: "Đăng ký",
+                      htmlType: "submit",
                       style: { width: "100%", height: "100%" },
                     }}
                   />
@@ -118,14 +125,6 @@ const FormBusinessRegister = () => {
       </div>
     </ConfigProvider>
   );
-};
-
-const WapperGroupField = ({ children }: { children: React.ReactNode }) => {
-  return <div className='md:flex md:gap-4'>{children}</div>;
-};
-
-const WapperItemField = ({ children }: { children: React.ReactNode }) => {
-  return <div className='md:flex-1'>{children}</div>;
 };
 
 const LabelInput = ({ title, styles }: { title: string; styles?: CSSProperties }) => {

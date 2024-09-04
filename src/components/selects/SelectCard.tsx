@@ -93,10 +93,10 @@ const SelectCard: React.FC<Props> = ({
         {...popoverProps}
       >
         <div
-          className='relative p-[1px] h-[152px] hover:cursor-pointer bg-transparent rounded-xl hover:bg-gradient-primary active:shadow-select-card'
+          className='relative border-transparent border-[1px] h-[152px] hover:cursor-pointer hover rounded-xl hover:border-red active:shadow-select-card'
           onClick={() => onOpenChange(true)}
         >
-          <div className='p-2 lg:p-4 rounded-[11px] bg-gray-5 h-full'>
+          <div className='p-2 lg:p-4 rounded-xl bg-gray-5 h-full'>
             <div className='rounded-xl border-dashed border-[2px] h-full flex justify-center items-center border-gray bg-white'>
               <PlusOutlined className='text-gray-text' />
             </div>

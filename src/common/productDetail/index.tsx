@@ -39,7 +39,7 @@ const ProductDetailComponentPage: React.FC<Props> = ({
   return (
     <main className='bg-white'>
       <BlockContainer blockStyles='pb-6 md:pb-12'>
-        <div className='relative md:bg-center before:bg-cover before:opacity-20 before:bg-no-repeat before:bg-right px-4 py-6 rounded-xl md:before:bg-hero before:rounded-xl before:absolute before:w-2/3 before:top-0 before:bottom-0 before:right-0 bg-[#F3F4F4]'>
+        <div className='relative md:bg-center before:bg-cover before:opacity-20 before:bg-no-repeat before:bg-right px-4 py-6 rounded-xl before:bg-hero before:rounded-xl before:absolute before:w-2/3 before:top-0 before:bottom-0 before:right-0 bg-[#F3F4F4]'>
           <div className='z-50'>
             <h3 className='mb-2 text-black font-semibold text-[18px]'>Chi tiết ưu đãi</h3>
             <div className='flex flex-col gap-4 z-10'>
@@ -50,19 +50,23 @@ const ProductDetailComponentPage: React.FC<Props> = ({
                 </p>
               ))}
               <div className='flex gap-4 w-full md:max-w-[400px] z-50'>
-                <ButtonPrimary
-                  buttonProps={{
-                    children: "Đăng ký",
-                    style: { flex: 1, fontWeight: 500 },
-                    icon: <CreditCardOutlined />,
-                  }}
-                />
-                <ButtonDefault
-                  title='Ưu đãi'
-                  active
-                  wapperClass='flex-1'
-                  preffix={<CreditCardOutlined className='text-red' />}
-                />
+                <div className='flex-1'>
+                  <ButtonPrimary
+                    buttonProps={{
+                      children: "Đăng ký",
+                      style: { width: "100%", fontWeight: 500, height: "100%" },
+                      icon: <CreditCardOutlined />,
+                    }}
+                  />
+                </div>
+                <div className='flex-1'>
+                  <ButtonDefault
+                    title='Ưu đãi'
+                    active
+                    wapperClass='w-full h-full'
+                    preffix={<CreditCardOutlined className='text-red' />}
+                  />
+                </div>
               </div>
             </div>
           </div>

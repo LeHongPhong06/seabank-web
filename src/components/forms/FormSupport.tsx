@@ -2,6 +2,7 @@
 import file from "@/assets/images/icons/file.svg";
 import { colors } from "@/constants/colors";
 import { ProductContext } from "@/context/product";
+import { notificationSuccessForm } from "@/utils/notification";
 import { CloseOutlined, DeleteOutlined, FileOutlined } from "@ant-design/icons";
 import {
   Checkbox,
@@ -12,24 +13,21 @@ import {
   Input,
   message,
   Row,
-  Select,
   SelectProps,
   Upload,
   UploadProps,
 } from "antd";
 import { CheckboxGroupProps } from "antd/lib/checkbox";
 import Image from "next/image";
-import React, { CSSProperties, useContext, useState } from "react";
+import React, { CSSProperties, useContext } from "react";
 import ButtonComponent from "../buttons/ButtonComponent";
 import ButtonPrimary from "../buttons/ButtonPrimary";
-import arrowSelect from "@/assets/images/icons/arrow-down.svg";
 import SelectForm from "../selects/SelectForm";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 const FormSupport = () => {
   const [formRef] = Form.useForm();
-  const [file, setFile] = useState<FileType>();
   const productContext = useContext(ProductContext);
   const { dispatch } = productContext;
   const optionCheckBox: CheckboxGroupProps["options"] = [
@@ -60,12 +58,12 @@ const FormSupport = () => {
       });
       return false;
     }
-    setFile(file);
     formRef.setFieldsValue({ file });
     return true;
   };
   const onFinish = (values: any) => {
     console.log("values", values);
+    notificationSuccessForm();
   };
   return (
     <ConfigProvider
@@ -191,8 +189,12 @@ const FormSupport = () => {
                       <Form.Item name={"file"}>
                         <FormItemChooseFile
                           onBeforeUpload={onBeforeUpload}
-                          value={file}
-                          onDelele={() => setFile(undefined)}
+                          value={formRef.getFieldValue("file")}
+                          onDelele={() =>
+                            formRef.setFieldsValue({
+                              file: undefined,
+                            })
+                          }
                         />
                       </Form.Item>
                     </Col>
@@ -252,40 +254,40 @@ const FormItemChooseFile = ({
     }
   };
   return (
-    <React.Fragment>
-      <div className='flex flex-col gap-3'>
-        <div className='flex gap-4'>
-          <div className='relative size-4 mt-1'>
-            <Image src={file} alt='icon-file' sizes='100%' fill className='object-contain' />
-          </div>
-          <div className='text-sm font-medium'>
-            <Upload
-              showUploadList={false}
-              multiple={false}
-              accept='.xls,.xlsx,.pdf,.docx,.doc,.jpg, .jpeg, .png, .gif, .bmp'
-              beforeUpload={onBeforeUpload}
-            >
-              <span className='mr-1 underline text-red hover:cursor-pointer text-nowrap'>Đính kèm file</span>
-            </Upload>
-            <span>
-              (Tài liệu đính kèm là file *.jpg, *.jpeg, *.png, *.docx, *.pdf, *.xlsx có tổng dung lượng tối đa 3MB)
-            </span>
+    <div className='flex flex-col gap-3'>
+      <div className='flex gap-2 lg:gap-4'>
+        <div className='min-w-4'>
+          <div className='relative w-full h-4 mt-[6px]'>
+            <Image src={file} alt='icon-file' fill />
           </div>
         </div>
-        {value && (
-          <div className='w-full rounded-xl p-[1px] bg-gradient-primary'>
-            <div className='bg-white rounded-[11px] px-4 py-1 w-full h-full flex gap-3'>
-              <FileOutlined className='text-xl' />
-              <div className='flex-1'>
-                <p className='text-black font-medium'>{value.name}</p>
-                <p className='text-black font-medium'>{formatFileSize()}</p>
-              </div>
-              <DeleteOutlined className='text-xl text-primary' onClick={onDelele} />
-            </div>
-          </div>
-        )}
+        <div className='text-sm font-medium'>
+          <Upload
+            showUploadList={false}
+            multiple={false}
+            accept='.xls,.xlsx,.pdf,.docx,.doc,.jpg, .jpeg, .png, .gif, .bmp'
+            beforeUpload={onBeforeUpload}
+          >
+            <span className='mr-1 underline text-red hover:cursor-pointer text-nowrap'>Đính kèm file</span>
+          </Upload>
+          <span>
+            (Tài liệu đính kèm là file *.jpg, *.jpeg, *.png, *.docx, *.pdf, *.xlsx có tổng dung lượng tối đa 3MB)
+          </span>
+        </div>
       </div>
-    </React.Fragment>
+      {value && (
+        <div className='rounded-xl p-[1px] bg-gradient-primary'>
+          <div className='bg-white flex gap-4 rounded-[11px] px-3 py-2'>
+            <FileOutlined className='text-xl' />
+            <div className='text-black flex-1 font-medium'>
+              <p>{value.name}</p>
+              <p>{formatFileSize()}</p>
+            </div>
+            <DeleteOutlined className='text-xl text-primary' onClick={onDelele} />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

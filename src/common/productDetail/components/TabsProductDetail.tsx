@@ -26,7 +26,7 @@ const TabsProductDetail = () => {
       label: "Biểu phí & Biểu mẫu",
     },
   ];
-  return <TabsCategory items={btnList} onChange={(key) => router.push(``)} />;
+  return <TabsCategory items={btnList} onChange={(key) => router.push(``)} style={{ fontWeight: 600 }} />;
 };
 
 export default TabsProductDetail;

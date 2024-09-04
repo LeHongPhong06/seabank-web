@@ -35,7 +35,7 @@ const ToolbarCompareProduct: React.FC<Props> = ({
                 return (
                   <div className='relative w-full h-24 rounded-xl' key={item?.id}>
                     <CloseCircleFilled
-                      className='absolute text-white z-20 top-[5px] lg:top-0 right-[5px] block hover:cursor-pointer lg:text-lg'
+                      className='absolute text-white z-20 top-[6px] right-[6px] block hover:cursor-pointer text-[21px]'
                       onClick={() => onRemoveItem(item)}
                     />
                     <Image

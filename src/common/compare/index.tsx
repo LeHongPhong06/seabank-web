@@ -56,7 +56,7 @@ const CompareProductPage: React.FC<Props> = ({ productList }) => {
                     <div className='w-full h-[120px] gap-[18px] p-[1px] bg-transparent hover:bg-gradient-primary rounded-xl'>
                       <div className='relative h-full w-full rounded-[11px]'>
                         <CloseCircleFilled
-                          className='absolute text-white z-20 top-[5px] lg:top-0 right-[5px] block hover:cursor-pointer lg:text-lg'
+                          className='absolute text-white z-20 top-[6px] right-[6px] block hover:cursor-pointer text-[21px]'
                           onClick={() =>
                             dispatch?.({ type: "changeProductCompare", payload: { productCompare: product } })
                           }

@@ -54,11 +54,12 @@ body {
   border-width: 1px;
   padding: 16px;
 }
-
+/* Custom background color checkbox  */
 .ant-checkbox-checked .ant-checkbox-inner {
-  background-image: linear-gradient(95deg, rgba(221, 26, 28, 1) 0%, rgba(158, 30, 31, 1) 100%);
+  background-image: var(--primary-gradient);
 }
 
+/* Custom form item form register advise */
 .register-advise-form .ant-form-item-explain .ant-form-item-explain-error {
   font-size: 16px;
   background-image: var(--primary-gradient);
@@ -66,9 +67,46 @@ body {
   color: transparent;
   font-weight: 500;
   margin-top: 8px;
-  margin-bottom: 16px;
+  line-height: 22px;
 }
 
 .register-advise-form .ant-form-item {
   margin-bottom: 0;
+}
+
+/* Custom notification after submit successfully form register advise */
+.ant-notification-notice-wrapper {
+  border-radius: 20px !important;
+}
+
+.ant-notification-notice-wrapper .ant-notification-notice-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.notification-form-avides .ant-notification-notice-with-icon .ant-notification-notice-icon {
+  min-width: 48px;
+  min-height: 48px;
+  position: relative;
+  display: block;
+}
+
+.ant-notification .ant-notification-notice-wrapper > .notification-form-avides .ant-notification-notice-close {
+  top: 0;
+  bottom: 0;
+  margin-block: auto;
+  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  color: black;
+}
+
+.ant-notification-notice-wrapper
+  > .notification-form-avides
+  .ant-notification-notice-with-icon
+  .ant-notification-notice-message {
+  max-width: 256px;
+  padding: 0;
+  margin: 0;
 }

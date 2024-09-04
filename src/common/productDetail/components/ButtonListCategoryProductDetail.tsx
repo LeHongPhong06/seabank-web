@@ -30,12 +30,10 @@ const ButtonListCategoryProductDetail = () => {
     },
   ];
   return (
-    <BlockContainer blockStyles='md:gap-2' hiddenInMobile>
-      <ButtonListCategory
-        buttonListData={btnList}
-        onClickItem={(item: any) => router.push(`/ca-nhan/san-pham-dich-vu/the/${productId}/${item.key}`)}
-      />
-    </BlockContainer>
+    <ButtonListCategory
+      buttonListData={btnList}
+      onClickItem={(item: any) => router.push(`/ca-nhan/san-pham-dich-vu/the/${productId}/${item.key}`)}
+    />
   );
 };
 

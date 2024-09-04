@@ -9,7 +9,7 @@ const TabsCategory = (props: GetProps<typeof Tabs>) => {
           Tabs: {
             inkBarColor: colors.RED,
             colorText: colors.GRAY,
-            itemSelectedColor: colors.RED,
+            itemSelectedColor: colors.TEXT,
             itemColor: colors.GRAY,
             titleFontSize: 16,
             itemHoverColor: colors.TEXT,
